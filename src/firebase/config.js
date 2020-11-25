@@ -3,13 +3,13 @@ import "@firebase/auth";
 import "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY_HERE_AIzaSyAOWH",
-  authDomain: "your-auth-domain-b1234.firebaseapp.com",
-  databaseURL: "https://your-database-name.firebaseio.com",
-  projectId: "your-project-id-1234",
-  storageBucket: "your-project-id-1234.appspot.com",
-  messagingSenderId: "12345-insert-yourse",
-  appId: "insert yours: 1:1234:web:ee873bd1234c0deb7eba61ce",
+  apiKey: "AIzaSyBFAAEmvCe6VjIjR4FeMUnWZqCZVn5yUaE",
+  authDomain: "best-buds-social.firebaseapp.com",
+  databaseURL: "https://best-buds-social.firebaseio.com",
+  projectId: "best-buds-social",
+  storageBucket: "best-buds-social.appspot.com",
+  messagingSenderId: "984969077470", //GCM_SENDER_ID
+  appId: "1:984969077470:ios:9a4a1bc57a7769a92d984f",
 };
 
 if (!firebase.apps.length) {
