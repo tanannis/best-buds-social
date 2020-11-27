@@ -3,7 +3,8 @@ import "@firebase/auth";
 import "@firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBFAAEmvCe6VjIjR4FeMUnWZqCZVn5yUaE",
+  // apiKey: "AIzaSyBFAAEmvCe6VjIjR4FeMUnWZqCZVn5yUaE",
+  apiKey: "AIzaSyBkSSX-BO-J232K4bSglmi_G2g7PZtPqR0",
   authDomain: "best-buds-social.firebaseapp.com",
   databaseURL: "https://best-buds-social.firebaseio.com",
   projectId: "best-buds-social",

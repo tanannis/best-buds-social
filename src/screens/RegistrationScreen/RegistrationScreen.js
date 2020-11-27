@@ -19,6 +19,7 @@ export default function RegistrationScreen({ navigation }) {
       alert("Passwords don't match.");
       return;
     }
+    //It creates a new account that will show up in Firebase Console -> Authentication table.
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -29,6 +30,7 @@ export default function RegistrationScreen({ navigation }) {
           email,
           fullName,
         };
+        //If the account registration was successful, we also store the user data in Firebase Firestore. This is necessary for storing extra user information, such as full name, profile photo URL, and so on, which cannot be stored in the Authentication table. 
         const usersRef = firebase.firestore().collection("users");
         usersRef
           .doc(uid)
@@ -63,6 +65,7 @@ export default function RegistrationScreen({ navigation }) {
           value={fullName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          textContentType={'oneTimeCode'}
         />
         <TextInput
           style={styles.input}
@@ -72,6 +75,7 @@ export default function RegistrationScreen({ navigation }) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          textContentType={'oneTimeCode'}
         />
         <TextInput
           style={styles.input}
@@ -82,6 +86,7 @@ export default function RegistrationScreen({ navigation }) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          textContentType={'oneTimeCode'}
         />
         <TextInput
           style={styles.input}
@@ -92,6 +97,7 @@ export default function RegistrationScreen({ navigation }) {
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          textContentType={'oneTimeCode'}
         />
         <TouchableOpacity
           style={styles.button}
