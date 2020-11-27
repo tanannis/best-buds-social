@@ -5,11 +5,14 @@ import { firebase } from '../../firebase/config'
 
 export default function HomeScreen(props) {
 
+    console.log('Navigate', props.navigation.navigate)
+
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.extraData.id
+
 
     useEffect(() => {
         entityRef
@@ -77,6 +80,7 @@ export default function HomeScreen(props) {
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </View>
+        
             { entities && (
                 <View style={styles.listContainer}>
                     <FlatList
