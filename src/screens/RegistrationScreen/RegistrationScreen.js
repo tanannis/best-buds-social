@@ -3,12 +3,22 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
+import { Dropdown } from "react-native-material-dropdown-v2";
+
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  //Newly added userBio input
+  const [userBio, setUserBio] = useState("");
+  //Newly added dog information
+  const [dogName, setDogName] = useState("");
+  // const [dogSize, setDogSize] = useState("");
+  const [dogGender, setDogGender] = useState("");
+  const [dogBreed, setDogBreed] = useState("");
+  // const [dogTemperament, setDogTemperament] = useState("");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -29,13 +39,24 @@ export default function RegistrationScreen({ navigation }) {
           id: uid,
           email,
           fullName,
+          //Newly add field
+          userBio,
         };
-        //If the account registration was successful, we also store the user data in Firebase Firestore. This is necessary for storing extra user information, such as full name, profile photo URL, and so on, which cannot be stored in the Authentication table. 
+        const dogData = {
+          dogName,
+          dogSize,
+          dogGender,
+          dogBreed,
+          dogTemperament,
+        }
+        //If the account registration was successful, we also store the user data in Firebase Firestore. This is necessary for storing extra user information, such as full name, profile photo URL, and so on, which cannot be stored in the Authentication table.
         const usersRef = firebase.firestore().collection("users");
         usersRef
           .doc(uid)
           .set(data)
           .then(() => {
+            //creating sub collection dogs with fields
+            firebase.firestore().collection("users").doc(uid).collection("dogs").add(dogData);
             navigation.navigate("Home", { user: data });
           })
           .catch((error) => {
@@ -46,6 +67,20 @@ export default function RegistrationScreen({ navigation }) {
         alert(error);
       });
   };
+
+  const dogSizeOptions = [
+    {value: 'Extra Small',},
+    {value: 'Small',},
+    {value: 'Medium',},
+    {value: 'Large',},
+    {value: 'Extra Large',}
+  ];
+
+  const dogTemperamentOptions = [
+    {value: 'Calm',},
+    {value: 'Energetic',},
+    {value: 'Feisty',},
+  ];
 
   return (
     <View style={styles.container}>
@@ -98,6 +133,54 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           textContentType={'oneTimeCode'}
+        />
+        <TextInput
+        //Newly Added UserBioSection
+          style={styles.input}
+          placeholder="bio"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setUserBio(text)}
+          value={userBio}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          textContentType={'oneTimeCode'}
+        />
+        <TextInput
+        //Newly Added Dog Section - Name
+          style={styles.input}
+          placeholder="dog name"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDogName(text)}
+          value={dogName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          textContentType={'oneTimeCode'}
+        />
+        <Dropdown
+        //Newly Added Dog Section - Size
+          label = 'Dog Size'
+          data = {dogSizeOptions}
+          // style={styles.input}
+          // placeholder="dog size"
+          // placeholderTextColor="#aaaaaa"
+          // onChangeText={(text) => setDogSize(text)}
+          // value={dogSize}
+          // underlineColorAndroid="transparent"
+          // autoCapitalize="none"
+          // textContentType={'oneTimeCode'}
+        />
+        <Dropdown
+        //Newly Added Dog Section - Size
+          label = 'Dog Temperament'
+          data = {dogTemperamentOptions}
+          // style={styles.input}
+          // placeholder="dog size"
+          // placeholderTextColor="#aaaaaa"
+          // onChangeText={(text) => setDogSize(text)}
+          // value={dogSize}
+          // underlineColorAndroid="transparent"
+          // autoCapitalize="none"
+          // textContentType={'oneTimeCode'}
         />
         <TouchableOpacity
           style={styles.button}
