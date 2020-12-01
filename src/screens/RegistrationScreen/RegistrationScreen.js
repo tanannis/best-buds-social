@@ -3,7 +3,8 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
-// import { Dropdown } from 'react-native-material-dropdown';
+import { Dropdown } from "react-native-material-dropdown-v2";
+
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -14,10 +15,10 @@ export default function RegistrationScreen({ navigation }) {
   const [userBio, setUserBio] = useState("");
   //Newly added dog information
   const [dogName, setDogName] = useState("");
-  const [dogSize, setDogSize] = useState("");
+  // const [dogSize, setDogSize] = useState("");
   const [dogGender, setDogGender] = useState("");
   const [dogBreed, setDogBreed] = useState("");
-  const [dogTemperament, setDogTemperament] = useState("");
+  // const [dogTemperament, setDogTemperament] = useState("");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -66,6 +67,20 @@ export default function RegistrationScreen({ navigation }) {
         alert(error);
       });
   };
+
+  const dogSizeOptions = [
+    {value: 'Extra Small',},
+    {value: 'Small',},
+    {value: 'Medium',},
+    {value: 'Large',},
+    {value: 'Extra Large',}
+  ];
+
+  const dogTemperamentOptions = [
+    {value: 'Calm',},
+    {value: 'Energetic',},
+    {value: 'Feisty',},
+  ];
 
   return (
     <View style={styles.container}>
@@ -141,16 +156,31 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           textContentType={'oneTimeCode'}
         />
-        <TextInput
+        <Dropdown
         //Newly Added Dog Section - Size
-          style={styles.input}
-          placeholder="dog size"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDogSize(text)}
-          value={dogSize}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          label = 'Dog Size'
+          data = {dogSizeOptions}
+          // style={styles.input}
+          // placeholder="dog size"
+          // placeholderTextColor="#aaaaaa"
+          // onChangeText={(text) => setDogSize(text)}
+          // value={dogSize}
+          // underlineColorAndroid="transparent"
+          // autoCapitalize="none"
+          // textContentType={'oneTimeCode'}
+        />
+        <Dropdown
+        //Newly Added Dog Section - Size
+          label = 'Dog Temperament'
+          data = {dogTemperamentOptions}
+          // style={styles.input}
+          // placeholder="dog size"
+          // placeholderTextColor="#aaaaaa"
+          // onChangeText={(text) => setDogSize(text)}
+          // value={dogSize}
+          // underlineColorAndroid="transparent"
+          // autoCapitalize="none"
+          // textContentType={'oneTimeCode'}
         />
         <TouchableOpacity
           style={styles.button}
