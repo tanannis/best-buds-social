@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { firebase } from '../../firebase/config'
 import { Login } from "../LoginScreen/LoginScreen"
+import { NavBar } from "../index"
 
 export default function SettingsScreen({ navigation }) {
 	// const [updateEmail, setUpdateEmail] = useState("");
     // const [updatepassword, setUpdatePassword] = useState("");
-    
+
     const onSignOutPress = () => {
 		firebase
 			.auth()
@@ -21,7 +22,8 @@ export default function SettingsScreen({ navigation }) {
 
 
     return (
-        <View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+					<NavBar/>
             <TouchableOpacity onPress={() => onSignOutPress()}>
 					<Text >Log Out</Text>
 			</TouchableOpacity>
