@@ -54,6 +54,8 @@ export default function HomeScreen(props) {
         }
     }
 
+
+
     const renderEntity = ({item, index}) => {
         return (
             <View style={styles.entityContainer}>
@@ -67,6 +69,9 @@ export default function HomeScreen(props) {
     return (
         <View style={styles.container}>
             <View style={styles.formContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Settings')}>
+                    <Text style={styles.buttonText}>Settings</Text>
+                </TouchableOpacity>
                 <TextInput
                     style={styles.input}
                     placeholder='Add new entity'
