@@ -18,3 +18,5 @@ if (!firebase.apps.length) {
 }
 
 export { firebase };
+
+// This would typically be a gitignore file and not be publicly available on Github. Firebase has own database security rules. 
