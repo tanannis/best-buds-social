@@ -135,6 +135,14 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/icon.png")}
         />
+        <View style={{ alignItems: "center" }}>
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200, borderRadius: 5, margin: 20 }}
+            />
+          )}
+        </View>
         <TouchableOpacity onPress={pickImage}>
           <View
             onPress={pickImage}
@@ -152,12 +160,6 @@ export default function RegistrationScreen({ navigation }) {
             <Text style={styles.buttonTitle}>
               Choose an image for your profile picture
             </Text>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
-            )}
           </View>
         </TouchableOpacity>
         <TextInput
