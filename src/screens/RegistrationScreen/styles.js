@@ -64,4 +64,16 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  dropdown: {
+    backgroundColor: "white",
+    alignContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 4,
+    height: 48,
+    borderRadius: 5,
+    fontSize: 13,
+  },
 });

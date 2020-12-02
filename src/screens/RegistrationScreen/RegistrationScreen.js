@@ -135,24 +135,31 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/icon.png")}
         />
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "flex-start",
-          }}
-        >
-          <Button
-            title="Choose an image for your profile picture"
+        <TouchableOpacity onPress={pickImage}>
+          <View
             onPress={pickImage}
-          />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
-        </View>
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#788eec",
+              height: 48,
+              marginLeft: 45,
+              marginRight: 45,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={styles.buttonTitle}>
+              Choose an image for your profile picture
+            </Text>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
+          </View>
+        </TouchableOpacity>
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -233,8 +240,7 @@ export default function RegistrationScreen({ navigation }) {
           //Newly Added Dog Section - Size
           label="Choose Dog Gender"
           data={dogGenderOptions}
-          // style={styles.input}
-          // placeholder="dog size"
+          style={styles.dropdown}
           // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogGender(value)}
           // value={dogSize}
@@ -246,7 +252,7 @@ export default function RegistrationScreen({ navigation }) {
           //Newly Added Dog Section - Size
           label="Choose Dog Size"
           data={dogSizeOptions}
-          // style={styles.input}
+          style={styles.dropdown}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogSize(value)}
@@ -259,7 +265,7 @@ export default function RegistrationScreen({ navigation }) {
           //Newly Added Dog Section - Size
           label="Choose Dog Temperament"
           data={dogTemperamentOptions}
-          // style={styles.input}
+          style={styles.dropdown}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogTemperament(value)}
@@ -276,7 +282,7 @@ export default function RegistrationScreen({ navigation }) {
         </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
-            Already got an account?
+            Already have an account?
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               Log in
             </Text>
