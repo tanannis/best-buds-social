@@ -22,10 +22,10 @@ export default function RegistrationScreen({ navigation }) {
   const [userBio, setUserBio] = useState("");
   //Newly added dog information
   const [dogName, setDogName] = useState("");
-  // const [dogSize, setDogSize] = useState("");
+  const [dogSize, setDogSize] = useState("");
   const [dogGender, setDogGender] = useState("");
   const [dogBreed, setDogBreed] = useState("");
-  // const [dogTemperament, setDogTemperament] = useState("");
+  const [dogTemperament, setDogTemperament] = useState("");
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ export default function RegistrationScreen({ navigation }) {
           fullName,
           //Newly add field
           userBio,
+          image,
         };
         const dogData = {
           dogName,
@@ -108,6 +109,8 @@ export default function RegistrationScreen({ navigation }) {
     { value: "Feisty" },
   ];
 
+  const dogGenderOptions = [{ value: "Male" }, { value: "Female" }];
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -132,18 +135,24 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/icon.png")}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onHandlePicker()}
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "flex-start",
+          }}
         >
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
+          <Button
+            title="Choose an image for your profile picture"
+            onPress={pickImage}
+          />
           {image && (
             <Image
               source={{ uri: image }}
               style={{ width: 200, height: 200 }}
             />
           )}
-        </TouchableOpacity>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -209,6 +218,30 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           textContentType={"oneTimeCode"}
         />
+        <TextInput
+          //Newly Added Dog Section - Name
+          style={styles.input}
+          placeholder="Dog Breed"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDogBreed(text)}
+          value={dogBreed}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          textContentType={"oneTimeCode"}
+        />
+        <Dropdown
+          //Newly Added Dog Section - Size
+          label="Choose Dog Gender"
+          data={dogGenderOptions}
+          // style={styles.input}
+          // placeholder="dog size"
+          // placeholderTextColor="#aaaaaa"
+          onChangeText={(value) => setDogGender(value)}
+          // value={dogSize}
+          // underlineColorAndroid="transparent"
+          // autoCapitalize="none"
+          // textContentType={'oneTimeCode'}
+        />
         <Dropdown
           //Newly Added Dog Section - Size
           label="Choose Dog Size"
@@ -216,7 +249,7 @@ export default function RegistrationScreen({ navigation }) {
           // style={styles.input}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"
-          // onChangeText={(text) => setDogSize(text)}
+          onChangeText={(value) => setDogSize(value)}
           // value={dogSize}
           // underlineColorAndroid="transparent"
           // autoCapitalize="none"
@@ -229,8 +262,8 @@ export default function RegistrationScreen({ navigation }) {
           // style={styles.input}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"
-          // onChangeText={(text) => setDogSize(text)}
-          // value={dogSize}
+          onChangeText={(value) => setDogTemperament(value)}
+          // value={dogTemperament}
           // underlineColorAndroid="transparent"
           // autoCapitalize="none"
           // textContentType={'oneTimeCode'}
