@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Button,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Dropdown } from "react-native-material-dropdown-v2";
+import * as ImagePicker from "expo-image-picker";
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -18,6 +26,20 @@ export default function RegistrationScreen({ navigation }) {
   const [dogGender, setDogGender] = useState("");
   const [dogBreed, setDogBreed] = useState("");
   // const [dogTemperament, setDogTemperament] = useState("");
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const {
+          status,
+        } = await ImagePicker.requestCameraRollPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -86,6 +108,20 @@ export default function RegistrationScreen({ navigation }) {
     { value: "Feisty" },
   ];
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView
@@ -96,6 +132,18 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/icon.png")}
         />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => onHandlePicker()}
+        >
+          <Button title="Pick an image from camera roll" onPress={pickImage} />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
+        </TouchableOpacity>
         <TextInput
           style={styles.input}
           placeholder="Full Name"
