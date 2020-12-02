@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
 	LoginScreen,
 	HomeScreen,
@@ -17,7 +17,8 @@ if (!global.atob) {
 	global.atob = decode;
 }
 
-const Stack = createStackNavigator();
+//this will create tab navigation 
+const Tab = createBottomTabNavigator()
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
@@ -49,26 +50,23 @@ export default function App() {
 		return <></>;
 	}
 
-	console.log("User", user);
-
 	return (
 		<NavigationContainer>
-			<Stack.Navigator>
-			<Stack.Screen name="Login" component={LoginScreen} />
+			<Tab.Navigator>
 				{user ? (
 					<>
-						<Stack.Screen name="Home">
+						<Tab.Screen name="Home">
 							{(props) => <HomeScreen {...props} extraData={user} />}
-						</Stack.Screen>
-						<Stack.Screen name="Settings" component={SettingsScreen} />
+						</Tab.Screen>
+						<Tab.Screen name="Settings" component={SettingsScreen} />
 					</>
 				) : (
 					<>
-						<Stack.Screen name="Login" component={LoginScreen} />
-						<Stack.Screen name="Registration" component={RegistrationScreen} />
+						<Tab.Screen name="Login" component={LoginScreen} />
+						<Tab.Screen name="Registration" component={RegistrationScreen} />
 					</>
 				)}
-			</Stack.Navigator>
+			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
