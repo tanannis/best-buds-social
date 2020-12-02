@@ -1,56 +1,39 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    formContainer: {
-        flexDirection: 'row',
-        height: 80,
-        marginTop: 40,
-        marginBottom: 20,
-        flex: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        paddingLeft: 16,
-        flex: 1,
-        marginRight: 5
-    },
-    button: {
-        height: 47,
-        borderRadius: 5,
-        backgroundColor: '#788eec',
-        width: 80,
-        alignItems: "center",
-        justifyContent: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16
-    },
-    listContainer: {
-        marginTop: 20,
+    card: {
+        position: "absolute",
+        backgroundColor: "white",
+        width: 600,
         padding: 20,
+        maxWidth: 85,
+        height: 75,
+        shadowColor: "#000",
+        shadowOffset: {
+	        width: 0,
+	        height: 2,
+        },
     },
-    entityContainer: {
-        marginTop: 16,
-        borderBottomColor: '#cccccc',
-        borderBottomWidth: 1,
-        paddingBottom: 16
+    
+    cardContainer: {
+        display: "flex",
+        justifyContent: "center",
+        marginTop: 10,
     },
-    entityText: {
-        fontSize: 20,
-        color: '#333333'
+    
+    swipe: {
+        position: "absolute",
+    },
+    
+    cardContent: {
+        width: 100,
+        height: 100,
+    },
+    
+    cardH3: {
+        position: "absolute",
+        bottom: 0,
+        margin: 10,
+        color: "white",
     }
 })
