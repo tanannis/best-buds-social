@@ -2,13 +2,14 @@ import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-	LoginScreen,
-	HomeScreen,
-	RegistrationScreen,
-	SettingsScreen,
-	MatchesScreen,
+  LoginScreen,
+  HomeScreen,
+  RegistrationScreen,
+  SettingsScreen,
+  MatchesScreen,
+  SignedOutScreen,
 } from "./src/screens";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
@@ -19,7 +20,7 @@ if (!global.atob) {
 }
 
 //this will create tab navigation
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -43,33 +44,38 @@ export default function App() {
             setLoading(false);
           });
       } else {
+        setUser(false);
         setLoading(false);
       }
     });
   }, []);
 
   if (loading) {
-    return <></>;
+    return (
+      <>
+        <Text>Loading Messages...</Text>
+      </>
+    );
   }
 
-	return (
-		<NavigationContainer>
-			<Tab.Navigator>
-				{user ? (
-					<>
-						<Tab.Screen name="Home">
-							{(props) => <HomeScreen {...props} extraData={user} />}
-						</Tab.Screen>
-						<Tab.Screen name="Matches" component={MatchesScreen} />
-						<Tab.Screen name="Settings" component={SettingsScreen} />
-					</>
-				) : (
-					<>
-						<Tab.Screen name="Login" component={LoginScreen} />
-						<Tab.Screen name="Registration" component={RegistrationScreen} />
-					</>
-				)}
-			</Tab.Navigator>
-		</NavigationContainer>
-	);
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        {user ? (
+          <>
+            <Tab.Screen name="Home">
+              {(props) => <HomeScreen {...props} extraData={user} />}
+            </Tab.Screen>
+            <Tab.Screen name="Matches" component={MatchesScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+          </>
+        ) : (
+          <>
+            <Tab.Screen name="Login" component={LoginScreen} />
+            <Tab.Screen name="Registration" component={RegistrationScreen} />
+          </>
+        )}
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
