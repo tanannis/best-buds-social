@@ -5,7 +5,6 @@ import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Dropdown } from "react-native-material-dropdown-v2";
 
-
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -48,7 +47,7 @@ export default function RegistrationScreen({ navigation }) {
           dogGender,
           dogBreed,
           dogTemperament,
-        }
+        };
         //If the account registration was successful, we also store the user data in Firebase Firestore. This is necessary for storing extra user information, such as full name, profile photo URL, and so on, which cannot be stored in the Authentication table.
         const usersRef = firebase.firestore().collection("users");
         usersRef
@@ -56,7 +55,12 @@ export default function RegistrationScreen({ navigation }) {
           .set(data)
           .then(() => {
             //creating sub collection dogs with fields
-            firebase.firestore().collection("users").doc(uid).collection("dogs").add(dogData);
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(uid)
+              .collection("dogs")
+              .add(dogData);
             navigation.navigate("Home", { user: data });
           })
           .catch((error) => {
@@ -69,17 +73,17 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const dogSizeOptions = [
-    {value: 'Extra Small',},
-    {value: 'Small',},
-    {value: 'Medium',},
-    {value: 'Large',},
-    {value: 'Extra Large',}
+    { value: "Extra Small" },
+    { value: "Small" },
+    { value: "Medium" },
+    { value: "Large" },
+    { value: "Extra Large" },
   ];
 
   const dogTemperamentOptions = [
-    {value: 'Calm',},
-    {value: 'Energetic',},
-    {value: 'Feisty',},
+    { value: "Calm" },
+    { value: "Energetic" },
+    { value: "Feisty" },
   ];
 
   return (
@@ -100,7 +104,7 @@ export default function RegistrationScreen({ navigation }) {
           value={fullName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <TextInput
           style={styles.input}
@@ -110,7 +114,7 @@ export default function RegistrationScreen({ navigation }) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <TextInput
           style={styles.input}
@@ -121,7 +125,7 @@ export default function RegistrationScreen({ navigation }) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <TextInput
           style={styles.input}
@@ -132,34 +136,35 @@ export default function RegistrationScreen({ navigation }) {
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <TextInput
-        //Newly Added UserBioSection
-          style={styles.input}
-          placeholder="bio"
+          //Newly Added UserBioSection
+          style={styles.largeinput}
+          placeholder="Tell us about you & your dog here...you can include your favorite places to walk and/or anything special about your best bud :)"
           placeholderTextColor="#aaaaaa"
+          multiline={true}
           onChangeText={(text) => setUserBio(text)}
           value={userBio}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <TextInput
-        //Newly Added Dog Section - Name
+          //Newly Added Dog Section - Name
           style={styles.input}
-          placeholder="dog name"
+          placeholder="Dog Name"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setDogName(text)}
           value={dogName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-          textContentType={'oneTimeCode'}
+          textContentType={"oneTimeCode"}
         />
         <Dropdown
-        //Newly Added Dog Section - Size
-          label = 'Dog Size'
-          data = {dogSizeOptions}
+          //Newly Added Dog Section - Size
+          label="Choose Dog Size"
+          data={dogSizeOptions}
           // style={styles.input}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"
@@ -170,9 +175,9 @@ export default function RegistrationScreen({ navigation }) {
           // textContentType={'oneTimeCode'}
         />
         <Dropdown
-        //Newly Added Dog Section - Size
-          label = 'Dog Temperament'
-          data = {dogTemperamentOptions}
+          //Newly Added Dog Section - Size
+          label="Choose Dog Temperament"
+          data={dogTemperamentOptions}
           // style={styles.input}
           // placeholder="dog size"
           // placeholderTextColor="#aaaaaa"

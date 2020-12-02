@@ -24,6 +24,17 @@ export default StyleSheet.create({
     marginRight: 30,
     paddingLeft: 16,
   },
+  largeinput: {
+    height: 100,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+  },
   button: {
     backgroundColor: "#788eec",
     marginLeft: 30,
