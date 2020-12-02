@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import TinderCard from 'react-tinder-card'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
