@@ -8,6 +8,7 @@ import {
 	HomeScreen,
 	RegistrationScreen,
 	SettingsScreen,
+	MatchesScreen,
 } from "./src/screens";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
@@ -17,7 +18,7 @@ if (!global.atob) {
 	global.atob = decode;
 }
 
-//this will create tab navigation 
+//this will create tab navigation
 const Tab = createBottomTabNavigator()
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
 						<Tab.Screen name="Home">
 							{(props) => <HomeScreen {...props} extraData={user} />}
 						</Tab.Screen>
+						<Tab.Screen name="Matches" component={MatchesScreen} />
 						<Tab.Screen name="Settings" component={SettingsScreen} />
 					</>
 				) : (
