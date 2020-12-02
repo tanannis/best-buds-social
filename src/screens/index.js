@@ -6,3 +6,4 @@ export { default as RegistrationScreen } from "./RegistrationScreen/Registration
 
 export { default as SettingsScreen } from "./SettingsScreen/SettingsScreen"
 
+export { default as MatchesScreen } from "./MatchesScreen/MatchesScreen"
