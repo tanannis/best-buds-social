@@ -46,8 +46,9 @@ export default function LoginScreen({ navigation }) {
 				keyboardShouldPersistTaps="always"
 			>
 				<Image
+				//created using canva free tool
 					style={styles.logo}
-					source={require("../../../assets/icon.png")}
+					source={require("../../../assets/BestBudsSocialLogo.png")}
 				/>
 				<TextInput
 					style={styles.input}

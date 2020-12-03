@@ -9,8 +9,9 @@ export default StyleSheet.create({
   logo: {
     flex: 1,
     height: 120,
-    width: 90,
+    width: 180,
     alignSelf: "center",
+    marginTop: 60,
     margin: 30,
   },
   input: {
