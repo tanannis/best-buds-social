@@ -48,7 +48,7 @@ export default function LoginScreen({ navigation }) {
 				<Image
 				//created using canva free tool
 					style={styles.logo}
-					source={require("../../../assets/BBSLogo.png")}
+					source={require("../../../assets/BestBudsSocialLogo.png")}
 				/>
 				<TextInput
 					style={styles.input}
