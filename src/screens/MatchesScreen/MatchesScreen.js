@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 import styles from "./styles";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
 
 export default function MatchesScreen({ navigation }) {
     const [searchTerm, setSearchTerm] = useState("");
     const onChangeSearch = query => setSearchTerm(query);
 
     return (
+        <>
         <View >
             <SearchBar
             style={styles.searchbar}
@@ -16,6 +20,10 @@ export default function MatchesScreen({ navigation }) {
             value={searchTerm}
             />
         </View>
+        <Tab.Navigator>
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+     </Tab.Navigator>
+     </>
     )
 }
 

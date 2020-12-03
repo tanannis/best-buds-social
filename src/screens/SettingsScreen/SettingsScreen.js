@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { Login } from "../LoginScreen/LoginScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
 
 export default function SettingsScreen({ navigation }) {
   // const [updateEmail, setUpdateEmail] = useState("");
@@ -28,10 +31,15 @@ export default function SettingsScreen({ navigation }) {
   };
 
   return (
+    <>
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity onPress={() => onSignOutPress()}>
         <Text>Log Out</Text>
       </TouchableOpacity>
     </View>
+    <Tab.Navigator>
+    <Tab.Screen name="Settings" component={SettingsScreen} />
+ </Tab.Navigator>
+ </>
   );
 }

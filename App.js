@@ -2,7 +2,8 @@ import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from '@react-navigation/stack';
+// import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   LoginScreen,
   HomeScreen,
@@ -21,7 +22,22 @@ if (!global.atob) {
 }
 
 //this will create tab navigation
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+// function UserTabs() {
+//   return (
+//     <Tab.Navigator>
+//       <Tab.Screen name="Matches" component={MatchesScreen} />
+//       <Tab.Screen name="Settings" component={SettingsScreen} />
+//       <Tab.Screen name="Home" component={HomeScreen}>
+//       {(props) => <HomeScreen {...props} extraData={user}/>}
+//       </Tab.Screen>
+//     </Tab.Navigator>
+//   )
+// }
+
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -61,22 +77,20 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Stack.Navigator>
         {user ? (
           <>
-            <Tab.Screen name="Home">
-              {(props) => <HomeScreen {...props} extraData={user} />}
-            </Tab.Screen>
-            <Tab.Screen name="Matches" component={MatchesScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Home">{(props) => <HomeScreen {...props} extraData={user}/>}</Stack.Screen>
+            <Stack.Screen name="Matches" component={MatchesScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
         ) : (
           <>
-            <Tab.Screen name="Login" component={LoginScreen} />
-            <Tab.Screen name="Registration" component={RegistrationScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
           </>
         )}
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
