@@ -64,7 +64,7 @@ export default function HomeScreen() {
               userBio,
               image
             });
-            console.log(userList[0])
+           
           });
           setUser(userList);
         });
