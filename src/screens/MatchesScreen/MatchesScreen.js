@@ -3,54 +3,33 @@ import { View } from "react-native";
 import { SearchBar } from "react-native-elements";
 import styles from "./styles";
 //Newly Added
-import { createStackNavigator } from "@react-navigation/stack";
-import { IconButton } from "react-native-paper";
 // import { SingleChatRoom } from "../index";
 import SingleChatRoom from '../SingleChatRoom/SingleChatRoom'
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const ChatAppStack = createStackNavigator();
-const ModalStack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function MatchesScreen({navigation}) {
+
+export default function MatchesScreen() {
 	const [searchTerm, setSearchTerm] = useState("");
   const onChangeSearch = (query) => setSearchTerm(query);
   
-	return (
-		<View>
-			<SearchBar
-				style={styles.searchbar}
-				placeholder="Type Here to Search..."
-				onChangeText={onChangeSearch}
-				value={searchTerm}
-			/>
-			<ChatAppStack.Navigator
-				screenOptions={{
-					headerStyle: {
-						backgroundColor: "#6646ee",
-					},
-					headerTintColor: "black",
-					headerTitleStyle: {
-						fontSize: 22,
-					},
-				}}
-			>
-				<ChatAppStack.Screen
-					name="SingleChatRoom"
-					component={SingleChatRoom}
-					options={({ navigation }) => ({
-						headerRight: () => (
-							<IconButton
-								icon="message-plus"
-								size={28}
-								color="black"
-								onPress={() => {navigation.navigate("SingleChatRoom")}}
-							/>
-						),
-					})}
-				/>
-			</ChatAppStack.Navigator>
-		</View>
-	);
+    return (
+        <>
+        <View >
+            <SearchBar
+            style={styles.searchbar}
+            placeholder="Type Here to Search..."
+            onChangeText={onChangeSearch}
+            value={searchTerm}
+            />
+        </View>
+        <Tab.Navigator>
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+     </Tab.Navigator>
+     </>
+    )
+
 }
 
 //Search Bar Documentation: https://callstack.github.io/react-native-paper/searchbar.html

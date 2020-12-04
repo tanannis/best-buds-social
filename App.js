@@ -2,15 +2,14 @@ import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+// import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
 	LoginScreen,
 	HomeScreen,
 	RegistrationScreen,
 	SettingsScreen,
 	MatchesScreen,
-	SignedOutScreen,
 	SingleChatRoom,
 } from "./src/screens";
 import { Text } from "react-native";
@@ -22,68 +21,64 @@ if (!global.atob) {
 	global.atob = decode;
 }
 
-//this will create tab navigation
-const Tab = createBottomTabNavigator();
-const ChatAppStack = createStackNavigator();
-const ModalStack = createStackNavigator();
+// const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
 	const [loading, setLoading] = useState(true);
 	const [user, setUser] = useState(null);
-
+  
 	//Persist Login Credentials, so user doesn't have to login again after quit the app.
-
+  
 	useEffect(() => {
-		const usersRef = firebase.firestore().collection("users");
-		firebase.auth().onAuthStateChanged((user) => {
-			if (user) {
-				usersRef
-					.doc(user.uid)
-					.get()
-					.then((document) => {
-						const userData = document.data();
-						setLoading(false);
-						setUser(userData);
-					})
-					.catch((error) => {
-						setLoading(false);
-					});
-			} else {
-				setUser(false);
-				setLoading(false);
-			}
-		});
+	  const usersRef = firebase.firestore().collection("users");
+	  firebase.auth().onAuthStateChanged((user) => {
+		if (user) {
+		  usersRef
+			.doc(user.uid)
+			.get()
+			.then((document) => {
+			  const userData = document.data();
+			  setLoading(false);
+			  setUser(userData);
+			})
+			.catch((error) => {
+			  setLoading(false);
+			});
+		} else {
+		  setUser(false);
+		  setLoading(false);
+		}
+	  });
 	}, []);
-
+  
 	if (loading) {
-		return (
-			<>
-				<Text>Loading Messages...</Text>
-			</>
-		);
+	  return (
+		<>
+		  <Text>Loading Messages...</Text>
+		</>
+	  );
 	}
 
 	return (
 		<NavigationContainer>
-			<Tab.Navigator>
+			<Stack.Navigator>
 				{user ? (
 					<>
-						<Tab.Screen name="Home">
+						<Stack.Screen name="Home">
 							{(props) => <HomeScreen {...props} extraData={user} />}
-						</Tab.Screen>
-
-						<Tab.Screen name="Matches" component={MatchesScreen} />
-
-						<Tab.Screen name="Settings" component={SettingsScreen} />
+						</Stack.Screen>
+						<Stack.Screen name="Settings" component={SettingsScreen} />
+						<Stack.Screen name="Matches" component={MatchesScreen} />
+						<Stack.Screen name="SingleChat" component={SingleChatRoom} />
 					</>
 				) : (
 					<>
-						<Tab.Screen name="Login" component={LoginScreen} />
-						<Tab.Screen name="Registration" component={RegistrationScreen} />
+						<Stack.Screen name="Login" component={LoginScreen} />
+						<Stack.Screen name="Registration" component={RegistrationScreen} />
 					</>
 				)}
-			</Tab.Navigator>
-      
+			</Stack.Navigator>
 		</NavigationContainer>
 	);
 }

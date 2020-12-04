@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
 
 export default function HomeScreen(props) {
 
@@ -67,6 +70,7 @@ export default function HomeScreen(props) {
     }
 
     return (
+        <>
         <View style={styles.container}>
             <View style={styles.formContainer}>
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Settings')}>
@@ -97,5 +101,13 @@ export default function HomeScreen(props) {
                 </View>
             )}
         </View>
+        <Tab.Navigator>
+<Tab.Screen name="Home" component={HomeScreen} />
+</Tab.Navigator>
+        </>
     )
 }
+
+
+
+
