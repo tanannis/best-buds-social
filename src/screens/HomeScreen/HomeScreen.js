@@ -1,101 +1,189 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import styles from './styles';
-import { firebase } from '../../firebase/config'
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Text,
+  Image,
+  TextInput,
+  ScrollView,
+  View,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
+import Swiper from "react-native-deck-swiper";
+import { Transitioning, Transition } from "react-native-reanimated";
+import styles from "./styles";
+import { firebase } from "../../firebase/config";
 
-export default function HomeScreen(props) {
+const colors = {
+  red: "#EC2379",
+  blue: "#0070FF",
+  gray: "#777777",
+  white: "#ffffff",
+  black: "#000000",
+};
 
-    // console.log('Navigate', props.navigation.navigate)
+const stackSize = 4;
+const ANIMATION_DURATION = 200;
 
-    const [entityText, setEntityText] = useState('')
-    const [entities, setEntities] = useState([])
+const transition = (
+  <Transition.Sequence>
+    <Transition.Out
+      type="slide-bottom"
+      durationMs={ANIMATION_DURATION}
+      interpolation="easeIn"
+    />
+    <Transition.Together>
+      <Transition.In
+        type="fade"
+        durationMs={ANIMATION_DURATION}
+        delayMs={ANIMATION_DURATION / 2}
+      />
+      <Transition.In
+        type="slide-bottom"
+        durationMs={ANIMATION_DURATION}
+        delayMs={ANIMATION_DURATION / 2}
+        interpolation="easeOut"
+      />
+    </Transition.Together>
+  </Transition.Sequence>
+);
 
-    const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+const swiperRef = React.createRef();
+const transitionRef = React.createRef();
 
+export default function HomeScreen() {
+  const [user, setUser] = useState([]);
+  const [index, setIndex] = React.useState(0);
+  const [loading, setLoading] = useState(true);
+  const users = firebase.firestore().collection("users");
+  const onSwiped = () => {
+    transitionRef.current.animateNextTransition();
+    setIndex((index + 1) % user.length);
+  };
 
-    useEffect(() => {
-        entityRef
-            .where("authorID", "==", userID)
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
-                    });
-                    setEntities(newEntities)
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-    }, [])
+  useEffect(() => {
+    return users.onSnapshot((querySnapshot) => {
+      const userList = [];
+      querySnapshot.forEach((doc) => {
+        const { fullName, userBio, image } = doc.data();
+        userList.push({
+          id: doc.id,
+          fullName,
+          userBio,
+          image,
+        });
+      });
 
-    const onAddButtonPress = () => {
-        if (entityText && entityText.length > 0) {
-            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-            const data = {
-                text: entityText,
-                authorID: userID,
-                createdAt: timestamp,
-            };
-            entityRef
-                .add(data)
-                .then(_doc => {
-                    setEntityText('')
-                    Keyboard.dismiss()
-                })
-                .catch((error) => {
-                    alert(error)
-                });
-        }
-    }
+      setUser(userList);
+      setLoading(false);
+    });
+  }, []);
 
+  const Card = async ({ card }) =>
+    await (
+      <View style={styles.card}>
+        <Image source={{ uri: card.image }} style={styles.cardImage} />
+      </View>
+    );
 
+  const CardDetails = ({ index }) => (
+    <View key={user[index].id} style={{ alignItems: "center" }}>
+      <Text style={[styles.text, styles.heading]} numberOfLines={2}>
+        {user[index].fullName}
+      </Text>
+      <Text style={[styles.text, styles.userBio]}>{user[index].userBio}</Text>
+    </View>
+  );
 
-    const renderEntity = ({item, index}) => {
-        return (
-            <View style={styles.entityContainer}>
-                <Text style={styles.entityText}>
-                    {index}. {item.text}
-                </Text>
-            </View>
-        )
-    }
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Settings')}>
-                    <Text style={styles.buttonText}>Settings</Text>
-                </TouchableOpacity>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Add new entity'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEntityText(text)}
-                    value={entityText}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </View>
-        
-            { entities && (
-                <View style={styles.listContainer}>
-                    <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
-                        removeClippedSubviews={true}
-                    />
-                </View>
-            )}
+  return (
+    <SafeAreaView style={styles.container}>
+      {loading ? (
+        <View>
+          <Text>Is Loading</Text>
         </View>
-    )
+      ) : (
+        <View>
+          <View style={styles.swiperContainer}>
+            <Swiper
+              ref={swiperRef}
+              cards={user}
+              cardIndex={index}
+              renderCard={(card) => {
+                console.log("card", card);
+                return (
+                  <View style={styles.card}>
+                    <Image
+                      source={{ uri: card.image }}
+                      style={styles.cardImage}
+                    />
+                  </View>
+                );
+              }}
+              infinite
+              backgroundColor={"transparent"}
+              onSwiped={onSwiped}
+              onTapCard={() => swiperRef.current.swipeLeft()}
+              cardVerticalMargin={50}
+              stackSize={stackSize}
+              stackScale={10}
+              stackSeparation={14}
+              animateOverlayLabelsOpacity
+              animateCardOpacity
+              disableTopSwipe
+              disableBottomSwipe
+              overlayLabels={{
+                left: {
+                  title: "NOPE",
+                  style: {
+                    label: {
+                      backgroundColor: colors.red,
+                      borderColor: colors.red,
+                      color: colors.white,
+                      borderWidth: 1,
+                      fontSize: 24,
+                    },
+                    wrapper: {
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start",
+                      marginTop: 20,
+                      marginLeft: -20,
+                    },
+                  },
+                },
+                right: {
+                  title: "LIKE",
+                  style: {
+                    label: {
+                      backgroundColor: colors.blue,
+                      borderColor: colors.blue,
+                      color: colors.white,
+                      borderWidth: 1,
+                      fontSize: 24,
+                    },
+                    wrapper: {
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      justifyContent: "flex-start",
+                      marginTop: 20,
+                      marginLeft: 20,
+                    },
+                  },
+                },
+              }}
+            />
+          </View>
+          <View style={styles.bottomContainer}>
+            <Transitioning.View
+              ref={transitionRef}
+              transition={transition}
+              style={styles.bottomContainerMeta}
+            >
+              <CardDetails index={index} />
+            </Transitioning.View>
+          </View>
+        </View>
+      )}
+    </SafeAreaView>
+  );
 }
