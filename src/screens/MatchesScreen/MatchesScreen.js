@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 import styles from "./styles";
+import StackNavigtor from "../../navigation/StackNavigator";
 
-export default function MatchesScreen({ navigation }) {
+
+export default function MatchesScreen() {
     const [searchTerm, setSearchTerm] = useState("");
     const onChangeSearch = query => setSearchTerm(query);
 
@@ -15,6 +17,7 @@ export default function MatchesScreen({ navigation }) {
             onChangeText={onChangeSearch}
             value={searchTerm}
             />
+            <StackNavigtor/>
         </View>
     )
 }
