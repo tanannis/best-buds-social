@@ -5,7 +5,9 @@ import styles, { chatStyles } from "./styles";
 import { List, Divider } from "react-native-paper";
 import { firebase } from "../../firebase/config";
 
+
 export default function MatchesScreen({ navigation }) {
+
 	const [searchTerm, setSearchTerm] = useState("");
 	const onChangeSearch = (query) => setSearchTerm(query);
 	const [chats, setChats] = useState([]);
@@ -18,8 +20,8 @@ export default function MatchesScreen({ navigation }) {
 
 		const unsubscribe = firebase
 			.firestore()
-			.collection("ChatRooms")
-			.where("Users", "array-contains", user.uid)
+			.collection('ChatRooms')
+			.where('Users', 'array-contains', user.uid)
 			.onSnapshot((querySnapshot) => {
 				//mapping the chats array to get each chatRoom (doc in firestore). The variable chats is an array of chats for a given user.
 				const chats = querySnapshot.docs.map((documentSnapshot) => {
@@ -32,9 +34,9 @@ export default function MatchesScreen({ navigation }) {
 						Users: [],
 						...documentSnapshot.data(),
 					};
-				});
+				})
 
-				setChats(chats);
+				setChats(chats)
 
 				if (loading) {
 					setLoading(false);
