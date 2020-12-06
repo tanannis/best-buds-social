@@ -12,7 +12,7 @@ GitHub Project Link: https://github.com/best-buds-social/best-buds-social
 
 # To view the project
 
-Please visit Best Buds at (ENTER DEPLOYMENT LINK HERE!!!).
+Please visit Best Buds Social at (ENTER DEPLOYMENT LINK HERE!!!).
 
 # Instructions to how to download and run project
 
