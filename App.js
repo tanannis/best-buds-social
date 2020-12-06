@@ -11,6 +11,7 @@ import {
   MatchesScreen,
   SignedOutScreen,
 } from "./src/screens";
+import StackNavigator from "./src/navigation/StackNavigator"
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
