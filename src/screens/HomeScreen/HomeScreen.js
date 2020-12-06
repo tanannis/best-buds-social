@@ -109,7 +109,7 @@ export default function HomeScreen() {
               cards={user}
               cardIndex={index}
               renderCard={(card) => {
-                console.log("card", card);
+                // console.log("card", card);
                 return (
                   <View style={styles.card}>
                     <Image

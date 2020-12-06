@@ -49,8 +49,6 @@ export default function MatchesScreen({ navigation }) {
 		return () => unsubscribe();
 	}, []);
 
-	console.log('Chats', chats)
-
 	if (loading) {
 		return (
 			<>
@@ -58,10 +56,13 @@ export default function MatchesScreen({ navigation }) {
 			</>
 		);
 	}
-
+  //how can i pass individual chatroom information into this chatroom variable? It can be passed to each chat room?
 	const selectChat = (chatRoom) => {
 		//if current chatRoom id is the selected chatRoom id
-		navigation.navigate("SingleChat", { chatRoom });
+		navigation.navigate("SingleChat", {
+			chatRoom,
+			chats: chats,
+		 });
 	};
 
 	return (
