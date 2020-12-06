@@ -3,8 +3,8 @@ import { View, FlatList, Text } from "react-native";
 import { SearchBar } from "react-native-elements";
 import styles, {chatStyles} from "./styles";
 import { List, Divider } from "react-native-paper";
-// import firestore from "@react-native-firebase/firestore";
 import { firebase } from "../../firebase/config";
+
 
 export default function MatchesScreen() {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -12,33 +12,30 @@ export default function MatchesScreen() {
 	const [chats, setChats] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	//fetch all matches/chats
-	//map all matches/chats below return
+	//map/display all chats for only the logged-in user
 	useEffect(() => {
-		//get currently signed-in user's id info
+		//get currently signed-in user's information - to see what the user object looks like, console.log(user). You can access the user's uid from this object, which is used for querying in the .where() method.
 		let user = firebase.auth().currentUser;
-		let uid;
-		if (user !== null) {
-			uid = user.id;
-		}
+
 		const unsubscribe = firebase
 			.firestore()
-			.collection("ChatRooms")
-			//   .where().get()
-			//   .where('FromUserId', '==', uid).get()
-			//   .where('ToUserId', '==', uid).get()
+			.collection('ChatRooms')
+			.where('Users', 'array-contains', user.uid)
 			.onSnapshot((querySnapshot) => {
-				//mapping the chats array to get each chatRoom (doc in firestore)
+				//mapping the chats array to get each chatRoom (doc in firestore). The variable chats is an array of chats for a given user.
 				const chats = querySnapshot.docs.map((documentSnapshot) => {
 					return {
+						//I think we need to look into what we are trying to return a little more. I don't quite understand this part yet.
+						//this is the document id
 						_id: documentSnapshot.id,
 						// give defaults
-						messages: "",
+						Chats: [],
+						Users: [],
 						...documentSnapshot.data(),
 					};
-				});
+				})
 
-				setChats(chats);
+				setChats(chats)
 
 				if (loading) {
 					setLoading(false);
