@@ -8,12 +8,13 @@ import {
   HomeScreen,
   RegistrationScreen,
   SettingsScreen,
-  MatchesScreen,
   SignedOutScreen,
 } from "./src/screens";
-import StackNavigator from "./src/navigation/StackNavigator"
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
+import StackNavigator from "./src/navigation/StackNavigator";
+
+
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -21,8 +22,8 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-//this will create tab navigation
 const Tab = createBottomTabNavigator();
+
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -59,7 +60,8 @@ export default function App() {
       </>
     );
   }
-
+  
+  //"Matches" component={StackNavigator} because it needs to have another screen nested inside it in order to navigate.
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -68,7 +70,7 @@ export default function App() {
             <Tab.Screen name="Home">
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
-            <Tab.Screen name="Matches" component={MatchesScreen} />
+            <Tab.Screen name="Matches" component={StackNavigator} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </>
         ) : (

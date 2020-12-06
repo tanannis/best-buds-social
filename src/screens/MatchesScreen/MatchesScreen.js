@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 import { SearchBar } from "react-native-elements";
-import styles, {chatStyles} from "./styles";
+import styles, { chatStyles } from "./styles";
 import { List, Divider } from "react-native-paper";
 import { firebase } from "../../firebase/config";
 
 
-export default function MatchesScreen() {
+export default function MatchesScreen({ navigation }) {
+
 	const [searchTerm, setSearchTerm] = useState("");
 	const onChangeSearch = (query) => setSearchTerm(query);
 	const [chats, setChats] = useState([]);
@@ -48,6 +49,8 @@ export default function MatchesScreen() {
 		return () => unsubscribe();
 	}, []);
 
+	console.log('Chats', chats)
+
 	if (loading) {
 		return (
 			<>
@@ -56,35 +59,41 @@ export default function MatchesScreen() {
 		);
 	}
 
-	//then make all chats clickable (define by id)
+	const selectChat = (chatRoom) => {
+		//if current chatRoom id is the selected chatRoom id
+		navigation.navigate("SingleChat", { chatRoom });
+	};
+
 	return (
-		<View style={chatStyles.container}>
-			<SearchBar
-				style={styles.searchbar}
-				placeholder="Type Here to Search..."
-				onChangeText={onChangeSearch}
-				value={searchTerm}
-			/>
-			<FlatList
-				data={chats}
-				keyExtractor={(item) => item._id}
-				ItemSeparatorComponent={() => <Divider />}
-				renderItem={({ item }) => (
-					<List.Item
-						title={item.name}
-						description="chatRoom"
-						titleNumberOfLines={1}
-						titleStyle={chatStyles.listTitle}
-						descriptionStyle={chatStyles.listDescription}
-						descriptionNumberOfLines={1}
-					/>
-				)}
-			/>
-		</View>
+		<>
+			<View style={chatStyles.container}>
+				<SearchBar
+					style={styles.searchbar}
+					placeholder="Type Here to Search..."
+					onChangeText={onChangeSearch}
+					value={searchTerm}
+				/>
+				<FlatList
+					data={chats}
+					keyExtractor={(item) => item._id}
+					ItemSeparatorComponent={() => <Divider />}
+					renderItem={({ item }) => (
+						<TouchableOpacity onPress={() => selectChat()}>
+							<List.Item
+								title={item.name}
+								description="chatRoom"
+								titleNumberOfLines={1}
+								titleStyle={chatStyles.listTitle}
+								descriptionStyle={chatStyles.listDescription}
+								descriptionNumberOfLines={1}
+							/>
+						</TouchableOpacity>
+					)}
+				/>
+			</View>
+		</>
 	);
 }
-
-
 
 //Search Bar Documentation: https://callstack.github.io/react-native-paper/searchbar.html
 //Search Bar must be updated when data is in this component.
