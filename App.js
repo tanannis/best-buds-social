@@ -11,7 +11,7 @@ import {
   MatchesScreen,
   SignedOutScreen,
 } from "./src/screens";
-import StackNavigator from "./src/navigation/StackNavigator"
+
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 if (!global.btoa) {
@@ -21,8 +21,8 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-//this will create tab navigation
 const Tab = createBottomTabNavigator();
+
 
 export default function App() {
   const [loading, setLoading] = useState(true);

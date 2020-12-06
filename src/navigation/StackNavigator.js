@@ -1,8 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text, TouchableOpacity } from 'react-native'
-
 import {SingleChatRoom} from "../screens/index";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createStackNavigator();
 
@@ -15,23 +14,16 @@ const screenOptionStyle = {
 };
 
 
-export default function StackNavigator({navigation}) {
-  console.log("This is navigation", navigation)
+export default function StackNavigator() {
+
   return (
     <>
+    <NavigationContainer independent={true}>
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="SingleChat" component={SingleChatRoom} />
     </Stack.Navigator>
-    <TouchableOpacity onPress={() => navigation.navigate('SingleChat')}>
-    <Text>SingleChatRoom</Text>
-</TouchableOpacity>
+    </NavigationContainer>
 </>
-    // <Stack.Navigator screenOptions={screenOptionStyle}>
-    //   <Stack.Screen name="SingleChat" onPress={() => navigation.navigate('SingleChat')}component={SingleChatRoom} />
-    //   {/* <TouchableOpacity >
-    //                 <Text>SingleChatRoom</Text>
-    //             </TouchableOpacity> */}
-    // </Stack.Navigator>
   );
 };
 
