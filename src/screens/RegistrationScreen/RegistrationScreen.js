@@ -21,6 +21,9 @@ export default function RegistrationScreen({ navigation }) {
   //Newly added userBio input
   const [userBio, setUserBio] = useState("");
   //Newly added dog information
+
+  // could this be condensed to one object? This is also true for the user info above
+  // const [dog, setDog] = useState({})
   const [dogName, setDogName] = useState("");
   const [dogSize, setDogSize] = useState("");
   const [dogGender, setDogGender] = useState("");

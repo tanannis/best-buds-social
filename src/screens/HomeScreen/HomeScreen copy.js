@@ -1,3 +1,9 @@
+// Do you need to store a copy on git? Part of what makes git cool is you have a historical record of all the files.
+
+/*
+	General note: you can define subcomponents that go inside of one screen. If they are reusable, that is great! If not, feel free to still define them so you can trim down the size of your components. 
+*/
+
 // import React, { useEffect, useState } from 'react'
 // import TinderCard from 'react-tinder-card'
 // import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'

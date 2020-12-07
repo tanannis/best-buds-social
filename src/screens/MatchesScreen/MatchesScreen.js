@@ -51,6 +51,7 @@ export default function MatchesScreen({ navigation }) {
 
 	console.log('Chats', chats)
 
+	// structurally I would put this at the bottom next to your other return
 	if (loading) {
 		return (
 			<>

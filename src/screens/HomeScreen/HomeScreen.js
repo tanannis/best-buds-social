@@ -79,6 +79,7 @@ export default function HomeScreen() {
     });
   }, []);
 
+  // does this component need to be async?
   const Card = async ({ card }) =>
     await (
       <View style={styles.card}>
