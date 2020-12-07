@@ -8,14 +8,26 @@ export default function SingleChatRoom({ route }) {
     const [messages, setMessages] = useState([
     ]);
 
+
 // helper method that sends a message in a particular chatroom
 //The newMessage is concatenated with previous or the initial messages using GiftedChat.append() method.
   // function handleSend(newMessage = []) {
   //   setMessages(GiftedChat.append(messages, newMessage));
   // }
   //Yael's additions
+
+
   async function handleSend(messages) {
+    //selects newest message in chatroom
     const text = messages[0].text;
+    //gets user id of logged in user
+    const fromUserId = firebase.auth().currentUser.uid;
+    function getToUserId() {
+      const fetchUsersArray = route.params.chatInfo.Users
+      const toUserId = fetchUsersArray.filter(user => user != fromUserId).join()
+      return toUserId
+    }
+
 
     firebase.firestore()
       .collection('ChatRooms')
@@ -23,10 +35,10 @@ export default function SingleChatRoom({ route }) {
       .doc(route.params.chatInfo._id)
       .update({
         Chats: firebase.firestore.FieldValue.arrayUnion({
-          FromUserId: '',
-          ToUserId: '',
+          FromUserId: fromUserId,
+          ToUserId: getToUserId(),
           message: text,
-          timestamp: new Date().getTime()
+          timestamp: firebase.firestore.Timestamp.now()
         })
       })
   }
@@ -66,6 +78,8 @@ export default function SingleChatRoom({ route }) {
   }
 
 
+// console.log(route)
+
   return (
     <GiftedChat
       messages={messages}
@@ -79,3 +93,4 @@ export default function SingleChatRoom({ route }) {
     />
   );
 }
+
