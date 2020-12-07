@@ -40,6 +40,7 @@ export default function MatchesScreen({ navigation }) {
 					setLoading(false);
 				}
 			});
+			console.log('CHATS', chats)
 
 		/**
 		 * unsubscribe listener
