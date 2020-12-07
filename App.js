@@ -14,6 +14,7 @@ import StackNavigator from "./src/navigation/StackNavigator"
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons"
+import { color } from "react-native-reanimated";
 
 
 if (!global.btoa) {
@@ -69,11 +70,14 @@ export default function App() {
         {user ? (
           <>
           
-            <Tab.Screen name="Home">
+            <Tab.Screen name="Home" options={{tabBarIcon:()=> <FontAwesome name="home" size={40} color='gray'/>}}>
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
-            <Tab.Screen name="Matches" component={StackNavigator} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="Matches" component={StackNavigator}
+            options={{tabBarIcon:()=> <FontAwesome name="comment" size={30} color='gray'/>}} />
+            <Tab.Screen name="Settings" component={SettingsScreen} 
+            options={{tabBarIcon:()=> <FontAwesome name="cog" size={35} color='grey' 
+            />}}/>
           </>
         ) : (
           <>
