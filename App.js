@@ -10,9 +10,10 @@ import {
   SettingsScreen,
   SignedOutScreen,
 } from "./src/screens";
+import StackNavigator from "./src/navigation/StackNavigator"
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
-import StackNavigator from "./src/navigation/StackNavigator";
+import { FontAwesome } from "@expo/vector-icons"
 
 
 if (!global.btoa) {
@@ -67,6 +68,7 @@ export default function App() {
       <Tab.Navigator>
         {user ? (
           <>
+          
             <Tab.Screen name="Home">
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
@@ -75,8 +77,8 @@ export default function App() {
           </>
         ) : (
           <>
-            <Tab.Screen name="Login" component={LoginScreen} />
-            <Tab.Screen name="Registration" component={RegistrationScreen} />
+            <Tab.Screen name="Login" component={LoginScreen} options={{tabBarVisible: false}}/>
+            <Tab.Screen name="Registration" component={RegistrationScreen} options={{tabBarVisible: false}}/>
           </>
         )}
       </Tab.Navigator>
