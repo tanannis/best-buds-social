@@ -22,7 +22,7 @@ const colors = {
   black: "#000000",
 };
 
-const stackSize = 4;
+const stackSize = 1;
 const ANIMATION_DURATION = 200;
 
 const transition = (
@@ -56,6 +56,23 @@ export default function HomeScreen() {
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const users = firebase.firestore().collection("users");
+  const chatRooms = firebase.firestore().collection("ChatRooms") //Access and create chatrooms
+
+  // Need to add to users: "usersILike" and "usersWhoLikeMe"
+
+    //Set match=true in both user's liked_by_people collection for the other user
+  firestore().doc(user).collection("usersILike").doc(userId).set({
+      match: true
+  }, {
+      merge: true
+  });
+
+  firestore().doc(user).collection('usersWhoLikeMe').doc(userId).set({
+      match: true
+  }, {
+      merge: true
+  });
+
   const onSwiped = () => {
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % user.length);
@@ -79,15 +96,14 @@ export default function HomeScreen() {
     });
   }, []);
 
-  const Card = async ({ card }) =>
-    await (
-      <View style={styles.card}>
-        <Image source={{ uri: card.image }} style={styles.cardImage} />
-      </View>
-    );
+  // const Card = ({ card }) => (
+  //   <View style={styles.card}>
+  //     <Image source={{ uri: card.image }} style={styles.cardImage} />
+  //   </View>
+  // );
 
   const CardDetails = ({ index }) => (
-    <View key={user[index].id} style={{ alignItems: "center" }}>
+    <View key={user[index].uid} style={{ alignItems: "center" }}>
       <Text style={[styles.text, styles.heading]} numberOfLines={2}>
         {user[index].fullName}
       </Text>
@@ -99,7 +115,9 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       {loading ? (
         <View>
-          <Text>Is Loading</Text>
+          <Text style={{ justifyContent: "center", alignItems: "center" }}>
+            Loading
+          </Text>
         </View>
       ) : (
         <View>
@@ -109,13 +127,18 @@ export default function HomeScreen() {
               cards={user}
               cardIndex={index}
               renderCard={(card) => {
-                console.log("card", card);
                 return (
                   <View style={styles.card}>
                     <Image
                       source={{ uri: card.image }}
                       style={styles.cardImage}
                     />
+                    <Text
+                      style={[styles.text, styles.heading]}
+                      numberOfLines={2}
+                    >
+                      {user[index].fullName}
+                    </Text>
                   </View>
                 );
               }}
