@@ -26,8 +26,6 @@ export default function MatchesScreen({ navigation }) {
 				//mapping the chats array to get each chatRoom (doc in firestore). The variable chats is an array of chats for a given user.
 				const chats = querySnapshot.docs.map((documentSnapshot) => {
 					return {
-						//I think we need to look into what we are trying to return a little more. I don't quite understand this part yet.
-						//this is the document id
 						_id: documentSnapshot.id,
 						// give defaults
 						Chats: [],
@@ -56,14 +54,14 @@ export default function MatchesScreen({ navigation }) {
 			</>
 		);
 	}
-  //how can i pass individual chatroom information into this chatroom variable? It can be passed to each chat room?
-	const selectChat = (chatRoom) => {
-		//if current chatRoom id is the selected chatRoom id
+  //here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
+	const selectChat = (item) => {
 		navigation.navigate("SingleChat", {
-			chatRoom,
-			chats: chats,
+			chatInfo: item
 		 });
 	};
+
+
 
 	return (
 		<>
@@ -79,10 +77,13 @@ export default function MatchesScreen({ navigation }) {
 					keyExtractor={(item) => item._id}
 					ItemSeparatorComponent={() => <Divider />}
 					renderItem={({ item }) => (
-						<TouchableOpacity onPress={() => selectChat()}>
+						<TouchableOpacity onPress={() => selectChat(item)}>
 							<List.Item
 								title={item.name}
 								description="chatRoom"
+								chatroomId={item._id}
+								chats={item.Chats}
+								users={item.Users}
 								titleNumberOfLines={1}
 								titleStyle={chatStyles.listTitle}
 								descriptionStyle={chatStyles.listDescription}
@@ -97,4 +98,4 @@ export default function MatchesScreen({ navigation }) {
 }
 
 //Search Bar Documentation: https://callstack.github.io/react-native-paper/searchbar.html
-//Search Bar must be updated when data is in this component.
+

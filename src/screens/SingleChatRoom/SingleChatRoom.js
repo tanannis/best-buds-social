@@ -5,9 +5,6 @@ import { ActivityIndicator, View } from "react-native";
 import { firebase } from "../../firebase/config";
 
 export default function SingleChatRoom({ route }) {
-  //how to I get chats from Matches Screen?
-  //how do I get a single chat information from the matches screen?
-    // const { chats } = route.params
     const [messages, setMessages] = useState([
     ]);
 
@@ -22,8 +19,8 @@ export default function SingleChatRoom({ route }) {
 
     firebase.firestore()
       .collection('ChatRooms')
-      //needs to be a single doc id
-      .doc(chats._id)
+      //pass in to .doc() the chatroom's unique id
+      .doc(route.params.chatInfo._id)
       .update({
         Chats: firebase.firestore.FieldValue.arrayUnion({
           FromUserId: '',
@@ -67,8 +64,8 @@ export default function SingleChatRoom({ route }) {
       </View>
     );
   }
-// console.log ("This is chats on single", chats)
-console.log ("This is route", route)
+
+
   return (
     <GiftedChat
       messages={messages}
