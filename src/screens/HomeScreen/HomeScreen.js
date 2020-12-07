@@ -22,7 +22,7 @@ const colors = {
   black: "#000000",
 };
 
-const stackSize = 4;
+const stackSize = 1;
 const ANIMATION_DURATION = 200;
 
 const transition = (
@@ -79,15 +79,14 @@ export default function HomeScreen() {
     });
   }, []);
 
-  const Card = async ({ card }) =>
-    await (
-      <View style={styles.card}>
-        <Image source={{ uri: card.image }} style={styles.cardImage} />
-      </View>
-    );
+  // const Card = ({ card }) => (
+  //   <View style={styles.card}>
+  //     <Image source={{ uri: card.image }} style={styles.cardImage} />
+  //   </View>
+  // );
 
   const CardDetails = ({ index }) => (
-    <View key={user[index].id} style={{ alignItems: "center" }}>
+    <View key={user[index].uid} style={{ alignItems: "center" }}>
       <Text style={[styles.text, styles.heading]} numberOfLines={2}>
         {user[index].fullName}
       </Text>
@@ -99,7 +98,9 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       {loading ? (
         <View>
-          <Text>Is Loading</Text>
+          <Text style={{ justifyContent: "center", alignItems: "center" }}>
+            Loading
+          </Text>
         </View>
       ) : (
         <View>
@@ -109,13 +110,18 @@ export default function HomeScreen() {
               cards={user}
               cardIndex={index}
               renderCard={(card) => {
-                console.log("card", card);
                 return (
                   <View style={styles.card}>
                     <Image
                       source={{ uri: card.image }}
                       style={styles.cardImage}
                     />
+                    <Text
+                      style={[styles.text, styles.heading]}
+                      numberOfLines={2}
+                    >
+                      {user[index].fullName}
+                    </Text>
                   </View>
                 );
               }}
