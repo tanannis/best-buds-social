@@ -97,27 +97,28 @@ export default function HomeScreen() {
     createChatRoom();
   };
 
-  async function createChatRoom(userId) {
-    // if (
-    //   await
-
-    //   const whatisthis = firebase
-    //     .firestore()
-    //     .collection("users")
-    //     .doc(user[index].id)
-    //     .collection("userLikes")
-    //     .where("id", "==", currentUser.uid)
-    //   //  ==
-    //   // users.collection("userLikes").doc(userId)
-    // ) {
-    const whatisthis = await firebase
+  async function createChatRoom() {
+    const snapshot = await firebase
       .firestore()
       .collection("users")
       .doc(user[index].id)
-      .collection("userLikes");
-    // .where("id", "==", currentUser.uid);
+      .collection("userLikes")
+      .where("id", "==", currentUser.uid)
+      .get();
 
-    console.log("userLikes", whatisthis);
+    if (snapshot.empty) {
+      console.log("false");
+    } else {
+      const createChat = firebase.firestore().collection("ChatRooms");
+      createChat
+        // .doc(route.params.chatInfo._id)
+        .add({
+          Chats: [],
+          Users: [currentUser.uid, user[index].id],
+        });
+      console.log("true");
+    }
+
     // const createChat = firebase.firestore().collection("Chatrooms");
     // createChat
     //   .firestore()
