@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native";
 import * as Location from "expo-location";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function SetLocationScreen() {
 	const [location, setLocation] = useState(null);
-    const [errorMsg, setErrorMsg] = useState(null);
-    const [place, setPlace] = useState(null)
-    const [zipCode, setZipCode] = useState(null)
+	const [errorMsg, setErrorMsg] = useState(null);
+	const [place, setPlace] = useState(null);
+	const [zipCode, setZipCode] = useState(null);
 
 	useEffect(() => {
 		(async () => {
@@ -18,20 +19,24 @@ export default function SetLocationScreen() {
 			}
 
 			let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            
-            let place = await Location.reverseGeocodeAsync({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-            }); setPlace(place);
+			setLocation(location);
 
-            place.find(place=>{
-                setZipCode(place.postalCode)
-            })
+			let place = await Location.reverseGeocodeAsync({
+				latitude: location.coords.latitude,
+				longitude: location.coords.longitude,
+			});
+			setPlace(place);
+
+			place.find((place) => {
+				setZipCode(place.postalCode);
+			});
 		})();
 	}, []);
 
-   
+	console.log("LOCATION", location);
+	console.log("PLACE", place);
+	console.log("ZIPCODE", zipCode);
+
 	let text = "Loading location info...";
 	if (errorMsg) {
 		text = errorMsg;
@@ -41,7 +46,9 @@ export default function SetLocationScreen() {
 
 	return (
 		<View style={styles.container}>
-			<Text>Location: {zipCode}</Text>
+			<Text>
+				<FontAwesome name="map-marker" size={20} color="blue" /> {zipCode}
+			</Text>
 		</View>
 	);
 }
