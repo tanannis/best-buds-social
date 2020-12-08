@@ -55,27 +55,47 @@ export default function HomeScreen() {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
+  const user = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
-  const chatRooms = firebase.firestore().collection("ChatRooms") //Access and create chatrooms
+  const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
 
   // Need to add to users: "usersILike" and "usersWhoLikeMe"
 
-    //Set match=true in both user's liked_by_people collection for the other user
-  firestore().doc(user).collection("usersILike").doc(userId).set({
-      match: true
-  }, {
-      merge: true
-  });
+  //Set match=true in both user's liked_by_people collection for the other user
 
-  firestore().doc(user).collection('usersWhoLikeMe').doc(userId).set({
-      match: true
-  }, {
-      merge: true
-  });
-
-  const onSwiped = () => {
+  const onSwiped = (onSwipedLeft, onSwipedRight) => {
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % user.length);
+    
+    if (onSwipedLeft){
+      user.collection("userDislikes").doc(userId).add({
+        fullName,
+        id,
+        match: false,
+        merge: false,
+      });
+    };
+
+    if (onSwipedRight){
+      user.collection("userLikes").doc(userId).add({
+      fullName,
+      id,
+      match: true,
+    });
+
+    async function createChatRoom (userId){
+      if (await (user).collection("userLikes").doc(userId)==(users).collection("userLikes").doc(userId)){
+        const createChat = firebase.firestore().collection("Chatrooms")
+        createChat
+        .firestore()
+        .collection("ChatRooms")
+        .doc(route.params.chatInfo._id)
+        .add({
+          Chats:firebase.firestore.FieldValue
+        })
+      } 
+    } return createChatRoom
+    }
   };
 
   useEffect(() => {
@@ -144,8 +164,9 @@ export default function HomeScreen() {
               }}
               infinite
               backgroundColor={"transparent"}
-              onSwiped={onSwiped}
-              onTapCard={() => swiperRef.current.swipeLeft()}
+              onSwiped={onSwiped(onSwipedLeft) && onSwiped(onSwipedRight)}
+              onSwipedRight={onSwipedRight}
+              onTapCard={() => swiperRef.current.onSwiped()}
               cardVerticalMargin={50}
               stackSize={stackSize}
               stackScale={10}
