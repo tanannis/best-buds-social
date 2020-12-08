@@ -6,14 +6,22 @@ import { firebase } from "../../firebase/config";
 
 //Next Steps: key/index bug, render messages on screen.
 
+
 export default function SingleChatRoom({ route }) {
     const [messages, setMessages] = useState([
     ]);
+    //creates unique id needed for each message, GiftedChat needs this field to be unique
+    const guidGenerator = () => {
+      var S4 = function() {
+         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      };
+      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
 
 // helper method that sends a message in a particular chatroom
 //The newMessage is concatenated with previous or the initial messages using GiftedChat.append() method.
   // function handleSend(newMessage = []) {
-  //   setMessages(GiftedChat.append(messages, newMessage));
+  //setMessages(GiftedChat.append(messages, newMessage));
   // }
   //gets user id of logged in user
   const userName = firebase.auth().currentUser.fullName
@@ -30,13 +38,20 @@ export default function SingleChatRoom({ route }) {
     }
 
 
-    firebase.firestore()
+    await firebase.firestore()
       .collection('ChatRooms')
       //pass in to .doc() the chatroom's unique id
       .doc(route.params.chatInfo._id)
       .update({
         Chats: firebase.firestore.FieldValue.arrayUnion({
-          FromUserId: fromUserId,
+          //add index
+          _id: guidGenerator(),
+          // FromUserId: fromUserId,
+          user: {
+            _id: fromUserId,
+            // name: userName,
+            // // avatar:,},
+          },
           ToUserId: getToUserId(),
           message: text,
           timestamp: firebase.firestore.Timestamp.now()
@@ -89,7 +104,7 @@ export default function SingleChatRoom({ route }) {
       </View>
     );
   }
-
+console.log("this is messages", messages)
   function renderLoading() {
     return (
       <View style={loadingStyles.loadingContainer}>
