@@ -56,7 +56,81 @@ export default function HomeScreen() {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
+  const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
+  const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
+
+  // Need to add to users: "usersILike" and "usersWhoLikeMe"
+
+  //Set match=true in both user's liked_by_people collection for the other user
+
+  const onSwipedLeft = () => {
+    console.log("inside swipedleft");
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("userDislikes")
+      // .doc(user[index].id)
+      .add({
+        fullName: user[index].fullName,
+        id: user[index].id,
+        match: false,
+        merge: false,
+      });
+  };
+
+  const onSwipedRight = () => {
+    console.log("in swiped right");
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("userLikes")
+      // .doc(user[index].id)
+      .add({
+        fullName: user[index].fullName,
+        id: user[index].id,
+        match: true,
+      });
+
+    createChatRoom();
+  };
+
+  async function createChatRoom(userId) {
+    // if (
+    //   await
+
+    //   const whatisthis = firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(user[index].id)
+    //     .collection("userLikes")
+    //     .where("id", "==", currentUser.uid)
+    //   //  ==
+    //   // users.collection("userLikes").doc(userId)
+    // ) {
+    const whatisthis = await firebase
+      .firestore()
+      .collection("users")
+      .doc(user[index].id)
+      .collection("userLikes");
+    // .where("id", "==", currentUser.uid);
+
+    console.log("userLikes", whatisthis);
+    // const createChat = firebase.firestore().collection("Chatrooms");
+    // createChat
+    //   .firestore()
+    //   .collection("ChatRooms")
+    //   .doc(route.params.chatInfo._id)
+    //   .add({
+    //     Chats: firebase.firestore.FieldValue,
+    //   });
+    // }
+  }
+  // return createChatRoom;
+  // }
+
   const onSwiped = () => {
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % user.length);
@@ -125,7 +199,9 @@ export default function HomeScreen() {
             infinite
             backgroundColor={"transparent"}
             onSwiped={onSwiped}
-            onTapCard={() => swiperRef.current.swipeLeft()}
+            onSwipedLeft={onSwipedLeft}
+            onSwipedRight={onSwipedRight}
+            // onTapCard={() => swiperRef.current.swipeLeft()}
             cardVerticalMargin={50}
             stackSize={stackSize}
             stackScale={10}

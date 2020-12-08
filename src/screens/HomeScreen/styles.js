@@ -7,6 +7,7 @@ const colors = {
   white: "#ffffff",
   black: "#000000",
 };
+
 export default StyleSheet.create({
   container: {
     flex: 1,

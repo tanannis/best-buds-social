@@ -12,6 +12,7 @@ import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Dropdown } from "react-native-material-dropdown-v2";
 import * as ImagePicker from "expo-image-picker";
+import "firebase/storage";
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -27,6 +28,7 @@ export default function RegistrationScreen({ navigation }) {
   const [dogBreed, setDogBreed] = useState("");
   const [dogTemperament, setDogTemperament] = useState("");
   const [image, setImage] = useState(null);
+  const [localImage, setLocalImage] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -111,18 +113,76 @@ export default function RegistrationScreen({ navigation }) {
 
   const dogGenderOptions = [{ value: "Male" }, { value: "Female" }];
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+  uriToBlob = (uri) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        // return the blob
+        resolve(xhr.response);
+      };
+
+      xhr.onerror = function () {
+        // something went wrong
+        reject(new Error("uriToBlob failed"));
+      };
+      // this helps us get a blob
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+
+      xhr.send(null);
+    });
+  };
+
+  uploadToFirebase = (blob) => {
+    return new Promise((resolve, reject) => {
+      var storageRef = firebase.storage().ref();
+      storageRef
+        .child(`uploads/${email}.jpg`)
+        .put(blob, {
+          contentType: "image/jpeg",
+        })
+        .then((snapshot) => {
+          blob.close();
+          resolve(snapshot);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const pickImage = () => {
+    if (email === "") {
+      alert("Please complete email field before uploading image");
+      return;
+    }
+    ImagePicker.launchImageLibraryAsync({
+      mediaTypes: "Images",
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    });
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
+    })
+      .then((result) => {
+        if (!result.cancelled) {
+          const { height, width, type, uri } = result;
+          setLocalImage(uri);
+          return uriToBlob(uri);
+        }
+      })
+      .then((blob) => {
+        return uploadToFirebase(blob);
+      })
+      .then(() => {
+        firebase
+          .storage()
+          .ref()
+          .child(`uploads/${email}.jpg`)
+          .getDownloadURL()
+          .then((url) => setImage(url));
+      })
+      .catch((error) => {
+        throw error;
+      });
   };
 
   return (
@@ -138,30 +198,11 @@ export default function RegistrationScreen({ navigation }) {
         <View style={{ alignItems: "center" }}>
           {image && (
             <Image
-              source={{ uri: image }}
+              source={{ uri: localImage }}
               style={{ width: 200, height: 200, borderRadius: 5, margin: 20 }}
             />
           )}
         </View>
-        <TouchableOpacity onPress={pickImage}>
-          <View
-            onPress={pickImage}
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#788eec",
-              height: 48,
-              marginLeft: 45,
-              marginRight: 45,
-              borderRadius: 5,
-            }}
-          >
-            <Text style={styles.buttonTitle}>
-              Choose an image for your profile picture
-            </Text>
-          </View>
-        </TouchableOpacity>
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -204,6 +245,25 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           textContentType={"oneTimeCode"}
         />
+        <TouchableOpacity onPress={pickImage}>
+          <View
+            onPress={pickImage}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "#788eec",
+              height: 24,
+              marginLeft: 45,
+              marginRight: 45,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={styles.buttonTitle}>
+              Choose an image of you & your dog!
+            </Text>
+          </View>
+        </TouchableOpacity>
         <TextInput
           //Newly Added UserBioSection
           style={styles.largeinput}
@@ -243,38 +303,21 @@ export default function RegistrationScreen({ navigation }) {
           label="Choose Dog Gender"
           data={dogGenderOptions}
           style={styles.dropdown}
-          // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogGender(value)}
-          // value={dogSize}
-          // underlineColorAndroid="transparent"
-          // autoCapitalize="none"
-          // textContentType={'oneTimeCode'}
         />
         <Dropdown
           //Newly Added Dog Section - Size
           label="Choose Dog Size"
           data={dogSizeOptions}
           style={styles.dropdown}
-          // placeholder="dog size"
-          // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogSize(value)}
-          // value={dogSize}
-          // underlineColorAndroid="transparent"
-          // autoCapitalize="none"
-          // textContentType={'oneTimeCode'}
         />
         <Dropdown
           //Newly Added Dog Section - Size
           label="Choose Dog Temperament"
           data={dogTemperamentOptions}
           style={styles.dropdown}
-          // placeholder="dog size"
-          // placeholderTextColor="#aaaaaa"
           onChangeText={(value) => setDogTemperament(value)}
-          // value={dogTemperament}
-          // underlineColorAndroid="transparent"
-          // autoCapitalize="none"
-          // textContentType={'oneTimeCode'}
         />
         <TouchableOpacity
           style={styles.button}
