@@ -10,6 +10,10 @@ import {
   SignedOutScreen,
 } from "./src/screens";
 import { MatchesStackNavigator, SettingsStackNavigator } from "./src/navigation/StackNavigator"
+  SettingsScreen,
+  MatchesScreen,
+  SignedOutScreen,
+} from "./src/screens";
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons"
@@ -22,6 +26,7 @@ if (!global.btoa) {
 if (!global.atob) {
   global.atob = decode;
 }
+
 
 const Tab = createBottomTabNavigator();
 
@@ -82,6 +87,7 @@ export default function App() {
           <>
             <Tab.Screen name="Login" component={LoginScreen} options={{tabBarVisible: false}}/>
             <Tab.Screen name="Registration" component={RegistrationScreen} options={{tabBarVisible: false}}/>
+
           </>
         )}
       </Tab.Navigator>
