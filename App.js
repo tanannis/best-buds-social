@@ -7,11 +7,13 @@ import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
+  SignedOutScreen,
+} from "./src/screens";
+import { MatchesStackNavigator, SettingsStackNavigator } from "./src/navigation/StackNavigator"
   SettingsScreen,
   MatchesScreen,
   SignedOutScreen,
 } from "./src/screens";
-  import StackNavigator from "./src/navigation/StackNavigator";
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons"
@@ -65,7 +67,6 @@ export default function App() {
     );
   }
   
-  //"Matches" component={StackNavigator} because it needs to have another screen nested inside it in order to navigate.
 
   return (
     <NavigationContainer>
@@ -76,9 +77,9 @@ export default function App() {
             <Tab.Screen name="Home" options={{tabBarIcon:()=> <FontAwesome name="home" size={40} color='gray'/>}}>
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
-            <Tab.Screen name="Matches" component={StackNavigator}
+            <Tab.Screen name="Matches" component={MatchesStackNavigator}
             options={{tabBarIcon:()=> <FontAwesome name="comment" size={30} color='gray'/>}} />
-            <Tab.Screen name="Settings" component={SettingsScreen} 
+            <Tab.Screen name="Settings" component={SettingsStackNavigator} 
             options={{tabBarIcon:()=> <FontAwesome name="cog" size={35} color='grey' 
             />}}/>
           </>
