@@ -15,13 +15,9 @@ export default function SettingsScreen({ navigation }) {
   // const [updateEmail, setUpdateEmail] = useState("");
   // const [updatepassword, setUpdatePassword] = useState("");
 
-  //OnPress to set your location -> navigate to SetLocationScreen 
-  //Display user location by zip code
-
   const onSetLocationPress = () => {
     navigation.navigate("SetLocation")
   }
-
 
   const onSignOutPress = () => {
     firebase
@@ -39,8 +35,7 @@ export default function SettingsScreen({ navigation }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity onPress={() => onSetLocationPress()}>
         <Text>Set Location</Text>
-      </TouchableOpacity>
-   
+      </TouchableOpacity>   
       <TouchableOpacity onPress={() => onSignOutPress()}>
         <Text>Log Out</Text>
       </TouchableOpacity>
