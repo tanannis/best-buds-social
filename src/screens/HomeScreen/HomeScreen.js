@@ -55,7 +55,7 @@ export default function HomeScreen() {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
-  const user = firebase.auth().currentUser;
+  const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
 
@@ -68,7 +68,7 @@ export default function HomeScreen() {
     setIndex((index + 1) % user.length);
     
     if (onSwipedLeft){
-      user.collection("userDislikes").doc(userId).add({
+      currentUser.collection("userDislikes").doc(userId).add({
         fullName,
         id,
         match: false,
@@ -77,14 +77,14 @@ export default function HomeScreen() {
     };
 
     if (onSwipedRight){
-      user.collection("userLikes").doc(userId).add({
+      currentUser.collection("userLikes").doc(userId).add({
       fullName,
       id,
       match: true,
     });
 
     async function createChatRoom (userId){
-      if (await (user).collection("userLikes").doc(userId)==(users).collection("userLikes").doc(userId)){
+      if (await (currentUser).collection("userLikes").doc(userId)==(users).collection("userLikes").doc(userId)){
         const createChat = firebase.firestore().collection("Chatrooms")
         createChat
         .firestore()
