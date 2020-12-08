@@ -13,6 +13,7 @@ import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const colors = {
   red: "#EC2379",
@@ -55,7 +56,7 @@ export default function HomeScreen() {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
-  const user = firebase.auth().currentUser;
+  const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
 
@@ -63,39 +64,76 @@ export default function HomeScreen() {
 
   //Set match=true in both user's liked_by_people collection for the other user
 
-  const onSwiped = (onSwipedLeft, onSwipedRight) => {
-    transitionRef.current.animateNextTransition();
-    setIndex((index + 1) % user.length);
-    
-    if (onSwipedLeft){
-      user.collection("userDislikes").doc(userId).add({
-        fullName,
-        id,
+  const onSwipedLeft = () => {
+    console.log("inside swipedleft");
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("userDislikes")
+      // .doc(user[index].id)
+      .add({
+        fullName: user[index].fullName,
+        id: user[index].id,
         match: false,
         merge: false,
       });
-    };
+  };
 
-    if (onSwipedRight){
-      user.collection("userLikes").doc(userId).add({
-      fullName,
-      id,
-      match: true,
-    });
+  const onSwipedRight = () => {
+    console.log("in swiped right");
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("userLikes")
+      // .doc(user[index].id)
+      .add({
+        fullName: user[index].fullName,
+        id: user[index].id,
+        match: true,
+      });
 
-    async function createChatRoom (userId){
-      if (await (user).collection("userLikes").doc(userId)==(users).collection("userLikes").doc(userId)){
-        const createChat = firebase.firestore().collection("Chatrooms")
-        createChat
-        .firestore()
-        .collection("ChatRooms")
-        .doc(route.params.chatInfo._id)
-        .add({
-          Chats:firebase.firestore.FieldValue
-        })
-      } 
-    } return createChatRoom
-    }
+    createChatRoom();
+  };
+
+  async function createChatRoom(userId) {
+    // if (
+    //   await
+
+    //   const whatisthis = firebase
+    //     .firestore()
+    //     .collection("users")
+    //     .doc(user[index].id)
+    //     .collection("userLikes")
+    //     .where("id", "==", currentUser.uid)
+    //   //  ==
+    //   // users.collection("userLikes").doc(userId)
+    // ) {
+    const whatisthis = await firebase
+      .firestore()
+      .collection("users")
+      .doc(user[index].id)
+      .collection("userLikes");
+    // .where("id", "==", currentUser.uid);
+
+    console.log("userLikes", whatisthis);
+    // const createChat = firebase.firestore().collection("Chatrooms");
+    // createChat
+    //   .firestore()
+    //   .collection("ChatRooms")
+    //   .doc(route.params.chatInfo._id)
+    //   .add({
+    //     Chats: firebase.firestore.FieldValue,
+    //   });
+    // }
+  }
+  // return createChatRoom;
+  // }
+
+  const onSwiped = () => {
+    transitionRef.current.animateNextTransition();
+    setIndex((index + 1) % user.length);
   };
 
   useEffect(() => {
@@ -140,83 +178,81 @@ export default function HomeScreen() {
           </Text>
         </View>
       ) : (
-        <View>
-          <View style={styles.swiperContainer}>
-            <Swiper
-              ref={swiperRef}
-              cards={user}
-              cardIndex={index}
-              renderCard={(card) => {
-                return (
-                  <View style={styles.card}>
-                    <Image
-                      source={{ uri: card.image }}
-                      style={styles.cardImage}
-                    />
-                    <Text
-                      style={[styles.text, styles.heading]}
-                      numberOfLines={2}
-                    >
-                      {user[index].fullName}
-                    </Text>
-                  </View>
-                );
-              }}
-              infinite
-              backgroundColor={"transparent"}
-              onSwiped={onSwiped}
-              onTapCard={() => swiperRef.current.swipeLeft()}
-              cardVerticalMargin={50}
-              stackSize={stackSize}
-              stackScale={10}
-              stackSeparation={14}
-              animateOverlayLabelsOpacity
-              animateCardOpacity
-              disableTopSwipe
-              disableBottomSwipe
-              overlayLabels={{
-                left: {
-                  title: "NOPE",
-                  style: {
-                    label: {
-                      backgroundColor: colors.red,
-                      borderColor: colors.red,
-                      color: colors.white,
-                      borderWidth: 1,
-                      fontSize: 24,
-                    },
-                    wrapper: {
-                      flexDirection: "column",
-                      alignItems: "flex-end",
-                      justifyContent: "flex-start",
-                      marginTop: 20,
-                      marginLeft: -20,
-                    },
+        <View style={styles.swiperContainer}>
+          <Swiper
+            ref={swiperRef}
+            cards={user}
+            cardIndex={index}
+            renderCard={(card) => {
+              return (
+                <View style={styles.card}>
+                  <Image
+                    source={{ uri: card.image }}
+                    style={styles.cardImage}
+                  />
+                  <Text style={[styles.text, styles.heading]} numberOfLines={2}>
+                    {user[index].fullName}
+                  </Text>
+                </View>
+              );
+            }}
+            infinite
+            backgroundColor={"transparent"}
+            onSwiped={onSwiped}
+            onSwipedLeft={onSwipedLeft}
+            onSwipedRight={onSwipedRight}
+            // onTapCard={() => swiperRef.current.swipeLeft()}
+            cardVerticalMargin={50}
+            stackSize={stackSize}
+            stackScale={10}
+            stackSeparation={14}
+            animateOverlayLabelsOpacity
+            animateCardOpacity
+            disableTopSwipe
+            disableBottomSwipe
+            overlayLabels={{
+              left: {
+                title: "NOPE",
+                style: {
+                  label: {
+                    backgroundColor: colors.red,
+                    borderColor: colors.red,
+                    color: colors.white,
+                    borderWidth: 1,
+                    fontSize: 24,
+                  },
+                  wrapper: {
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-start",
+                    marginTop: 20,
+                    marginLeft: -20,
                   },
                 },
-                right: {
-                  title: "LIKE",
-                  style: {
-                    label: {
-                      backgroundColor: colors.blue,
-                      borderColor: colors.blue,
-                      color: colors.white,
-                      borderWidth: 1,
-                      fontSize: 24,
-                    },
-                    wrapper: {
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      justifyContent: "flex-start",
-                      marginTop: 20,
-                      marginLeft: 20,
-                    },
+              },
+              right: {
+                title: "LIKE",
+                style: {
+                  label: {
+                    backgroundColor: colors.blue,
+                    borderColor: colors.blue,
+                    color: colors.white,
+                    borderWidth: 1,
+                    fontSize: 24,
+                  },
+                  wrapper: {
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                    marginTop: 20,
+                    marginLeft: 20,
                   },
                 },
-              }}
-            />
-          </View>
-          <View style={styles.bottomContainer}>
+              },
+            }}
+          />
+
+          <View>
             <Transitioning.View
               ref={transitionRef}
               transition={transition}
@@ -224,6 +260,47 @@ export default function HomeScreen() {
             >
               <CardDetails index={index} />
             </Transitioning.View>
+            <View style={styles.bottomContainerButtons}>
+              <MaterialCommunityIcons.Button
+                name="arrow-left"
+                size={94}
+                backgroundColor="transparent"
+                underlayColor="transparent"
+                activeOpacity={0.3}
+                color={colors.red}
+                onPress={() => swiperRef.current.swipeLeft()}
+              />
+              <MaterialCommunityIcons.Button
+                name="arrow-right"
+                size={94}
+                backgroundColor="transparent"
+                underlayColor="transparent"
+                activeOpacity={0.3}
+                color={colors.blue}
+                onPress={() => swiperRef.current.swipeRight()}
+              />
+            </View>
+
+            {/* <View style={styles.bottomContainerButtons}>
+              <MaterialCommunityIcons.Button
+                name="close"
+                size={94}
+                backgroundColor="transparent"
+                underlayColor="transparent"
+                activeOpacity={0.3}
+                color={colors.red}
+                onPress={() => swiperRef.current.swipeLeft()}
+              />
+              <MaterialCommunityIcons.Button
+                name="circle-outline"
+                size={94}
+                backgroundColor="transparent"
+                underlayColor="transparent"
+                activeOpacity={0.3}
+                color={colors.blue}
+                onPress={() => swiperRef.current.swipeRight()}
+              />
+            </View> */}
           </View>
         </View>
       )}

@@ -7,18 +7,20 @@ import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
-} from "./src/screens";
+  SignedOutScreen,
+  SettingsScreen,
+  MatchesScreen,} 
+from "./src/screens";
 import { MatchesStackNavigator, SettingsStackNavigator } from "./src/navigation/StackNavigator";
 import {
-  SettingsScreen,
-  MatchesScreen,
-  SignedOutScreen,
-} from "./src/screens";
+  MatchesStackNavigator,
+  SettingsStackNavigator,
+} from "./src/navigation/StackNavigator";
+
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
-import { FontAwesome } from "@expo/vector-icons"
+import { FontAwesome } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
-
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -27,9 +29,7 @@ if (!global.atob) {
   global.atob = decode;
 }
 
-
 const Tab = createBottomTabNavigator();
-
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -73,7 +73,6 @@ export default function App() {
       <Tab.Navigator>
         {user ? (
           <>
-
             <Tab.Screen name="Home" options={{tabBarIcon:()=> <FontAwesome name="home" size={40} color='gray'/>}}>
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
@@ -85,9 +84,16 @@ export default function App() {
           </>
         ) : (
           <>
-            <Tab.Screen name="Login" component={LoginScreen} options={{tabBarVisible: false}}/>
-            <Tab.Screen name="Registration" component={RegistrationScreen} options={{tabBarVisible: false}}/>
-
+            <Tab.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ tabBarVisible: false }}
+            />
+            <Tab.Screen
+              name="Registration"
+              component={RegistrationScreen}
+              options={{ tabBarVisible: false }}
+            />
           </>
         )}
       </Tab.Navigator>

@@ -8,11 +8,10 @@ const colors = {
   black: "#000000",
 };
 
-    
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: "#d8ecf3",
   },
   swiperContainer: {
     flex: 0.55,
@@ -53,17 +52,70 @@ export default StyleSheet.create({
     color: colors.white,
     backgroundColor: "transparent",
   },
-  text: {
-    fontFamily: "Courier",
-  },
-  heading: {
-    fontSize: 24,
-    marginBottom: 10,
-    color: colors.gray,
-  },
-  price: {
-    color: colors.blue,
-    fontSize: 32,
-    fontWeight: "500",
-  },
+  text: { fontFamily: "Courier" },
+  heading: { fontSize: 24, marginBottom: 10, color: colors.gray },
+  price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
 });
+// export default StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#d8ecf3",
+//   },
+//   swiperContainer: {
+//     // flex: 0.55,
+//   },
+//   bottomContainer: {
+//     flex: 1,
+//     // display: "flex",
+//     justifyContent: "flex-end",
+//     alignItems: "center",
+//   },
+//   bottomContainerButtons: {
+//     flex: 1,
+//     flexDirection: "row",
+//     justifyContent: "space-evenly",
+//   },
+
+//   bottomContainerMeta: { alignContent: "flex-end", alignItems: "center" },
+
+//   cardImage: {
+//     width: "100%",
+//     flex: 1,
+//     resizeMode: "contain",
+//   },
+//   card: {
+//     flex: 0.5,
+//     borderRadius: 8,
+//     shadowRadius: 25,
+//     shadowColor: colors.black,
+//     shadowOpacity: 0.08,
+//     shadowOffset: { width: 0, height: 0 },
+//     justifyContent: "center",
+//     alignItems: "center",
+//     backgroundColor: colors.white,
+//   },
+//   text: {
+//     textAlign: "center",
+//     fontSize: 50,
+//     backgroundColor: "transparent",
+//   },
+//   done: {
+//     textAlign: "center",
+//     fontSize: 30,
+//     color: colors.white,
+//     backgroundColor: "transparent",
+//   },
+//   text: {
+//     fontFamily: "Courier",
+//   },
+//   heading: {
+//     fontSize: 24,
+//     marginBottom: 10,
+//     color: colors.gray,
+//   },
+//   price: {
+//     color: colors.blue,
+//     fontSize: 32,
+//     fontWeight: "500",
+//   },
+// });
