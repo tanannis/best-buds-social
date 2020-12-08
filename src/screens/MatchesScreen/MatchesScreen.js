@@ -15,7 +15,7 @@ export default function MatchesScreen({ navigation }) {
 
 	//map/display all chats for only the logged-in user
 	useEffect(() => {
-		//get currently signed-in user's information - to see what the user object looks like, console.log(user). You can access the user's uid from this object, which is used for querying in the .where() method.
+		//get currently signed-in user's information. You can access the user's uid from this object, which is used for querying in the .where() method.
 		let user = firebase.auth().currentUser;
 
 		const unsubscribe = firebase
@@ -47,6 +47,13 @@ export default function MatchesScreen({ navigation }) {
 		return () => unsubscribe();
 	}, []);
 
+	//here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
+	const selectChat = (item) => {
+		navigation.navigate("SingleChat", {
+			chatInfo: item
+		 });
+	};
+
 	if (loading) {
 		return (
 			<>
@@ -54,14 +61,6 @@ export default function MatchesScreen({ navigation }) {
 			</>
 		);
 	}
-  //here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
-	const selectChat = (item) => {
-		navigation.navigate("SingleChat", {
-			chatInfo: item
-		 });
-	};
-
-
 
 	return (
 		<>
