@@ -7,7 +7,6 @@ import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
-  SettingsScreen,
   SignedOutScreen,
 } from "./src/screens";
 import { MatchesStackNavigator, SettingsStackNavigator } from "./src/navigation/StackNavigator"
@@ -63,7 +62,7 @@ export default function App() {
     );
   }
   
-  //"Matches" component={StackNavigator} because it needs to have another screen nested inside it in order to navigate.
+
   return (
     <NavigationContainer>
       <Tab.Navigator>

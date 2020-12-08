@@ -29,7 +29,7 @@ export function MatchesStackNavigator() {
 };
 
 export function SettingsStackNavigator() {
-  //"SingChat" is nested inside "Matches", so can navigate from "Matches" to "SingleChatRoom"
+  //"SetLocation" is nested inside "Settings", so can navigate from "Settings" to "SetLocation"
   return (
     <>
     <NavigationContainer independent={true}>

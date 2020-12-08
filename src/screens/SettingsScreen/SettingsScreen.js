@@ -17,7 +17,7 @@ export default function SettingsScreen({ navigation }) {
 
   //OnPress to set your location -> navigate to SetLocationScreen 
   //Display user location by zip code
-  //filter: find other user location by the same zip code because we don't want to show the exact location
+
   const onSetLocationPress = () => {
     navigation.navigate("SetLocation")
   }
