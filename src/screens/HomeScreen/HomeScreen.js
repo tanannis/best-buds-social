@@ -164,9 +164,8 @@ export default function HomeScreen() {
               }}
               infinite
               backgroundColor={"transparent"}
-              onSwiped={onSwiped(onSwipedLeft) && onSwiped(onSwipedRight)}
-              onSwipedRight={onSwipedRight}
-              onTapCard={() => swiperRef.current.onSwiped()}
+              onSwiped={onSwiped}
+              onTapCard={() => swiperRef.current.swipeLeft()}
               cardVerticalMargin={50}
               stackSize={stackSize}
               stackScale={10}
