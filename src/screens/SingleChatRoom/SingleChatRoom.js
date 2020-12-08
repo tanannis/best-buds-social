@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import styles, { loadingStyles } from "./styles";
-import { ActivityIndicator, View, Text } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { firebase } from "../../firebase/config";
+
+//Next Steps: key/index bug, render messages on screen.
 
 export default function SingleChatRoom({ route }) {
     const [messages, setMessages] = useState([
     ]);
-    // const [loading, setLoading] = useState(true);
 
 // helper method that sends a message in a particular chatroom
 //The newMessage is concatenated with previous or the initial messages using GiftedChat.append() method.
@@ -44,44 +45,23 @@ export default function SingleChatRoom({ route }) {
   };
 
   const fetchMessages = async () => {
-    const messages = await firebase
+    const chatroomDoc = await firebase
     .firestore()
     .collection('ChatRooms')
     .doc(route.params.chatInfo._id)
-    .get('Chats')
+    .get()
+    .then(doc => {
+      // console.log("this is doccc", doc.data())
+      return doc.data()
+    })
+    const messages = chatroomDoc.Chats
 
     setMessages(messages)
   }
-
+  //hook allows you to add side effects to functional component such as fetching data.
   useEffect(() => {
     fetchMessages()
-  })
-  console.log(messages)
-
-  //hook allows you to add side effects to functional component such as fetching data.
-  // useEffect(() => {
-  //   const messages = firebase
-  //   .firestore()
-  //   .collection('ChatRooms')
-  //   .doc(route.params.chatInfo._id)
-  //   // // .documentSnapshot()
-  //   .get()
-
-  //       console.log("This is messages", messages)
-
-  //       if (loading) {
-	// 				setLoading(false);
-	// 			}
-
-  //   // //   }
-    // // })
-    // const chatroomRef = firebase
-    // .firestore()
-    // .collection("ChatRooms")
-    // .doc("UvBpiiWrMT0qJo5nsXhQ");
-    //     const doc = chatroomRef.get();if (!doc.exists) {      console.log("No such document!");    } else {     console.log("Document data:", doc.data()); }
-  // })
-  // setMessages(messages)
+  }, [])
 
 
   function renderBubble(props) {
@@ -118,19 +98,12 @@ export default function SingleChatRoom({ route }) {
     );
   }
 
-  // if (loading) {
-	// 	return (
-	// 		<>
-	// 			<Text>Loading Messages...</Text>
-	// 		</>
-	// 	);
-	// }
-
   return (
     <GiftedChat
       messages={messages}
-      onSend={newMessage => handleSend(newMessage)}
-      user={{ _id: fromUserId, name: userName }}
+      onSend={handleSend}
+      // onSend={newMessage => handleSend(newMessage)}
+      user={{ _id: fromUserId}}
       renderBubble={renderBubble}
       placeholder="Type your message here..."
       showUserAvatar
