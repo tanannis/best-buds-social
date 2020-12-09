@@ -37,7 +37,6 @@ export default function SingleChatRoom({ route }) {
           email: currentUser.email,
         },
       });
-    // onSend(messages);
   }
 
   useEffect(() => {
@@ -69,8 +68,11 @@ export default function SingleChatRoom({ route }) {
     return () => messagesListener();
   }, []);
 
+
+
+
+
     function renderBubble(props) {
-    // console.log("in render bubble", props)
     return (
       <Bubble
         {...props}

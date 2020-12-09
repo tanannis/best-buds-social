@@ -12,11 +12,19 @@ export default function MatchesScreen({ navigation }) {
 	const onChangeSearch = (query) => setSearchTerm(query);
 	const [chats, setChats] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [toUserName, setToUserName] = useState("")
 
 	//map/display all chats for only the logged-in user
+	// async function getToUserName () {
+	// 	const userName = await firebase
+	// 	.firestore()
+	// 	.collection('ChatRooms')
+	// 	.doc()	
+	// }
+
 	useEffect(() => {
 		let user = firebase.auth().currentUser;
-
+	
 		//get currently signed-in user's information. You can access the user's uid from this object, which is used for querying in the .where() method.
 		//let user = firebase.auth().currentUser;
 
@@ -49,6 +57,31 @@ export default function MatchesScreen({ navigation }) {
 		return () => unsubscribe();
 	}, []);
 
+	//found the toUserId inside nested chats array
+	// console.log('WWWWWW', chats[0].Chats[0].ToUserId)
+
+	// const ToUserId = chats[0].Chats[0].ToUserId
+
+	// console.log('YYYYYYY', ToUserId)
+
+	async function getToUserName () {
+		const toUserId = chats[0].Chats[0].ToUserId
+		const userName = await firebase
+		.firestore()
+		.collection('users')
+		.doc(toUserId)
+		.get()
+		.then(doc => {
+			// console.log('DATTAAAASSSSS', doc.data())
+			return doc.data()
+		})
+		const toUserFullName = userName.fullName
+		// console.log('SET FULL NAME', toUserFullName)
+		setToUserName(toUserFullName)
+	}
+	getToUserName()
+
+	
 	//here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
 	const selectChat = (item) => {
 		navigation.navigate("SingleChat", {
@@ -81,7 +114,7 @@ export default function MatchesScreen({ navigation }) {
 						<TouchableOpacity onPress={() => selectChat(item)}>
 							<List.Item
 								title={item.name}
-								description="chatRoom"
+								description={toUserName}
 								chatroomId={item._id}
 								chats={item.Chats}
 								users={item.Users}
