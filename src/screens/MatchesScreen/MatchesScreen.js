@@ -15,8 +15,10 @@ export default function MatchesScreen({ navigation }) {
 
 	//map/display all chats for only the logged-in user
 	useEffect(() => {
-		//get currently signed-in user's information. You can access the user's uid from this object, which is used for querying in the .where() method.
 		let user = firebase.auth().currentUser;
+
+		//get currently signed-in user's information. You can access the user's uid from this object, which is used for querying in the .where() method.
+		//let user = firebase.auth().currentUser;
 
 		const unsubscribe = firebase
 			.firestore()
