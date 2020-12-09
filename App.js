@@ -7,7 +7,6 @@ import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
-  SignedOutScreen,
   SettingsScreen,
   MatchesScreen,
   MapScreen
