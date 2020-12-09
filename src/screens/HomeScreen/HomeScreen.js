@@ -8,6 +8,7 @@ import {
   View,
   SafeAreaView,
   FlatList,
+  Alert,
 } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
@@ -108,11 +109,22 @@ export default function HomeScreen() {
     if (snapshot.empty) {
       console.log("false");
     } else {
+      Alert.alert(
+        "Congrats! It's a match!",
+        "Head to your matches to start chatting!",
+        [
+          {
+            text: "OK",
+          },
+        ],
+        { cancelable: false }
+      );
       const createChat = firebase.firestore().collection("ChatRooms");
       createChat.add({
         Chats: [],
         Users: [currentUser.uid, user[index].id],
       });
+
       console.log("true");
     }
   }

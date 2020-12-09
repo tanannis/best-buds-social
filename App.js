@@ -7,7 +7,6 @@ import {
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
-  SignedOutScreen,
   SettingsScreen,
   MatchesScreen,
 } from "./src/screens";
