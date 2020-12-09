@@ -65,7 +65,6 @@ export default function HomeScreen() {
   // Need to add to users: "usersILike" and "usersWhoLikeMe"
 
   //Set match=true in both user's liked_by_people collection for the other user
-
   const onSwipedLeft = () => {
     console.log("inside swipedleft");
     firebase
