@@ -1,129 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import styles, { loadingStyles } from "./styles";
-import { ActivityIndicator, View } from "react-native";
-import { firebase } from "../../firebase/config";
-
-//Next Steps: key/index bug, render messages on screen.
-
+import React, { useState, useCallback, useEffect } from 'react';
+import { GiftedChat } from 'react-native-gifted-chat';
+import { firebase } from '../../firebase/config';
 
 export default function SingleChatRoom({ route }) {
-    const [messages, setMessages] = useState([
-    ]);
-    //creates unique id needed for each message, GiftedChat needs this field to be unique
-    const guidGenerator = () => {
-      var S4 = function() {
-         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-      };
-      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-    }
-
-// helper method that sends a message in a particular chatroom
-//The newMessage is concatenated with previous or the initial messages using GiftedChat.append() method.
-  // function handleSend(newMessage = []) {
-  //setMessages(GiftedChat.append(messages, newMessage));
-  // }
-  //gets user id of logged in user
-  const userName = firebase.auth().currentUser.fullName
+  const [messages, setMessages] = useState([]);
+  const currentUser = firebase.auth().currentUser;
+  const ChatRoomId = route.params.chatInfo._id;
   const fromUserId = firebase.auth().currentUser.uid;
 
+  //useCallback is a hook used on state change
+  const onSend = useCallback((messages = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages)
+      );
+      // console.log("This is previous message", previousMessages)
+    // setMessages(() =>
+    //   GiftedChat.append(messages)
+    // );
+
+  }, []);
+
+
   async function handleSend(messages) {
-    //selects newest message in chatroom
     const text = messages[0].text;
-    //gets other user id that shares this chatroom
-    function getToUserId() {
-      const fetchUsersArray = route.params.chatInfo.Users
-      const toUserId = fetchUsersArray.filter(user => user != fromUserId).join()
-      return toUserId
-    }
-
-
-    await firebase.firestore()
+    await firebase
+      .firestore()
       .collection('ChatRooms')
-      //pass in to .doc() the chatroom's unique id
-      .doc(route.params.chatInfo._id)
-      .update({
-        Chats: firebase.firestore.FieldValue.arrayUnion({
-          //add index
-          _id: guidGenerator(),
-          // FromUserId: fromUserId,
-          user: {
-            _id: fromUserId,
-            // name: userName,
-            // // avatar:,},
-          },
-          ToUserId: getToUserId(),
-          message: text,
-          timestamp: firebase.firestore.Timestamp.now()
-        })
-      })
-  };
-
-  const fetchMessages = async () => {
-    const chatroomDoc = await firebase
-    .firestore()
-    .collection('ChatRooms')
-    .doc(route.params.chatInfo._id)
-    .get()
-    .then(doc => {
-      // console.log("this is doccc", doc.data())
-      return doc.data()
-    })
-    const messages = chatroomDoc.Chats
-
-    setMessages(messages)
+      //pass in to .doc() the chatroom’s unique id
+      .doc(ChatRoomId)
+      .collection('Messages')
+      .add({
+        text,
+        createdAt: new Date().getTime(),
+        user: {
+          _id: currentUser.uid,
+          email: currentUser.email,
+        },
+      });
+    // onSend(messages);
   }
-  //hook allows you to add side effects to functional component such as fetching data.
+
   useEffect(() => {
-    fetchMessages()
-  }, [])
-
-
-  function renderBubble(props) {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: '#6646ee'
+    const messagesListener = firebase
+      .firestore()
+      .collection('ChatRooms')
+      .doc(ChatRoomId)
+      .collection('Messages')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((querySnapshot) => {
+        const messages = querySnapshot.docs.map((doc) => {
+          const firebaseData = doc.data();
+          const data = {
+            _id: doc.id,
+            text: '',
+            createdAt: new Date().getTime(),
+            ...firebaseData,
+          };
+          if (!firebaseData.system) {
+            data.user = {
+              ...firebaseData.user,
+              name: firebaseData.user.email,
+            };
           }
-        }}
-        textStyle={{
-          right: {
-            color: '#fff'
-          }
-        }}
-      />
-    );
-  }
-
-  function scrollToBottomComponent() {
-    return (
-      <View style={styles.bottomComponentContainer}>
-        <IconButton icon="chevron-double-down" size={36} color="#6646ee" />
-      </View>
-    );
-  }
-console.log("this is messages", messages)
-  function renderLoading() {
-    return (
-      <View style={loadingStyles.loadingContainer}>
-        <ActivityIndicator size="large" color="#6646ee" />
-      </View>
-    );
-  }
+          return data;
+        });
+        setMessages(messages);
+      });
+    return () => messagesListener();
+  }, []);
 
   return (
     <GiftedChat
       messages={messages}
       onSend={handleSend}
-      // onSend={newMessage => handleSend(newMessage)}
-      user={{ _id: fromUserId}}
-      renderBubble={renderBubble}
-      placeholder="Type your message here..."
-      showUserAvatar
-      scrollToBottomComponent={scrollToBottomComponent}
-      renderLoading={renderLoading}
+      user={{
+        _id: fromUserId,
+      }}
     />
   );
 }
