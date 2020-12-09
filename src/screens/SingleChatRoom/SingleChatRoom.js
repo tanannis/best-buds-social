@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { firebase } from '../../firebase/config';
 
 export default function SingleChatRoom({ route }) {
@@ -69,6 +69,33 @@ export default function SingleChatRoom({ route }) {
     return () => messagesListener();
   }, []);
 
+    function renderBubble(props) {
+    // console.log("in render bubble", props)
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#9AC4F8',
+          }, 
+          left: {
+            backgroundColor: 'silver'
+          }
+        }}
+        textStyle={{
+          right: {
+            color: '#fff'
+          }
+        }}
+        textProps={{
+          style: {
+            color: 'black'
+          }
+        }}
+      />
+    );
+  }
+
   return (
     <GiftedChat
       messages={messages}
@@ -76,6 +103,7 @@ export default function SingleChatRoom({ route }) {
       user={{
         _id: fromUserId,
       }}
+      renderBubble={renderBubble}
     />
   );
 }
