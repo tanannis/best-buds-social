@@ -56,6 +56,7 @@ export default function HomeScreen() {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
+  const [end, reachedEnd] = useState(false);
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
@@ -71,7 +72,6 @@ export default function HomeScreen() {
       .collection("users")
       .doc(currentUser.uid)
       .collection("userDislikes")
-      // .doc(user[index].id)
       .add({
         fullName: user[index].fullName,
         id: user[index].id,
@@ -87,7 +87,6 @@ export default function HomeScreen() {
       .collection("users")
       .doc(currentUser.uid)
       .collection("userLikes")
-      // .doc(user[index].id)
       .add({
         fullName: user[index].fullName,
         id: user[index].id,
@@ -110,31 +109,22 @@ export default function HomeScreen() {
       console.log("false");
     } else {
       const createChat = firebase.firestore().collection("ChatRooms");
-      createChat
-        // .doc(route.params.chatInfo._id)
-        .add({
-          Chats: [],
-          Users: [currentUser.uid, user[index].id],
-        });
+      createChat.add({
+        Chats: [],
+        Users: [currentUser.uid, user[index].id],
+      });
       console.log("true");
     }
-
-    // const createChat = firebase.firestore().collection("Chatrooms");
-    // createChat
-    //   .firestore()
-    //   .collection("ChatRooms")
-    //   .doc(route.params.chatInfo._id)
-    //   .add({
-    //     Chats: firebase.firestore.FieldValue,
-    //   });
-    // }
   }
-  // return createChatRoom;
-  // }
 
   const onSwiped = () => {
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % user.length);
+  };
+
+  const onTopSwipe = () => {
+    transitionRef.current.animateNextTransition();
+    setIndex(index + 1);
   };
 
   useEffect(() => {
@@ -155,12 +145,6 @@ export default function HomeScreen() {
     });
   }, []);
 
-  // const Card = ({ card }) => (
-  //   <View style={styles.card}>
-  //     <Image source={{ uri: card.image }} style={styles.cardImage} />
-  //   </View>
-  // );
-
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>
       <Text style={[styles.text, styles.heading]} numberOfLines={2}>
@@ -177,6 +161,10 @@ export default function HomeScreen() {
           <Text style={{ justifyContent: "center", alignItems: "center" }}>
             Loading
           </Text>
+        </View>
+      ) : end ? (
+        <View>
+          <Text>End of Matches</Text>
         </View>
       ) : (
         <View style={styles.swiperContainer}>
@@ -197,19 +185,22 @@ export default function HomeScreen() {
                 </View>
               );
             }}
-            infinite
+            infinite={false}
             backgroundColor={"transparent"}
             onSwiped={onSwiped}
             onSwipedLeft={onSwipedLeft}
             onSwipedRight={onSwipedRight}
-            // onTapCard={() => swiperRef.current.swipeLeft()}
             cardVerticalMargin={50}
             stackSize={stackSize}
             stackScale={10}
             stackSeparation={14}
             animateOverlayLabelsOpacity
             animateCardOpacity
-            disableTopSwipe
+            onTopSwipe={onTopSwipe}
+            onSwipedAll={() => {
+              console.log("in onSwipedAll");
+              reachedEnd(true);
+            }}
             disableBottomSwipe
             overlayLabels={{
               left: {
@@ -281,27 +272,6 @@ export default function HomeScreen() {
                 onPress={() => swiperRef.current.swipeRight()}
               />
             </View>
-
-            {/* <View style={styles.bottomContainerButtons}>
-              <MaterialCommunityIcons.Button
-                name="close"
-                size={94}
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.3}
-                color={colors.red}
-                onPress={() => swiperRef.current.swipeLeft()}
-              />
-              <MaterialCommunityIcons.Button
-                name="circle-outline"
-                size={94}
-                backgroundColor="transparent"
-                underlayColor="transparent"
-                activeOpacity={0.3}
-                color={colors.blue}
-                onPress={() => swiperRef.current.swipeRight()}
-              />
-            </View> */}
           </View>
         </View>
       )}
