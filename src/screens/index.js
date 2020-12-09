@@ -10,9 +10,6 @@ export { default as SettingsScreen } from "./SettingsScreen/SettingsScreen";
 
 export { default as MatchesScreen } from "./MatchesScreen/MatchesScreen";
 
-export { default as SignedOutScreen } from "./SignedOutScreen/SignedOutScreen";
+export { default as SingleChatRoom } from "./SingleChatRoom/SingleChatRoom";
 
-export { default as SingleChatRoom } from "./SingleChatRoom/SingleChatRoom"
-
-export { default as SetLocationScreen } from "./SetLocationScreen/SetLocationScreen"
-
+export { default as SetLocationScreen } from "./SetLocationScreen/SetLocationScreen";
