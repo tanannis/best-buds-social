@@ -10,6 +10,7 @@ import {
   SignedOutScreen,
   SettingsScreen,
   MatchesScreen,
+  MapScreen
 } from "./src/screens";
 
 import {
@@ -88,6 +89,15 @@ export default function App() {
               options={{
                 tabBarIcon: () => (
                   <FontAwesome name="comment" size={30} color="gray" />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Map"
+              component={MapScreen}
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="map" size={27} color="gray" />
                 ),
               }}
             />

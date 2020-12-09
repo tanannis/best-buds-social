@@ -78,6 +78,8 @@ export default function SingleChatRoom({ route }) {
     fetchMessages()
   }, [])
 
+  console.log('MESSAGES', messages)
+
 
   function renderBubble(props) {
     return (

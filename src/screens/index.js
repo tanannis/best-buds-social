@@ -16,3 +16,5 @@ export { default as SingleChatRoom } from "./SingleChatRoom/SingleChatRoom"
 
 export { default as SetLocationScreen } from "./SetLocationScreen/SetLocationScreen"
 
+export { default as MapScreen } from "./MapScreen/MapScreen"
+
