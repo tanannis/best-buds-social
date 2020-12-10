@@ -13,33 +13,50 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#d8ecf3",
   },
+
+  // titlecontainer: {
+  //   justifyContent: "flex-start",
+  //   alignContent: "center",
+  //   alignItems: "center",
+  // },
+  // apptext: {
+  //   fontFamily: "Courier",
+  //   fontSize: 24,
+  //   textAlign: "center",
+  //   marginTop: 20,
+  //   marginBottom: 5,
+  // },
   swiperContainer: {
-    flex: 0.55,
+    flex: 0.99,
+    alignContent: "center",
+    alignItems: "center",
   },
-  bottomContainer: {
-    flex: 0.45,
-    justifyContent: "space-evenly",
+  bottomContainerMeta: {
+    alignItems: "center",
+    alignContent: "flex-end",
+    margin: 25,
   },
-  bottomContainerMeta: { alignContent: "flex-end", alignItems: "center" },
   bottomContainerButtons: {
+    alignContent: "center",
     flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-  cardImage: {
-    width: 160,
-    flex: 1,
-    resizeMode: "contain",
+    justifyContent: "space-between",
   },
   card: {
-    flex: 0.45,
+    flex: 0.75,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,
     shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 0 },
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: colors.white,
+  },
+  cardImage: {
+    width: "90%",
+    height: "90%",
+    flex: 1.25,
+    resizeMode: "contain",
   },
   text: {
     textAlign: "center",
@@ -52,70 +69,26 @@ export default StyleSheet.create({
     color: colors.white,
     backgroundColor: "transparent",
   },
+  nonmainpage: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    fontSize: 24,
+  },
+  endtexttitle: {
+    fontFamily: "Courier",
+    fontSize: 40,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  endtext: {
+    fontFamily: "Courier",
+    fontSize: 24,
+    marginBottom: 10,
+    textAlign: "center",
+  },
   text: { fontFamily: "Courier" },
   heading: { fontSize: 24, marginBottom: 10, color: colors.gray },
   price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
 });
-// export default StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#d8ecf3",
-//   },
-//   swiperContainer: {
-//     // flex: 0.55,
-//   },
-//   bottomContainer: {
-//     flex: 1,
-//     // display: "flex",
-//     justifyContent: "flex-end",
-//     alignItems: "center",
-//   },
-//   bottomContainerButtons: {
-//     flex: 1,
-//     flexDirection: "row",
-//     justifyContent: "space-evenly",
-//   },
-
-//   bottomContainerMeta: { alignContent: "flex-end", alignItems: "center" },
-
-//   cardImage: {
-//     width: "100%",
-//     flex: 1,
-//     resizeMode: "contain",
-//   },
-//   card: {
-//     flex: 0.5,
-//     borderRadius: 8,
-//     shadowRadius: 25,
-//     shadowColor: colors.black,
-//     shadowOpacity: 0.08,
-//     shadowOffset: { width: 0, height: 0 },
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: colors.white,
-//   },
-//   text: {
-//     textAlign: "center",
-//     fontSize: 50,
-//     backgroundColor: "transparent",
-//   },
-//   done: {
-//     textAlign: "center",
-//     fontSize: 30,
-//     color: colors.white,
-//     backgroundColor: "transparent",
-//   },
-//   text: {
-//     fontFamily: "Courier",
-//   },
-//   heading: {
-//     fontSize: 24,
-//     marginBottom: 10,
-//     color: colors.gray,
-//   },
-//   price: {
-//     color: colors.blue,
-//     fontSize: 32,
-//     fontWeight: "500",
-//   },
-// });
