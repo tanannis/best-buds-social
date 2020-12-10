@@ -142,15 +142,21 @@ export default function HomeScreen() {
     return users.onSnapshot((querySnapshot) => {
       const userList = [];
       querySnapshot.forEach((doc) => {
-        const { fullName, userBio, image } = doc.data();
+        const {
+          fullName,
+          userBio,
+          image,
+          // dogData
+        } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
+          // dogData,
         });
       });
-
+      console.log("userList", userList);
       setUser(userList);
       setLoading(false);
     });
@@ -184,6 +190,7 @@ export default function HomeScreen() {
             cards={user}
             cardIndex={index}
             renderCard={(card) => {
+              console.log(user[index].dogName);
               return (
                 <View style={styles.card}>
                   <Image
@@ -192,6 +199,7 @@ export default function HomeScreen() {
                   />
                   <Text style={[styles.text, styles.heading]} numberOfLines={2}>
                     {user[index].fullName}
+                    {/* & {user[index].dogData.dogName} */}
                   </Text>
                 </View>
               );
