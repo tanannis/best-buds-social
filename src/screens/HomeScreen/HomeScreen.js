@@ -145,15 +145,21 @@ export default function HomeScreen() {
     return users.onSnapshot((querySnapshot) => {
       const userList = [];
       querySnapshot.forEach((doc) => {
-        const { fullName, userBio, image } = doc.data();
+        const {
+          fullName,
+          userBio,
+          image,
+          // dogData
+        } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
+          // dogData,
         });
       });
-
+      console.log("userList", userList);
       setUser(userList);
       setLoading(false);
     });
