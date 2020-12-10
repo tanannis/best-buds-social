@@ -13,21 +13,36 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#d8ecf3",
   },
+
+  // titlecontainer: {
+  //   justifyContent: "flex-start",
+  //   alignContent: "center",
+  //   alignItems: "center",
+  // },
+  // apptext: {
+  //   fontFamily: "Courier",
+  //   fontSize: 24,
+  //   textAlign: "center",
+  //   marginTop: 20,
+  //   marginBottom: 5,
+  // },
   swiperContainer: {
     flex: 0.99,
-  },
-
-  bottomContainerMeta: {
-    alignContent: "flex-end",
+    alignContent: "center",
     alignItems: "center",
+  },
+  bottomContainerMeta: {
+    alignItems: "center",
+    alignContent: "flex-end",
     margin: 25,
   },
   bottomContainerButtons: {
+    alignContent: "center",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   card: {
-    flex: 0.7,
+    flex: 0.75,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,

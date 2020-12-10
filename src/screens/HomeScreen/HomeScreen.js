@@ -138,7 +138,7 @@ export default function HomeScreen() {
 
   const onTopSwipe = () => {
     transitionRef.current.animateNextTransition();
-    setIndex(index + 1);
+    setIndex(index + (1 % user.length));
   };
 
   useEffect(() => {
@@ -170,12 +170,26 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <View style={styles.titlecontainer}>
+        <Text style={styles.apptext}>Best Buds Social</Text>
+      </View> */}
+
       {loading ? (
         <View style={styles.nonmainpage}>
           <Text style={styles.endtexttitle}>Loading</Text>
         </View>
       ) : end ? (
         <View style={styles.nonmainpage}>
+          <Image
+            source={require("../../../assets/endOfMatchesDog.png")}
+            style={{
+              height: "10%",
+              width: "30%",
+              resizeMode: "stretch",
+              margin: 15,
+              alignSelf: "center",
+            }}
+          />
           <Text style={styles.endtexttitle}>You've reached the end!</Text>
           <Text style={styles.endtext}>
             Check back later for new people to match with!
