@@ -171,14 +171,15 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       {loading ? (
-        <View style={styles.container}>
-          <Text style={{ justifyContent: "center", alignItems: "center" }}>
-            Loading
-          </Text>
+        <View style={styles.nonmainpage}>
+          <Text style={styles.endtexttitle}>Loading</Text>
         </View>
       ) : end ? (
-        <View>
-          <Text>End of Matches</Text>
+        <View style={styles.nonmainpage}>
+          <Text style={styles.endtexttitle}>You've reached the end!</Text>
+          <Text style={styles.endtext}>
+            Check back later for new people to match with!
+          </Text>
         </View>
       ) : (
         <>
