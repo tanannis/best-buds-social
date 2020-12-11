@@ -16,8 +16,8 @@ export default function SettingsScreen({ navigation }) {
   const [updatepassword, setUpdatePassword] = useState("");
 
   const onSetLocationPress = () => {
-    navigation.navigate("SetLocation")
-  }
+    navigation.navigate("SetLocation");
+  };
 
   onUpdateEmailPress = () => {
     firebase
@@ -39,8 +39,6 @@ export default function SettingsScreen({ navigation }) {
         alert(error);
       });
   };
-
-  
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

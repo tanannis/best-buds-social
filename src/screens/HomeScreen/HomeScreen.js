@@ -61,9 +61,29 @@ export default function HomeScreen() {
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [end, reachedEnd] = useState(false);
+  const [currentUserName, setCurrentUserName] = useState('')
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
+
+  //useEffect hook sets the currentUserName for useState.
+  useEffect(() => {
+    (async () => {
+      //query gets loggedin user doc from firestore
+      const userDoc = await firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUser.uid)
+        .get()
+        .then((doc) => {
+          return doc.data();
+        });
+        //select fullName field from the doc
+        const getCurrentUserName = await userDoc.fullName;
+
+      setCurrentUserName(getCurrentUserName)
+      })();
+  }, []);
 
   // Need to add to users: "usersILike" and "usersWhoLikeMe"
 
@@ -99,6 +119,22 @@ export default function HomeScreen() {
     createChatRoom();
   };
 
+  // const currentUserDocFunc = async () => {
+  //   const currentUserDoc = await firebase
+  //     .firestore()
+  //     .collection("Users")
+  //     .doc(currentUser.uid)
+  //     .get()
+  //     .then((doc) => {
+  //       console.log("DATTAAAASSSSS", doc.data());
+  //       return doc.data();
+  //     });
+  //   const getCurrentUserName = await currentUserDoc.fullName.join();
+  //   return getCurrentUserName;
+  // };
+  // const currentUserName = currentUserDocFunc();
+  // console.log("WHOS CURRENT USER??", currentUserName);
+
   async function createChatRoom() {
     const snapshot = await firebase
       .firestore()
@@ -121,9 +157,11 @@ export default function HomeScreen() {
         ],
         { cancelable: false }
       );
+
       const createChat = firebase.firestore().collection("ChatRooms");
       createChat.add({
-        Chats: [],
+        //fields created within Chatroom collection documents
+        names: `${user[index].fullName} & ${currentUserName}`,
         Users: [currentUser.uid, user[index].id],
       });
 
@@ -159,7 +197,7 @@ export default function HomeScreen() {
           // dogData,
         });
       });
-      console.log("userList", userList);
+      // console.log("userList", userList);
       setUser(userList);
       setLoading(false);
     });
