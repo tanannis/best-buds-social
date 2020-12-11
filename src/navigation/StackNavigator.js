@@ -32,12 +32,21 @@ export function MainStackNavigator() {
 	);
 }
 
+export function HomeStackNavigator() {
+	return (
+		<>
+			<Stack.Navigator screenOptions={screenOptionStyle}>
+				<Stack.Screen name="Home" component={HomeScreen} />
+			</Stack.Navigator>
+		</>
+	);
+}
+
 export function MatchesStackNavigator() {
 	//"SingChat" is nested inside "Matches", so can navigate from "Matches" to "SingleChatRoom"
 	return (
 		<>
 			<Stack.Navigator screenOptions={screenOptionStyle}>
-				<Stack.Screen name="Home" component={HomeScreen} />
 				<Stack.Screen name="Matches" component={MatchesScreen} />
 				<Stack.Screen name="SingleChat" component={SingleChatRoom} />
 			</Stack.Navigator>

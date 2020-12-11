@@ -13,6 +13,7 @@ import {
 } from "./src/screens";
 
 import {
+  HomeStackNavigator,
   MainStackNavigator,
   MatchesStackNavigator,
   SettingsStackNavigator,
@@ -75,14 +76,14 @@ export default function App() {
           <>
             <Tab.Screen
               name="Home"
-              component={MatchesStackNavigator}
+              // component={MatchesStackNavigator}
               options={{
                 tabBarIcon: () => (
                   <FontAwesome name="home" size={40} color="gray" />
                 ),
               }}
             >
-              {/* {(props) => <HomeScreen {...props} extraData={user} />} */}
+              {(props) => <HomeStackNavigator {...props} extraData={user} />}
             </Tab.Screen>
             <Tab.Screen
               name="Matches"
