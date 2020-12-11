@@ -16,9 +16,11 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 export default function CurrentUserScreen() {
   const [currentUser, setCurrentUser] = useState([]);
-  const current = firebase.auth().currentUser;
 
   useEffect(() => {
+
+    const current = firebase.auth().currentUser;
+    console.log("this is current", current)
 
         return current.onSnapshot((querySnapshot) => {
           const userInfo = [];
@@ -36,6 +38,15 @@ export default function CurrentUserScreen() {
           setLoading(false);
         });
       }, []);
+
+      const currentUserDetails= ({ current }) => (
+        <View key={current.uid} style={{ alignItems: "center" }}>
+          <Text style={[styles.text, styles.heading]} numberOfLines={2}>
+            {current.fullName}
+          </Text>
+          <Text style={[styles.text, styles.userBio]}>{current.userBio}</Text>
+        </View>
+      );
     
 
 

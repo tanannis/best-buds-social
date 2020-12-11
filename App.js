@@ -95,7 +95,7 @@ export default function App() {
                 ),
               }}
             >
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {(props) => <HomeStackNavigator {...props} extraData={user} />}
             </Tab.Screen>
 
             <Tab.Screen
