@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Alert,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
@@ -7,6 +14,13 @@ import { firebase } from "../../firebase/config";
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // useEffect(() => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    firebase.auth().signOut();
+  }
+  // }, []);
 
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");

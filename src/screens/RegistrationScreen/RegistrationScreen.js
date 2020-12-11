@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
@@ -54,6 +55,7 @@ export default function RegistrationScreen({ navigation }) {
       return;
     }
     //It creates a new account that will show up in Firebase Console -> Authentication table.
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -87,7 +89,26 @@ export default function RegistrationScreen({ navigation }) {
           //   );
           // })
           .then(() => {
-            navigation.navigate("Home", { user: data });
+            // Alert.alert(
+            //   "Please login now!",
+            //   [
+            //     {
+            //       text: "OK",
+            //     },
+            //   ],
+            //   { cancelable: false }
+            // );
+
+            // firebase
+            //   .auth()
+            //   .signOut()
+            //   // .then((response) => {
+            //   //   navigation.navigate("Login");
+            //   // })
+            //   .catch((error) => {
+            //     alert(error);
+            //   });
+            navigation.navigate("Login");
           })
           .catch((error) => {
             alert(error);

@@ -176,7 +176,7 @@ export default function HomeScreen() {
           // dogData,
         });
       });
-      console.log("userList", userList);
+      // console.log("userList", userList);
       setUser(userList);
       setLoading(false);
     });

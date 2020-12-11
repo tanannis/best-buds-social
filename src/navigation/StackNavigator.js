@@ -31,7 +31,18 @@ export function MainStackNavigator() {
   );
 }
 
+// export function RegistrationScreenNavigator() {
+//   return (
+//     <>
+//       <Stack.Navigator screenOptions={screenOptionStyle}>
+//         <Stack.Screen name="Registration" component={RegistrationScreen} />
+//       </Stack.Navigator>
+//     </>
+//   );
+// }
+
 export function HomeStackNavigator() {
+  console.log("do we make it here");
   return (
     <>
       <Stack.Navigator screenOptions={screenOptionStyle}>
