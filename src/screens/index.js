@@ -16,6 +16,6 @@ export { default as MapScreen } from "./MapScreen/MapScreen";
 
 export { default as SetLocationScreen } from "./SetLocationScreen/SetLocationScreen";
 
-export { default as CurrentUserScreen } from "./CurrentUserScreen/CurrentUserScreen"
+export { default as CurrentUserScreen } from "./CurrentUserScreen/CurrentUserScreen";
 
-export { default as SingleMatchProfile } from "./SingleMatchProfile/SingleMatchProfile"
+export { default as SingleMatchProfile } from "./SingleMatchProfile/SingleMatchProfile";
