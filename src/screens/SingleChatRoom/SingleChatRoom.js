@@ -13,11 +13,6 @@ export default function SingleChatRoom({ route }) {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
       );
-      // console.log("This is previous message", previousMessages)
-    // setMessages(() =>
-    //   GiftedChat.append(messages)
-    // );
-
   }, []);
 
 
@@ -79,7 +74,7 @@ export default function SingleChatRoom({ route }) {
         wrapperStyle={{
           right: {
             backgroundColor: '#9AC4F8',
-          }, 
+          },
           left: {
             backgroundColor: 'silver'
           }

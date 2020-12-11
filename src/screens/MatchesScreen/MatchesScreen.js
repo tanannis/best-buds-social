@@ -12,14 +12,9 @@ export default function MatchesScreen({ navigation }) {
 	const onChangeSearch = (query) => setSearchTerm(query);
 	const [chats, setChats] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [toUserName, setToUserName] = useState("")
-	const [toUserImage, setToUserImage] = useState("")
 
 	useEffect(() => {
 		let user = firebase.auth().currentUser;
-	
-		//get currently signed-in user's information. You can access the user's uid from this object, which is used for querying in the .where() method.
-		//let user = firebase.auth().currentUser;
 
 		const unsubscribe = firebase
 			.firestore()
@@ -31,7 +26,7 @@ export default function MatchesScreen({ navigation }) {
 					return {
 						_id: documentSnapshot.id,
 						// give defaults
-						Chats: [],
+						names: '',
 						Users: [],
 						...documentSnapshot.data(),
 					};
@@ -50,31 +45,6 @@ export default function MatchesScreen({ navigation }) {
 		return () => unsubscribe();
 	}, []);
 
-	//found the toUserId inside nested chats array
-	// console.log('WWWWWW', chats[0].Chats[0].ToUserId)
-
-	async function getToUserData () {
-		const toUserId = chats[0].Chats[0].ToUserId
-		const toUser = await firebase
-		.firestore()
-		.collection('users')
-		.doc(toUserId)
-		.get()
-		.then(doc => {
-			// console.log('DATTAAAASSSSS', doc.data())
-			return doc.data()
-		})
-		const toUserFullName = toUser.fullName
-		const toUserImage = toUser.image
-		setToUserName(toUserFullName)
-		setToUserImage(toUserImage)
-	}
-	getToUserData()
-
-	// console.log('TO USER', toUserName)
-	console.log('IMAGEEE??', toUserImage)
-
-	
 	//here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
 	const selectChat = (item) => {
 		navigation.navigate("SingleChat", {
@@ -106,9 +76,8 @@ export default function MatchesScreen({ navigation }) {
 					renderItem={({ item }) => (
 						<TouchableOpacity onPress={() => selectChat(item)}>
 							<List.Item
-								title={item.name}
-								description={toUserName}
-								// image={toUserImage}
+								title={item.names}
+								description="chatroom"
 								chatroomId={item._id}
 								chats={item.Chats}
 								users={item.Users}
