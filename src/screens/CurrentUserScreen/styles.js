@@ -12,6 +12,7 @@ export default StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: "#d8ecf3",
+      
     },
 
     text: {
@@ -21,8 +22,8 @@ export default StyleSheet.create({
 
     image: {
         flex: 1,
-        width: undefined,
-        height: undefined
+        width: 200,
+        height: 200,
     },
 
     titleBar: {
@@ -36,10 +37,10 @@ export default StyleSheet.create({
       width: 200,
       height: 200,
       borderRadius: 100,
-      overflow: "hidden"
+      // overflow: "hidden"
     },
 
-    dm: {
+    chat: {
       backgroundColor: colors.white,
       position: "absolute",
       top: 20,
