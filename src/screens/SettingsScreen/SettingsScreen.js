@@ -9,7 +9,6 @@ import {
   Button,
 } from "react-native";
 import { firebase } from "../../firebase/config";
-import { Login } from "../LoginScreen/LoginScreen";
 
 export default function SettingsScreen({ navigation }) {
   // const [updateEmail, setUpdateEmail] = useState("");

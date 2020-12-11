@@ -22,7 +22,6 @@ import {
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons";
-import { color } from "react-native-reanimated";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -83,7 +82,7 @@ export default function App() {
                 ),
               }}
             >
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {(props) => <HomeStackNavigator {...props} extraData={user} />}
             </Tab.Screen>
             <Tab.Screen
               name="Matches"
@@ -117,12 +116,12 @@ export default function App() {
           <>
             <Tab.Screen
               name="Login"
-              component={LoginScreen}
+              component={MainStackNavigator}
               options={{ tabBarVisible: false }}
             />
             <Tab.Screen
               name="Registration"
-              component={RegistrationScreen}
+              component={MainStackNavigator}
               options={{ tabBarVisible: false }}
             />
           </>

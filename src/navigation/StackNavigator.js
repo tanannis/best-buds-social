@@ -20,26 +20,26 @@ const screenOptionStyle = {
   headerBackTitle: "Back",
 };
 
-// export function MainStackNavigator() {
-//   return (
-//     <>
-//       <Stack.Navigator screenOptions={screenOptionStyle}>
-//         <Stack.Screen name="Login" component={LoginScreen} />
-//         <Stack.Screen name="Registration" component={RegistrationScreen} />
-//       </Stack.Navigator>
-//     </>
-//   );
-// }
+export function MainStackNavigator() {
+  return (
+    <>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+      </Stack.Navigator>
+    </>
+  );
+}
 
-// export function HomeStackNavigator() {
-//   return (
-//     <>
-//       <Stack.Navigator screenOptions={screenOptionStyle}>
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//       </Stack.Navigator>
-//     </>
-//   );
-// }
+export function HomeStackNavigator() {
+  return (
+    <>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </>
+  );
+}
 
 export function MatchesStackNavigator() {
   //"SingChat" is nested inside "Matches", so can navigate from "Matches" to "SingleChatRoom"

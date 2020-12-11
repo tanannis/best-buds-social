@@ -87,7 +87,7 @@ export default function RegistrationScreen({ navigation }) {
           //   );
           // })
           .then(() => {
-            firebase.auth().signInWithEmailAndPassword(email, password);
+            navigation.navigate("Home", { user: data });
           })
           .catch((error) => {
             alert(error);
