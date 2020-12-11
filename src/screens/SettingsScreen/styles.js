@@ -1,29 +1,72 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import styles from './styles';
-import { firebase } from '../../firebase/config'
+import { StyleSheet } from "react-native";
 
-export default function SettingsScreen({ navigation }) {
-	// const [updateEmail, setUpdateEmail] = useState("");
-    // const [updatepassword, setUpdatePassword] = useState("");
-    
-    const onSignOutPress = () => {
-		firebase
-			.auth.signOut()
-			.then((response) => {
-            navigation.navigate("Login");
-					})
-			.catch((error) => {
-				alert(error);
-			});
-	};
-
-
-    return (
-        <div>
-            <TouchableOpacity style={styles.button} onPress={() => onSignOutPress()}>
-					<Text style={styles.buttonTitle}>Log Out</Text>
-			</TouchableOpacity>
-        </div>
-    )
-}
+export default StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  input: {
+	height: 48,
+	width: 200,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+  },
+  largeinput: {
+    height: 100,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+  },
+  button: {
+    backgroundColor: "#788eec",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonTitle: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  footerView: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  footerText: {
+    fontSize: 16,
+    color: "#2e2e2d",
+  },
+  footerLink: {
+    color: "#788eec",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  dropdown: {
+    backgroundColor: "white",
+    alignContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 4,
+    height: 48,
+    borderRadius: 5,
+    fontSize: 13,
+  },
+});

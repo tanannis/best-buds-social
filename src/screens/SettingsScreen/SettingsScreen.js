@@ -9,13 +9,23 @@ import {
   Button,
 } from "react-native";
 import { firebase } from "../../firebase/config";
+import styles from "./styles"
 
 export default function SettingsScreen({ navigation }) {
-  // const [updateEmail, setUpdateEmail] = useState("");
-  // const [updatepassword, setUpdatePassword] = useState("");
+  const [updateEmail, setUpdateEmail] = useState("");
+  const [updatepassword, setUpdatePassword] = useState("");
 
   const onSetLocationPress = () => {
     navigation.navigate("SetLocation")
+  }
+
+  onUpdateEmailPress = () => {
+    firebase
+    .auth()
+    .updateEmail()
+    .then((response) => {
+      const 
+    })
   }
 
   const onSignOutPress = () => {
@@ -30,11 +40,34 @@ export default function SettingsScreen({ navigation }) {
       });
   };
 
+  
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <TouchableOpacity onPress={() => onSetLocationPress()}>
-        <Text>Set Location</Text>
-      </TouchableOpacity>   
+      <Button title="Set Location" onPress={() => onSetLocationPress()}>
+      </Button> 
+
+      <TextInput
+          style={styles.input}
+          placeholder="email@email.com"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setUpdateEmail(text)}
+          value={updateEmail}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          textContentType={"oneTimeCode"}
+        /><Button title="Update Email"></Button>
+        <TextInput
+          style={styles.input}
+          placeholder="new password"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setUpdatePassword(text)}
+          value={updateEmail}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          textContentType={"oneTimeCode"}
+        /><Button title="Update Password"></Button>
+
       <TouchableOpacity onPress={() => onSignOutPress()}>
         <Text>Log Out</Text>
       </TouchableOpacity>
