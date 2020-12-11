@@ -79,17 +79,6 @@ export default function App() {
       <Tab.Navigator>
         {user ? (
           <>
-          <Tab.Screen
-              name="Profile"
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="profile" size={40} color="gray" />
-                ),
-              }}
-            >
-              {(props) => <CurrentUserScreen {...props} extraData={user} />}
-            </Tab.Screen>
-
             <Tab.Screen
               name="Home"
               // component={MatchesStackNavigator}
@@ -100,6 +89,17 @@ export default function App() {
               }}
             >
               {(props) => <HomeStackNavigator {...props} extraData={user} />}
+            </Tab.Screen>
+
+            <Tab.Screen
+              name="Profile"
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="profile" size={40} color="gray" />
+                ),
+              }}
+            >
+              {(props) => <CurrentUserScreen {...props} extraData={user} />}
             </Tab.Screen>
 
             <Tab.Screen
@@ -151,5 +151,5 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
-
+ }
 }
