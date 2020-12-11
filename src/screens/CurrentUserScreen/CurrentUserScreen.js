@@ -49,11 +49,11 @@ export default function CurrentUserScreen() {
             </View>
 
             <View style={styles.profileImage}>
-              {/* <Image
+              <Image
                 source={{ uri: currentUser.image }}
                 style={styles.image}
                 resizeMode="center"
-              ></Image> */}
+              ></Image>
               <Text style={styles.text, styles.userBio}>
                 {currentUser.userBio}
               </Text>
