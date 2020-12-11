@@ -36,40 +36,56 @@ export default function MatchesScreen({ navigation }) {
 				});
 
 				setChats(chats);
-				// console.log("OOOOOOO", chats);
-				// console.log("KKKKKKKKK", chats[0].Users);
 
 				const logginedUserId = firebase.auth().currentUser.uid;
-				// console.log('LOGINUSER', logginedUserId)
-				const usersArr = chats[0].Users;
+				console.log("LOGINUSER", logginedUserId);
 
-				const toUserId = usersArr.filter((id) => {
-					if (id !== logginedUserId) {
-						return id; //the returned id is a combo of random chars not in a string
+				// console.log('Chats', chats)
+				//[{users:[...]}, {users:[...]}, {users:[...]}]
+				//chats[i] = {Chats:[], Users:[]}
+
+				const findToUserFunc = (chats) => {
+					let container = [];
+
+					for (let i = 0; i < chats.length; i++) {
+						for (let j = 0; j < chats[i].Users.length; j++) {
+							let userId = chats[i].Users[j];
+							if (userId !== logginedUserId) {
+								container.push(userId);
+							}
+						}
 					}
-				});
+					// console.log('CONTAINER', container)
+					return container;
+				};
+				const toUserIdArr = findToUserFunc(chats);
 
-				console.log('CHATTTT', chats[0])
+				console.log("ToUserIdARR", toUserIdArr);
 
 				const getToUserData = async () => {
-					const toUserDoc = await firebase
-						.firestore()
-						.collection("users")
-						//converting the random chars back to a string
-						.doc(String(toUserId))
-						.get()
-						.then((doc) => {
-							return doc.data();
-						});
+					for (let i = 0; i < toUserIdArr.length; i++) {
+						let toUserId = toUserIdArr[i];
 
-						console.log('WHICH NAME?', toUserDoc)
+						console.log('TO USER ID', toUserId)
 
-					const toUserFullName = await toUserDoc.fullName;
-					const toUserImage = await toUserDoc.image
+						const toUserDoc = await firebase
+							.firestore()
+							.collection("users")
+							//converting the random chars back to a string
+							.doc(String(toUserId))
+							.get()
+							.then((doc) => {
+								console.log("DATAAA", doc.data());
+								return doc.data();
+							});
+						
+							// console.log('toUserDoc', toUserDoc)
+						const toUserFullName = await toUserDoc.fullName;
+						const toUserImage = await toUserDoc.image;
 
-					setToUserName(toUserFullName);
-					setToUserImage(toUserImage)
-					
+						setToUserName(toUserFullName);
+						setToUserImage(toUserImage);
+					}
 				};
 				getToUserData();
 
@@ -83,7 +99,6 @@ export default function MatchesScreen({ navigation }) {
 		 */
 		return () => unsubscribe();
 	}, []);
-	
 
 	//here we are passing in item, which is information for a single chatroom. It is passed in Touchable Opacity onPress in the return. This item will be accessible through "route" in SingleChatRoom view.
 	const selectChat = (item) => {
@@ -117,7 +132,7 @@ export default function MatchesScreen({ navigation }) {
 						<TouchableOpacity onPress={() => selectChat(item)}>
 							<List.Item
 								title={item.name}
-								description={'just a chat room'}
+								description={toUserName}
 								image={toUserImage}
 								chatroomId={item._id}
 								chats={item.Chats}
