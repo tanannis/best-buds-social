@@ -15,8 +15,8 @@ export default function SettingsScreen({ navigation }) {
   // const [updatepassword, setUpdatePassword] = useState("");
 
   const onSetLocationPress = () => {
-    navigation.navigate("SetLocation")
-  }
+    navigation.navigate("SetLocation");
+  };
 
   const onSignOutPress = () => {
     firebase
@@ -34,7 +34,7 @@ export default function SettingsScreen({ navigation }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity onPress={() => onSetLocationPress()}>
         <Text>Set Location</Text>
-      </TouchableOpacity>   
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => onSignOutPress()}>
         <Text>Log Out</Text>
       </TouchableOpacity>

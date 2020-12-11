@@ -12,7 +12,6 @@ import {
   MapScreen,
   CurrentUserScreen,
   SingleMatchProfile
-
 } from "./src/screens";
 
 import {
@@ -20,6 +19,7 @@ import {
   MainStackNavigator,
   MatchesStackNavigator,
   SettingsStackNavigator,
+  RegistrationScreenNavigator,
 } from "./src/navigation/StackNavigator";
 
 import { Text } from "react-native";
@@ -45,7 +45,9 @@ export default function App() {
   useEffect(() => {
     const usersRef = firebase.firestore().collection("users");
     firebase.auth().onAuthStateChanged((user) => {
+      console.log("onauthstate triggered");
       if (user) {
+        console.log("user", user);
         usersRef
           .doc(user.uid)
           .get()
@@ -55,7 +57,8 @@ export default function App() {
             setUser(userData);
           })
           .catch((error) => {
-            setLoading(false);
+            // setLoading(false);
+            alert(error);
           });
       } else {
         setUser(false);
@@ -70,8 +73,7 @@ export default function App() {
         <Text>Loading Messages...</Text>
       </>
     );
-  }
-
+  } else {
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -149,4 +151,5 @@ export default function App() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+
 }
