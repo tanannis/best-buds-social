@@ -9,7 +9,10 @@ import {
   RegistrationScreen,
   SettingsScreen,
   MatchesScreen,
-  MapScreen
+  MapScreen,
+  CurrentUserScreen,
+  SingleMatchProfile
+
 } from "./src/screens";
 
 import {
@@ -34,6 +37,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  // const currentUser = firebase.auth().currentUser
 
   //Persist Login Credentials, so user doesn't have to login again after quit the app.
 
@@ -72,6 +76,17 @@ export default function App() {
       <Tab.Navigator>
         {user ? (
           <>
+          <Tab.Screen
+              name="Profile"
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="profile" size={40} color="gray" />
+                ),
+              }}
+            >
+              {(props) => <CurrentUserScreen {...props} extraData={user} />}
+            </Tab.Screen>
+
             <Tab.Screen
               name="Home"
               options={{
@@ -82,6 +97,7 @@ export default function App() {
             >
               {(props) => <HomeScreen {...props} extraData={user} />}
             </Tab.Screen>
+
             <Tab.Screen
               name="Matches"
               component={MatchesStackNavigator}
@@ -91,6 +107,7 @@ export default function App() {
                 ),
               }}
             />
+
             <Tab.Screen
               name="Map"
               component={MapScreen}
@@ -100,6 +117,7 @@ export default function App() {
                 ),
               }}
             />
+
             <Tab.Screen
               name="Settings"
               component={SettingsStackNavigator}
@@ -109,7 +127,7 @@ export default function App() {
                 ),
               }}
             />
-          </>
+            </>
         ) : (
           <>
             <Tab.Screen
@@ -117,11 +135,13 @@ export default function App() {
               component={LoginScreen}
               options={{ tabBarVisible: false }}
             />
+
             <Tab.Screen
               name="Registration"
               component={RegistrationScreen}
               options={{ tabBarVisible: false }}
             />
+
           </>
         )}
       </Tab.Navigator>
