@@ -16,6 +16,8 @@ import {
 } from "./src/screens";
 
 import {
+  HomeStackNavigator,
+  MainStackNavigator,
   MatchesStackNavigator,
   SettingsStackNavigator,
 } from "./src/navigation/StackNavigator";
@@ -23,7 +25,6 @@ import {
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons";
-import { color } from "react-native-reanimated";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -89,6 +90,7 @@ export default function App() {
 
             <Tab.Screen
               name="Home"
+              // component={MatchesStackNavigator}
               options={{
                 tabBarIcon: () => (
                   <FontAwesome name="home" size={40} color="gray" />
@@ -132,13 +134,13 @@ export default function App() {
           <>
             <Tab.Screen
               name="Login"
-              component={LoginScreen}
+              component={MainStackNavigator}
               options={{ tabBarVisible: false }}
             />
 
             <Tab.Screen
               name="Registration"
-              component={RegistrationScreen}
+              component={MainStackNavigator}
               options={{ tabBarVisible: false }}
             />
 

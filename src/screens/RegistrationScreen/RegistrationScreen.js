@@ -65,27 +65,21 @@ export default function RegistrationScreen({ navigation }) {
           //Newly add field
           userBio,
           image,
+          dogData: {
+            dogName,
+            dogSize,
+            dogGender,
+            dogBreed,
+            dogTemperament,
+          },
         };
-        const dogData = {
-          dogName,
-          dogSize,
-          dogGender,
-          dogBreed,
-          dogTemperament,
-        };
+
         //If the account registration was successful, we also store the user data in Firebase Firestore. This is necessary for storing extra user information, such as full name, profile photo URL, and so on, which cannot be stored in the Authentication table.
         const usersRef = firebase.firestore().collection("users");
         usersRef
           .doc(uid)
           .set(data)
           .then(() => {
-            //creating sub collection dogs with fields
-            firebase
-              .firestore()
-              .collection("users")
-              .doc(uid)
-              .collection("dogs")
-              .add(dogData);
             navigation.navigate("Home", { user: data });
           })
           .catch((error) => {
