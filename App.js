@@ -9,10 +9,12 @@ import {
   RegistrationScreen,
   SettingsScreen,
   MatchesScreen,
-  MapScreen
+  MapScreen,
 } from "./src/screens";
 
 import {
+  HomeStackNavigator,
+  MainStackNavigator,
   MatchesStackNavigator,
   SettingsStackNavigator,
 } from "./src/navigation/StackNavigator";
@@ -74,6 +76,7 @@ export default function App() {
           <>
             <Tab.Screen
               name="Home"
+              // component={MatchesStackNavigator}
               options={{
                 tabBarIcon: () => (
                   <FontAwesome name="home" size={40} color="gray" />

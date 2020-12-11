@@ -1,7 +1,14 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { MatchesScreen, SettingsScreen, SingleChatRoom, SetLocationScreen } from "../screens/index";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  MatchesScreen,
+  SettingsScreen,
+  SingleChatRoom,
+  SetLocationScreen,
+  LoginScreen,
+  RegistrationScreen,
+  HomeScreen,
+} from "../screens/index";
 
 const Stack = createStackNavigator();
 
@@ -13,32 +20,47 @@ const screenOptionStyle = {
   headerBackTitle: "Back",
 };
 
+// export function MainStackNavigator() {
+//   return (
+//     <>
+//       <Stack.Navigator screenOptions={screenOptionStyle}>
+//         <Stack.Screen name="Login" component={LoginScreen} />
+//         <Stack.Screen name="Registration" component={RegistrationScreen} />
+//       </Stack.Navigator>
+//     </>
+//   );
+// }
+
+// export function HomeStackNavigator() {
+//   return (
+//     <>
+//       <Stack.Navigator screenOptions={screenOptionStyle}>
+//         <Stack.Screen name="Home" component={HomeScreen} />
+//       </Stack.Navigator>
+//     </>
+//   );
+// }
 
 export function MatchesStackNavigator() {
   //"SingChat" is nested inside "Matches", so can navigate from "Matches" to "SingleChatRoom"
   return (
     <>
-    <NavigationContainer independent={true}>
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Matches" component={MatchesScreen} />
-      <Stack.Screen name="SingleChat" component={SingleChatRoom} />
-    </Stack.Navigator>
-    </NavigationContainer>
-</>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="Matches" component={MatchesScreen} />
+        <Stack.Screen name="SingleChat" component={SingleChatRoom} />
+      </Stack.Navigator>
+    </>
   );
-};
+}
 
 export function SettingsStackNavigator() {
   //"SetLocation" is nested inside "Settings", so can navigate from "Settings" to "SetLocation"
   return (
     <>
-    <NavigationContainer independent={true}>
-    <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="SetLocation" component={SetLocationScreen} />
-    </Stack.Navigator>
-    </NavigationContainer>
-</>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="SetLocation" component={SetLocationScreen} />
+      </Stack.Navigator>
+    </>
   );
-};
-
+}
