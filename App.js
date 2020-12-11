@@ -22,7 +22,6 @@ import {
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons";
-import { color } from "react-native-reanimated";
 
 if (!global.btoa) {
   global.btoa = encode;

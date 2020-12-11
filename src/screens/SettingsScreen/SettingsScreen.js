@@ -9,7 +9,6 @@ import {
   Button,
 } from "react-native";
 import { firebase } from "../../firebase/config";
-import { Login } from "../LoginScreen/LoginScreen";
 
 export default function SettingsScreen({ navigation }) {
   // const [updateEmail, setUpdateEmail] = useState("");
@@ -23,9 +22,9 @@ export default function SettingsScreen({ navigation }) {
     firebase
       .auth()
       .signOut()
-      .then((response) => {
-        navigation.navigate("Login");
-      })
+      // .then((response) => {
+      //   navigation.navigate("Login");
+      // })
       .catch((error) => {
         alert(error);
       });
