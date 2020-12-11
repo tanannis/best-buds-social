@@ -75,13 +75,14 @@ export default function App() {
           <>
             <Tab.Screen
               name="Home"
+              component={MatchesStackNavigator}
               options={{
                 tabBarIcon: () => (
                   <FontAwesome name="home" size={40} color="gray" />
                 ),
               }}
             >
-              {(props) => <HomeScreen {...props} extraData={user} />}
+              {/* {(props) => <HomeScreen {...props} extraData={user} />} */}
             </Tab.Screen>
             <Tab.Screen
               name="Matches"
