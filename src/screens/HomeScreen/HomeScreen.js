@@ -119,6 +119,22 @@ export default function HomeScreen() {
     createChatRoom();
   };
 
+  // const currentUserDocFunc = async () => {
+  //   const currentUserDoc = await firebase
+  //     .firestore()
+  //     .collection("Users")
+  //     .doc(currentUser.uid)
+  //     .get()
+  //     .then((doc) => {
+  //       console.log("DATTAAAASSSSS", doc.data());
+  //       return doc.data();
+  //     });
+  //   const getCurrentUserName = await currentUserDoc.fullName.join();
+  //   return getCurrentUserName;
+  // };
+  // const currentUserName = currentUserDocFunc();
+  // console.log("WHOS CURRENT USER??", currentUserName);
+
   async function createChatRoom() {
     const snapshot = await firebase
       .firestore()
@@ -181,7 +197,7 @@ export default function HomeScreen() {
           // dogData,
         });
       });
-      console.log("userList", userList);
+      // console.log("userList", userList);
       setUser(userList);
       setLoading(false);
     });

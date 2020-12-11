@@ -9,18 +9,20 @@ import {
   RegistrationScreen,
   SettingsScreen,
   MatchesScreen,
-  MapScreen
+  MapScreen,
 } from "./src/screens";
 
 import {
+  HomeStackNavigator,
+  MainStackNavigator,
   MatchesStackNavigator,
   SettingsStackNavigator,
+  RegistrationScreenNavigator,
 } from "./src/navigation/StackNavigator";
 
 import { Text } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons";
-import { color } from "react-native-reanimated";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -40,7 +42,9 @@ export default function App() {
   useEffect(() => {
     const usersRef = firebase.firestore().collection("users");
     firebase.auth().onAuthStateChanged((user) => {
+      console.log("onauthstate triggered");
       if (user) {
+        console.log("user", user);
         usersRef
           .doc(user.uid)
           .get()
@@ -50,7 +54,8 @@ export default function App() {
             setUser(userData);
           })
           .catch((error) => {
-            setLoading(false);
+            // setLoading(false);
+            alert(error);
           });
       } else {
         setUser(false);
@@ -65,66 +70,67 @@ export default function App() {
         <Text>Loading Messages...</Text>
       </>
     );
+  } else {
+    return (
+      <NavigationContainer>
+        <Tab.Navigator>
+          {user ? (
+            <>
+              <Tab.Screen
+                name="Home"
+                // component={MatchesStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="home" size={40} color="gray" />
+                  ),
+                }}
+              >
+                {(props) => <HomeStackNavigator {...props} extraData={user} />}
+              </Tab.Screen>
+              <Tab.Screen
+                name="Matches"
+                component={MatchesStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="comment" size={30} color="gray" />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="Map"
+                component={MapScreen}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="map" size={27} color="gray" />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="Settings"
+                component={SettingsStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="cog" size={35} color="grey" />
+                  ),
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <Tab.Screen
+                name="Login"
+                component={MainStackNavigator}
+                options={{ tabBarVisible: false }}
+              />
+              <Tab.Screen
+                name="Registration"
+                component={MainStackNavigator}
+                options={{ tabBarVisible: false }}
+              />
+            </>
+          )}
+        </Tab.Navigator>
+      </NavigationContainer>
+    );
   }
-
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        {user ? (
-          <>
-            <Tab.Screen
-              name="Home"
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="home" size={40} color="gray" />
-                ),
-              }}
-            >
-              {(props) => <HomeScreen {...props} extraData={user} />}
-            </Tab.Screen>
-            <Tab.Screen
-              name="Matches"
-              component={MatchesStackNavigator}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="comment" size={30} color="gray" />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Map"
-              component={MapScreen}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="map" size={27} color="gray" />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Settings"
-              component={SettingsStackNavigator}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="cog" size={35} color="grey" />
-                ),
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <Tab.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ tabBarVisible: false }}
-            />
-            <Tab.Screen
-              name="Registration"
-              component={RegistrationScreen}
-              options={{ tabBarVisible: false }}
-            />
-          </>
-        )}
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
 }

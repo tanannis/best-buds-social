@@ -5,10 +5,9 @@ import styles, { chatStyles } from "./styles";
 import { List, Divider } from "react-native-paper";
 import { firebase } from "../../firebase/config";
 
-
 export default function MatchesScreen({ navigation }) {
 
-	const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 	const onChangeSearch = (query) => setSearchTerm(query);
 	const [chats, setChats] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -95,4 +94,3 @@ export default function MatchesScreen({ navigation }) {
 }
 
 //Search Bar Documentation: https://callstack.github.io/react-native-paper/searchbar.html
-

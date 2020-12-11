@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Dropdown } from "react-native-material-dropdown-v2";
+import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import "firebase/storage";
 
@@ -53,6 +55,7 @@ export default function RegistrationScreen({ navigation }) {
       return;
     }
     //It creates a new account that will show up in Firebase Console -> Authentication table.
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -79,8 +82,33 @@ export default function RegistrationScreen({ navigation }) {
         usersRef
           .doc(uid)
           .set(data)
+          // .then(() => {
+          //   navigation.navigate(
+          //     "Home"
+          //     // , { user: data }
+          //   );
+          // })
           .then(() => {
-            navigation.navigate("Home", { user: data });
+            // Alert.alert(
+            //   "Please login now!",
+            //   [
+            //     {
+            //       text: "OK",
+            //     },
+            //   ],
+            //   { cancelable: false }
+            // );
+
+            // firebase
+            //   .auth()
+            //   .signOut()
+            //   // .then((response) => {
+            //   //   navigation.navigate("Login");
+            //   // })
+            //   .catch((error) => {
+            //     alert(error);
+            //   });
+            navigation.navigate("Login");
           })
           .catch((error) => {
             alert(error);
@@ -292,12 +320,31 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
           textContentType={"oneTimeCode"}
         />
+        {/* <Picker
+          label="Choose Dog Gender"
+          style={{
+            alignContent: "center",
+            height: 50,
+            width: 100,
+            marginTop: 10,
+            marginBottom: 100,
+            marginLeft: 30,
+            marginRight: 30,
+            paddingLeft: 4,
+          }}
+          onValueChange={(value, index) => setDogGender(value)}
+          //Newly Added Dog Section - Gender
+        >
+          <Picker.Item label="Female" value="Female" />
+          <Picker.Item label="Female" value="Female" />
+        </Picker> */}
         <Dropdown
-          //Newly Added Dog Section - Size
+          //Newly Added Dog Section - Gender
           label="Choose Dog Gender"
           data={dogGenderOptions}
           style={styles.dropdown}
           onChangeText={(value) => setDogGender(value)}
+          useNativeDriver={true}
         />
         <Dropdown
           //Newly Added Dog Section - Size
@@ -305,13 +352,15 @@ export default function RegistrationScreen({ navigation }) {
           data={dogSizeOptions}
           style={styles.dropdown}
           onChangeText={(value) => setDogSize(value)}
+          useNativeDriver={true}
         />
         <Dropdown
-          //Newly Added Dog Section - Size
+          //Newly Added Dog Section - Temperament
           label="Choose Dog Temperament"
           data={dogTemperamentOptions}
           style={styles.dropdown}
           onChangeText={(value) => setDogTemperament(value)}
+          useNativeDriver={true}
         />
         <TouchableOpacity
           style={styles.button}
