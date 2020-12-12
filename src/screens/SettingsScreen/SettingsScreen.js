@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import styles from "./styles";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function SettingsScreen({ navigation }) {
   const user = firebase.auth().currentUser
@@ -60,11 +61,8 @@ export default function SettingsScreen({ navigation }) {
 
 	return (
 		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Button
-				title="Set Location"
-				onPress={() => onSetLocationPress()}
-			></Button>
-
+			<FontAwesome name="map-marker" name="map-marker" size={20} color="blue" onPress={() => onSetLocationPress()}> Set Location </FontAwesome>
+		
 			<TextInput
 				style={styles.input}
         placeholder={user.email}
