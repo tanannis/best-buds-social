@@ -67,39 +67,40 @@ export default function App() {
 		});
 	}, []);
 
-	if (loading) {
-		return (
-			<>
-				<Text>Loading Messages...</Text>
-			</>
-		);
-	} else {
-		return (
-			<NavigationContainer>
-				<Tab.Navigator>
-					{user ? (
-						<>
-							<Tab.Screen
-								name="Home"
-								options={{
-									tabBarIcon: () => (
-										<FontAwesome name="home" size={40} color="gray" />
-									),
-								}}
-							>
-								{(props) => <HomeStackNavigator {...props} extraData={user} />}
-							</Tab.Screen>
+  if (loading) {
+    return (
+      <>
+        <Text>Loading Messages...</Text>
+      </>
+    );
+  } else {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        {user ? (
+          <>
+            <Tab.Screen
+              name="Home"
+              // component={MatchesStackNavigator}
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="home" size={40} color="gray" />
+                ),
+              }}
+            >
+              {(props) => <HomeStackNavigator {...props} extraData={user} />}
+            </Tab.Screen>
 
-							<Tab.Screen
-								name="Profile"
-								options={{
-									tabBarIcon: () => (
-										<FontAwesome name="profile" size={40} color="gray" />
-									),
-								}}
-							>
-								{(props) => <CurrentUserScreen {...props} extraData={user} />}
-							</Tab.Screen>
+            <Tab.Screen
+              name="Profile"
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="profile" size={40} color="gray" />
+                ),
+              }}
+            >
+              {(props) => <CurrentUserScreen {...props} extraData={user} />}
+            </Tab.Screen>
 
 							<Tab.Screen
 								name="Matches"
@@ -121,33 +122,34 @@ export default function App() {
 								}}
 							/>
 
-							<Tab.Screen
-								name="Settings"
-								component={SettingsStackNavigator}
-								options={{
-									tabBarIcon: () => (
-										<FontAwesome name="cog" size={35} color="grey" />
-									),
-								}}
-							/>
-						</>
-					) : (
-						<>
-							<Tab.Screen
-								name="Login"
-								component={MainStackNavigator}
-								options={{ tabBarVisible: false }}
-							/>
+            <Tab.Screen
+              name="Settings"
+              component={SettingsStackNavigator}
+              options={{
+                tabBarIcon: () => (
+                  <FontAwesome name="cog" size={35} color="grey" />
+                ),
+              }}
+            />
+            </>
+        ) : (
+          <>
+            <Tab.Screen
+              name="Login"
+              component={MainStackNavigator}
+              options={{ tabBarVisible: false }}
+            />
 
-							<Tab.Screen
-								name="Registration"
-								component={MainStackNavigator}
-								options={{ tabBarVisible: false }}
-							/>
-						</>
-					)}
-				</Tab.Navigator>
-			</NavigationContainer>
-		);
-	}
+            <Tab.Screen
+              name="Registration"
+              component={MainStackNavigator}
+              options={{ tabBarVisible: false }}
+            />
+
+          </>
+        )}
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+ }
 }
