@@ -36,19 +36,18 @@ export default function CurrentUserScreen() {
 
   const getDogData = () => {
     firebase
-    .firestore()
-    .collection("users")
-    .doc(currentPerson)
-    .get(dogData)
-    .then({
+      .firestore()
+      .collection("users")
+      .doc(currentPerson)
+      .get(dogData)
+      .then({
         dogName,
         dogSize,
         dogGender,
         dogBreed,
         dogTemperament,
-    })
-  }
-    
+      });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,21 +95,17 @@ export default function CurrentUserScreen() {
         </View>
 
         <View style={styles.userBio}>
-        <Text style={[styles.text, { fontSize: 14 }]}>
+          <Text style={[styles.text, { fontSize: 14 }]}>
             {currentUser.userBio}
           </Text>
         </View>
 
         <View style={styles.dogData}>
-        <Text style={[styles.text, { fontSize: 14 }]}>
-             <Text>{getDogData}</Text>)
+          <Text style={[styles.text, { fontSize: 14 }]}>
+            <Text>{getDogData}</Text>)
           </Text>
         </View>
-
-
-
       </ScrollView>
     </SafeAreaView>
   );
 }
-
