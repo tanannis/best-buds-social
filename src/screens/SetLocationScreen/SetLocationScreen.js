@@ -34,13 +34,19 @@ export default function SetLocationScreen() {
       });
 
       //firebase query to add location field
-      await firebase
+      // await firebase
+      //   .firestore()
+      //   .collection("users")
+      //   .doc(currentUser.uid)
+      //   .set({ location: place.postalCode }, { merge: true });
+    })();
+	}, []);
+
+	      firebase
         .firestore()
         .collection("users")
         .doc(currentUser.uid)
         .set({ location: place.postalCode }, { merge: true });
-    })();
-  }, []);
 
   console.log("LOCATION", location);
   console.log("PLACE", place);
