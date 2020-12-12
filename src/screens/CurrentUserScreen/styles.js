@@ -82,8 +82,8 @@ export default StyleSheet.create({
     },
 
     userBio: {
-      alignSelf: "center",
-      alignItems: "center",
+      alignSelf: "flex-start",
+      alignItems: "flex-start",
       marginTop: 16,
       paddingLeft: 50,
       paddingRight: 50,
@@ -91,8 +91,8 @@ export default StyleSheet.create({
     },
 
     dogData: {
-      alignSelf: "center",
-      alignItems: "center",
+      alignSelf: "flex-start",
+      alignItems: "flex-start",
       marginTop: 16,
       paddingLeft: 50,
       paddingRight: 50,
