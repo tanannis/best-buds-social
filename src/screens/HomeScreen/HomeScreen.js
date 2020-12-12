@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Button,
   Text,
@@ -13,7 +13,7 @@ import {
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import styles from "./styles";
-import { firebase } from "../../firebase/config";
+import { firebase, FieldValue } from "../../firebase/config";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const colors = {
@@ -62,12 +62,15 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [end, reachedEnd] = useState(false);
   const [currentUserName, setCurrentUserName] = useState("");
+  const [seenUserList, setSeenUsers] = useState([]);
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
 
   //useEffect hook sets the currentUserName for useState.
   useEffect(() => {
+    // (async () => {
+    // const result = await
     (async () => {
       //query gets loggedin user doc from firestore
       const userDoc = await firebase
@@ -80,16 +83,14 @@ export default function HomeScreen() {
         });
       //select fullName field from the doc
       const getCurrentUserName = await userDoc.fullName;
-
+      const getSeenUsers = await userDoc.seenUsers;
+      setSeenUsers(getSeenUsers);
       setCurrentUserName(getCurrentUserName);
     })();
   }, []);
 
-  // Need to add to users: "usersILike" and "usersWhoLikeMe"
-
   //Set match=true in both user's liked_by_people collection for the other user
   const onSwipedLeft = () => {
-    console.log("inside swipedleft");
     firebase
       .firestore()
       .collection("users")
@@ -104,7 +105,6 @@ export default function HomeScreen() {
   };
 
   const onSwipedRight = () => {
-    console.log("in swiped right");
     firebase
       .firestore()
       .collection("users")
@@ -119,22 +119,6 @@ export default function HomeScreen() {
     createChatRoom();
   };
 
-  // const currentUserDocFunc = async () => {
-  //   const currentUserDoc = await firebase
-  //     .firestore()
-  //     .collection("Users")
-  //     .doc(currentUser.uid)
-  //     .get()
-  //     .then((doc) => {
-  //       console.log("DATTAAAASSSSS", doc.data());
-  //       return doc.data();
-  //     });
-  //   const getCurrentUserName = await currentUserDoc.fullName.join();
-  //   return getCurrentUserName;
-  // };
-  // const currentUserName = currentUserDocFunc();
-  // console.log("WHOS CURRENT USER??", currentUserName);
-
   async function createChatRoom() {
     const snapshot = await firebase
       .firestore()
@@ -145,7 +129,6 @@ export default function HomeScreen() {
       .get();
 
     if (snapshot.empty) {
-      console.log("false");
     } else {
       Alert.alert(
         "Congrats! It's a match!",
@@ -164,12 +147,20 @@ export default function HomeScreen() {
         names: `${user[index].fullName} & ${currentUserName}`,
         Users: [currentUser.uid, user[index].id],
       });
-
-      console.log("true");
     }
   }
 
   const onSwiped = () => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .update({
+        seenUsers: firebase.firestore.FieldValue.arrayUnion(
+          `${user[index].id}`
+        ),
+      });
+
     transitionRef.current.animateNextTransition();
     setIndex((index + 1) % user.length);
   };
@@ -180,7 +171,7 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    return users.onSnapshot((querySnapshot) => {
+    users.onSnapshot((querySnapshot) => {
       const userList = [];
       querySnapshot.forEach((doc) => {
         const {
@@ -198,16 +189,19 @@ export default function HomeScreen() {
         });
       });
       const finalUserList = userList.filter((user) => {
-        console.log("in here", user);
-        if (user.id !== currentUser.uid) {
+        if (
+          user.id !== currentUser.uid &&
+          !seenUserList.includes(`${user.id}`)
+        ) {
           return user;
         }
       });
-      console.log("userList", finalUserList);
+
       setUser(finalUserList);
       setLoading(false);
     });
-  }, []);
+  }, [seenUserList]);
+  //the above useEffect will only run when seenUserList is updated on state
 
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>
@@ -288,7 +282,6 @@ export default function HomeScreen() {
               animateCardOpacity
               onTopSwipe={onTopSwipe}
               onSwipedAll={() => {
-                console.log("in onSwipedAll");
                 reachedEnd(true);
               }}
               disableBottomSwipe
