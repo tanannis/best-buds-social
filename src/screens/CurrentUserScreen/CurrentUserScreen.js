@@ -119,9 +119,6 @@ export default function CurrentUserScreen() {
              <Text>Dog Name: {dogInfo.dogName}{"\n"}Dog Breed: {dogInfo.dogBreed}{"\n"}Dog Gender: {dogInfo.Gender}{"\n"}Dog Size: {dogInfo.dogSize}{"\n"}Dog Temperament: {dogInfo.dogTemperament}</Text>
           </Text>
         </View>
-
-
-
       </ScrollView>
     </SafeAreaView>
   );
