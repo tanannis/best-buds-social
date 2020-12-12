@@ -22,13 +22,18 @@ export default function SettingsScreen({ navigation }) {
 	};
 
 	const onUpdateEmailPress = () => {
+    //only updates to firebase auth
     user.updateEmail(newEmail)
 			.then(() => {
 				Alert.alert("Your email has been changed.");
 			})
 			.catch((error) => {
 				alert(error);
-			});
+      });
+      
+      //also updates to the firestore
+      firebase.firestore().collection('users').doc(user.uid).update({email: newEmail})
+
   };
   
   const onUpdatePasswordPress = () => {
