@@ -11,7 +11,7 @@ import {
   MatchesScreen,
   MapScreen,
   CurrentUserScreen,
-  SingleMatchProfile
+  SingleMatchProfile,
 } from "./src/screens";
 
 import {
@@ -74,82 +74,79 @@ export default function App() {
       </>
     );
   } else {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        {user ? (
-          <>
-          <Tab.Screen
-              name="Profile"
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="profile" size={40} color="gray" />
-                ),
-              }}
-            >
-              {(props) => <CurrentUserScreen {...props} extraData={user} />}
-            </Tab.Screen>
+    return (
+      <NavigationContainer>
+        <Tab.Navigator>
+          {user ? (
+            <>
+              <Tab.Screen
+                name="Home"
+                // component={MatchesStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="home" size={40} color="gray" />
+                  ),
+                }}
+              >
+                {(props) => <HomeStackNavigator {...props} extraData={user} />}
+              </Tab.Screen>
+              <Tab.Screen
+                name="Matches"
+                component={MatchesStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="comment" size={30} color="gray" />
+                  ),
+                }}
+              />
+              <Tab.Screen
+                name="Profile"
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="profile" size={40} color="gray" />
+                  ),
+                }}
+              >
+                {(props) => <CurrentUserScreen {...props} extraData={user} />}
+              </Tab.Screen>
 
-            <Tab.Screen
-              name="Home"
-              // component={MatchesStackNavigator}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="home" size={40} color="gray" />
-                ),
-              }}
-            >
-              {(props) => <HomeStackNavigator {...props} extraData={user} />}
-            </Tab.Screen>
+              <Tab.Screen
+                name="Map"
+                component={MapScreen}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="map" size={27} color="gray" />
+                  ),
+                }}
+              />
 
-            <Tab.Screen
-              name="Matches"
-              component={MatchesStackNavigator}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="comment" size={30} color="gray" />
-                ),
-              }}
-            />
-
-            <Tab.Screen
-              name="Map"
-              component={MapScreen}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="map" size={27} color="gray" />
-                ),
-              }}
-            />
-
-            <Tab.Screen
-              name="Settings"
-              component={SettingsStackNavigator}
-              options={{
-                tabBarIcon: () => (
-                  <FontAwesome name="cog" size={35} color="grey" />
-                ),
-              }}
-            />
+              <Tab.Screen
+                name="Settings"
+                component={SettingsStackNavigator}
+                options={{
+                  tabBarIcon: () => (
+                    <FontAwesome name="cog" size={35} color="grey" />
+                  ),
+                }}
+              />
             </>
-        ) : (
-          <>
-            <Tab.Screen
-              name="Login"
-              component={MainStackNavigator}
-              options={{ tabBarVisible: false }}
-            />
+          ) : (
+            <>
+              <Tab.Screen
+                name="Login"
+                component={MainStackNavigator}
+                options={{ tabBarVisible: false }}
+              />
 
-            <Tab.Screen
-              name="Registration"
-              component={MainStackNavigator}
-              options={{ tabBarVisible: false }}
-            />
-
-          </>
-        )}
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-
+              <Tab.Screen
+                name="Registration"
+                component={MainStackNavigator}
+                options={{ tabBarVisible: false }}
+              />
+            </>
+          )}
+        </Tab.Navigator>
+      </NavigationContainer>
+    );
+  }
 }

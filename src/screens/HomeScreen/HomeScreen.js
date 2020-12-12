@@ -61,7 +61,7 @@ export default function HomeScreen() {
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [end, reachedEnd] = useState(false);
-  const [currentUserName, setCurrentUserName] = useState('')
+  const [currentUserName, setCurrentUserName] = useState("");
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
@@ -78,11 +78,11 @@ export default function HomeScreen() {
         .then((doc) => {
           return doc.data();
         });
-        //select fullName field from the doc
-        const getCurrentUserName = await userDoc.fullName;
+      //select fullName field from the doc
+      const getCurrentUserName = await userDoc.fullName;
 
-      setCurrentUserName(getCurrentUserName)
-      })();
+      setCurrentUserName(getCurrentUserName);
+    })();
   }, []);
 
   // Need to add to users: "usersILike" and "usersWhoLikeMe"
@@ -197,8 +197,14 @@ export default function HomeScreen() {
           // dogData,
         });
       });
-      // console.log("userList", userList);
-      setUser(userList);
+      const finalUserList = userList.filter((user) => {
+        console.log("in here", user);
+        if (user.id !== currentUser.uid) {
+          return user;
+        }
+      });
+      console.log("userList", finalUserList);
+      setUser(finalUserList);
       setLoading(false);
     });
   }, []);
