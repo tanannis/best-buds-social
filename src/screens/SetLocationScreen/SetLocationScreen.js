@@ -32,21 +32,25 @@ export default function SetLocationScreen() {
       place.find((place) => {
         setZipCode(place.postalCode);
       });
-
-      //firebase query to add location field
-      // await firebase
-      //   .firestore()
-      //   .collection("users")
-      //   .doc(currentUser.uid)
-      //   .set({ location: place.postalCode }, { merge: true });
     })();
 	}, []);
 
-	      firebase
+	useEffect(() => {
+    (async () => {
+      //firebase query to add location field
+      await firebase
         .firestore()
         .collection("users")
         .doc(currentUser.uid)
-        .set({ location: place.postalCode }, { merge: true });
+        .set({ location: zipCode }, { merge: true });
+    })();
+	}, [zipCode]);
+
+	      // firebase
+        // .firestore()
+        // .collection("users")
+        // .doc(currentUser.uid)
+        // .set({ location: place.postalCode }, { merge: true });
 
   console.log("LOCATION", location);
   console.log("PLACE", place);
