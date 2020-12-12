@@ -39,7 +39,7 @@ export default function SettingsScreen({ navigation }) {
   const onUpdatePasswordPress = () => {
     user.updatePassword(newPassword)
 			.then(() => {
-				Alert.alert("Your password has been changed.");
+        Alert.alert("Your password has been changed.");
 			})
 			.catch((error) => {
 				alert(error);
@@ -67,7 +67,8 @@ export default function SettingsScreen({ navigation }) {
 
 			<TextInput
 				style={styles.input}
-				placeholder={user.email}
+        placeholder={user.email}
+        clearTextOnFocus={true}
 				placeholderTextColor="#aaaaaa"
 				onChangeText={(text) => setNewEmail(text)}
 				value={newEmail}
@@ -82,7 +83,8 @@ export default function SettingsScreen({ navigation }) {
 
 			<TextInput
 				style={styles.input}
-				placeholder="new password"
+        placeholder="new password"
+        clearTextOnFocus={true}
 				placeholderTextColor="#aaaaaa"
 				onChangeText={(text) => setNewPassword(text)}
 				value={newPassword}
