@@ -4,16 +4,6 @@ import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-<<<<<<< HEAD
-  LoginScreen,
-  HomeScreen,
-  RegistrationScreen,
-  SettingsScreen,
-  MatchesScreen,
-  MapScreen,
-  CurrentUserScreen,
-  SingleMatchProfile,
-=======
 	LoginScreen,
 	HomeScreen,
 	RegistrationScreen,
@@ -22,7 +12,6 @@ import {
 	MapScreen,
 	CurrentUserScreen,
 	SingleMatchProfile,
->>>>>>> 899697d99385d105868ba4e07bbba776794ba7ff
 } from "./src/screens";
 
 import {
