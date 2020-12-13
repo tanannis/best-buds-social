@@ -198,10 +198,18 @@ export default function HomeScreen() {
       });
 
       setUser(finalUserList);
-      setLoading(false);
+      //setLoading(false);
     });
   }, [seenUserList]);
   //the above useEffect will only run when seenUserList is updated on state
+
+  //clean up use effect for memory leak
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    }
+  }, [user])
+
 
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>
