@@ -37,24 +37,7 @@ export default function CurrentUserScreen() {
     })();
   }, []);
 
-  // const getDogData = () => {
-  //   firebase
-  //   .firestore()
-  //   .collection("users")
-  //   .doc(currentPerson)
-  //   .get(dogData)
-  //   .then({
-  //       dogName,
-  //       dogSize,
-  //       dogGender,
-  //       dogBreed,
-  //       dogTemperament,
-  //   })
-  // }
-
-  // onAccept = (userBio) => {
-  //   setCurrentUser({ userBio })
-  // }
+  
 
   return (
     <SafeAreaView style={styles.container}>

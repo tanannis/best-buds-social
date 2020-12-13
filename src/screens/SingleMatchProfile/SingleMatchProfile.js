@@ -90,9 +90,6 @@ export default function CurrentUserScreen() {
           <Text style={[styles.text, { fontSize: 14 }]}>
             {matchedUser.userBio}
           </Text>
-          {/* <EditButton onAccept={handleOnAccept}>
-            <span>{currentUser.userBio}</span>
-          </EditButton> */}
         </View>
 
         <View style={styles.dogData}>
