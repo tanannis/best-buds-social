@@ -44,7 +44,7 @@ export default function App() {
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection("users");
-    const userQuery = firebase.auth().onAuthStateChanged((user) => {
+    const query = firebase.auth().onAuthStateChanged((user) => {
       console.log("onauthstate triggered");
       if (user) {
         console.log("user", user);
@@ -65,7 +65,7 @@ export default function App() {
         setLoading(false);
       }
     });
-    return () => userQuery()
+    return () => query()
   }, []);
 
   // useEffect(() => {
