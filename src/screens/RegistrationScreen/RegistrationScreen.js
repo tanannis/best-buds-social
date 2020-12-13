@@ -33,7 +33,6 @@ export default function RegistrationScreen({ navigation }) {
   const [image, setImage] = useState(null);
   const [localImage, setLocalImage] = useState(null);
 
-  console.log(fullName, dogSize.value, dogTemperament.value, dogGender.value);
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
