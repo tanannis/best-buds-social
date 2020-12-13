@@ -221,16 +221,23 @@ export default function HomeScreen() {
           return user;
         }
       });
+
       if (finalUserList.length <= 0) {
         reachedEnd(true);
       } else {
         setUser(finalUserList);
       }
-      // setUser(finalUserList);
-      setLoading(false);
     });
   }, [seenUserList]);
   //the above useEffect will only run when seenUserList is updated on state
+
+  //clean up use effect for memory leak
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    }
+  }, [user])
+
 
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>
