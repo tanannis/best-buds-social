@@ -102,6 +102,16 @@ export default function HomeScreen() {
         match: false,
         merge: false,
       });
+
+    // firebase
+    //   .firestore()
+    //   .collection("users")
+    //   .doc(currentUser.uid)
+    //   .update({
+    //     seenUsers: firebase.firestore.FieldValue.arrayUnion(
+    //       `${user[index].id}`
+    //     ),
+    //   });
   };
 
   const onSwipedRight = () => {
@@ -115,6 +125,16 @@ export default function HomeScreen() {
         id: user[index].id,
         match: true,
       });
+
+    // firebase
+    //   .firestore()
+    //   .collection("users")
+    //   .doc(currentUser.uid)
+    //   .update({
+    //     seenUsers: firebase.firestore.FieldValue.arrayUnion(
+    //       `${user[index].id}`
+    //     ),
+    //   });
 
     createChatRoom();
   };
@@ -162,12 +182,17 @@ export default function HomeScreen() {
       });
 
     transitionRef.current.animateNextTransition();
-    setIndex((index + 1) % user.length);
+
+    if (index === user.length - 1) {
+      reachedEnd(true);
+    } else {
+      setIndex((index + 1) % user.length);
+    }
   };
 
   const onTopSwipe = () => {
-    transitionRef.current.animateNextTransition();
-    setIndex(index + (1 % user.length));
+    // transitionRef.current.animateNextTransition();
+    // setIndex((index + 1) % user.length);
   };
 
   useEffect(() => {
@@ -197,8 +222,11 @@ export default function HomeScreen() {
         }
       });
 
-      setUser(finalUserList);
-      //setLoading(false);
+      if (finalUserList.length <= 0) {
+        reachedEnd(true);
+      } else {
+        setUser(finalUserList);
+      }
     });
   }, [seenUserList]);
   //the above useEffect will only run when seenUserList is updated on state
@@ -290,6 +318,7 @@ export default function HomeScreen() {
               animateCardOpacity
               onTopSwipe={onTopSwipe}
               onSwipedAll={() => {
+                console.log("in onSwipedAll");
                 reachedEnd(true);
               }}
               disableBottomSwipe
