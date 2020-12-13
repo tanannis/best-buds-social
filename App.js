@@ -95,7 +95,7 @@ export default function App() {
                 name="Profile"
                 options={{
                   tabBarIcon: () => (
-                    <FontAwesome name="profile" size={40} color="gray" />
+                    <FontAwesome name="user" size={40} color="gray" />
                   ),
                 }}
               >
