@@ -9,7 +9,6 @@ import {
   RegistrationScreen,
   SettingsScreen,
   MatchesScreen,
-  MapScreen,
   CurrentUserScreen,
   SingleMatchProfile,
 } from "./src/screens";
@@ -105,13 +104,12 @@ export default function App() {
                 name="Profile"
                 options={{
                   tabBarIcon: () => (
-                    <FontAwesome name="user" size={40} color="gray" />
+                    <FontAwesome name="user" size={35} color="gray" />
                   ),
                 }}
               >
                 {(props) => <CurrentUserScreen {...props} extraData={user} />}
               </Tab.Screen>
-
               <Tab.Screen
                 name="Matches"
                 component={MatchesStackNavigator}
@@ -121,17 +119,6 @@ export default function App() {
                   ),
                 }}
               />
-
-              <Tab.Screen
-                name="Map"
-                component={MapScreen}
-                options={{
-                  tabBarIcon: () => (
-                    <FontAwesome name="map" size={27} color="gray" />
-                  ),
-                }}
-              />
-
               <Tab.Screen
                 name="Settings"
                 component={SettingsStackNavigator}
