@@ -95,3 +95,4 @@ export default StyleSheet.create({
     paddingRight: 50,
   },
 });
+

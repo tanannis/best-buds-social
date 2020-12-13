@@ -12,8 +12,6 @@ export { default as MatchesScreen } from "./MatchesScreen/MatchesScreen";
 
 export { default as SingleChatRoom } from "./SingleChatRoom/SingleChatRoom";
 
-export { default as MapScreen } from "./MapScreen/MapScreen";
-
 export { default as SetLocationScreen } from "./SetLocationScreen/SetLocationScreen";
 
 export { default as CurrentUserScreen } from "./CurrentUserScreen/CurrentUserScreen";

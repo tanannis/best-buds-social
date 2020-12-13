@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-  FlatList,
-  Keyboard,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  Button,
   Alert,
+ FlatList
 } from "react-native";
+import { List, Divider } from "react-native-paper";
 import { firebase } from "../../firebase/config";
 import styles from "./styles";
 import { FontAwesome } from "@expo/vector-icons";
@@ -64,17 +63,39 @@ export default function SettingsScreen({ navigation }) {
       });
   };
 
+const SettingsData = [
+{
+  title: "My Location",
+
+},
+{
+  title: "Account Settings",
+
+},
+{
+  title: "Log Out",
+
+}
+]
+
+const Item = ({ title }) => (
+  <View >
+    <Text >{title}</Text>
+  </View>
+);
+
+
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    {/* <FlatList data={SettingsData}
+    renderItem={Item}> */}
       <FontAwesome
-        name="map-marker"
         name="map-marker"
         size={20}
         color="blue"
         onPress={() => onSetLocationPress()}
-      >
-        {" "}
-        Set Location{" "}
+      > Set Location
       </FontAwesome>
 
       <TextInput
@@ -88,10 +109,12 @@ export default function SettingsScreen({ navigation }) {
         autoCapitalize="none"
         textContentType={"oneTimeCode"}
       />
-      <Button
-        title="Update Email"
+      <FontAwesome
+        name="envelope"
+        size={20}
+        color="blue"
         onPress={() => onUpdateEmailPress()}
-      ></Button>
+      > Update Email </FontAwesome>
 
       <TextInput
         style={styles.input}
@@ -104,14 +127,17 @@ export default function SettingsScreen({ navigation }) {
         autoCapitalize="none"
         textContentType={"oneTimeCode"}
       />
-      <Button
-        title="Update Password"
+      <FontAwesome
+        name="lock"
+        size={20}
+        color="blue"
         onPress={() => onUpdatePasswordPress()}
-      ></Button>
+      > Update Password</FontAwesome>
 
       <TouchableOpacity onPress={() => onSignOutPress()}>
         <Text>Log Out</Text>
       </TouchableOpacity>
+      {/* </FlatList> */}
     </View>
   );
 }
