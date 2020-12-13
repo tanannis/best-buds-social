@@ -40,6 +40,7 @@ export default function App() {
 	const [user, setUser] = useState(null);
 	// const currentUser = firebase.auth().currentUser
 
+
 	//Persist Login Credentials, so user doesn't have to login again after quit the app.
 
 	useEffect(() => {
