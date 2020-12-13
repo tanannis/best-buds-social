@@ -11,10 +11,11 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
-import { Dropdown } from "react-native-material-dropdown-v2";
-import { Picker } from "@react-native-picker/picker";
+// import { Dropdown } from "react-native-material-dropdown-v2-fixed";
+import DropDownPicker from "react-native-dropdown-picker";
 import * as ImagePicker from "expo-image-picker";
 import "firebase/storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -71,10 +72,10 @@ export default function RegistrationScreen({ navigation }) {
           seenUsers: [],
           dogData: {
             dogName,
-            dogSize,
-            dogGender,
+            dogSize: dogSize.value,
+            dogGender: dogGender.value,
             dogBreed,
-            dogTemperament,
+            dogTemperament: dogTemperament.value,
           },
         };
 
@@ -119,22 +120,6 @@ export default function RegistrationScreen({ navigation }) {
         alert(error);
       });
   };
-
-  const dogSizeOptions = [
-    { value: "Extra Small" },
-    { value: "Small" },
-    { value: "Medium" },
-    { value: "Large" },
-    { value: "Extra Large" },
-  ];
-
-  const dogTemperamentOptions = [
-    { value: "Calm" },
-    { value: "Energetic" },
-    { value: "Feisty" },
-  ];
-
-  const dogGenderOptions = [{ value: "Male" }, { value: "Female" }];
 
   uriToBlob = (uri) => {
     return new Promise((resolve, reject) => {
@@ -209,175 +194,174 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView
-        style={{ flex: 1, width: "100%" }}
-        keyboardShouldPersistTaps="always"
-      >
-        <Image
-          style={styles.logo}
-          source={require("../../../assets/BestBudsSocialLogo.png")}
-        />
-        <View style={{ alignItems: "center" }}>
-          {image && (
-            <Image
-              source={{ uri: localImage }}
-              style={{ width: 200, height: 200, borderRadius: 5, margin: 20 }}
-            />
-          )}
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Full Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TouchableOpacity onPress={pickImage}>
-          <View
-            onPress={pickImage}
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#788eec",
-              height: 24,
-              marginLeft: 45,
-              marginRight: 45,
-              borderRadius: 5,
-            }}
+    <SafeAreaView style={styles.container}>
+      <View>
+        <KeyboardAwareScrollView
+          style={{ flex: 1, width: "100%" }}
+          keyboardShouldPersistTaps="always"
+        >
+          <Image
+            style={styles.logo}
+            source={require("../../../assets/BestBudsSocialLogo.png")}
+          />
+          <View style={{ alignItems: "center" }}>
+            {image && (
+              <Image
+                source={{ uri: localImage }}
+                style={{ width: 200, height: 200, borderRadius: 5, margin: 20 }}
+              />
+            )}
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Full Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setFullName(text)}
+            value={fullName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Confirm Password"
+            onChangeText={(text) => setConfirmPassword(text)}
+            value={confirmPassword}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TouchableOpacity onPress={pickImage}>
+            <View
+              onPress={pickImage}
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#788eec",
+                height: 24,
+                marginLeft: 45,
+                marginRight: 45,
+                borderRadius: 5,
+              }}
+            >
+              <Text style={styles.buttonTitle}>
+                Choose an image of you & your dog!
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TextInput
+            //Newly Added UserBioSection
+            style={styles.largeinput}
+            placeholder="Tell us about you & your dog here...you can include your favorite places to walk and/or anything special about your best bud :)"
+            placeholderTextColor="#aaaaaa"
+            multiline={true}
+            onChangeText={(text) => setUserBio(text)}
+            value={userBio}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TextInput
+            //Newly Added Dog Section - Name
+            style={styles.input}
+            placeholder="Dog Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setDogName(text)}
+            value={dogName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+          <TextInput
+            //Newly Added Dog Section - Name
+            style={styles.input}
+            placeholder="Dog Breed"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setDogBreed(text)}
+            value={dogBreed}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            textContentType={"oneTimeCode"}
+          />
+
+          <DropDownPicker
+            //Newly Added Dog Section - Gender
+            placeholder="Choose Dog Gender"
+            items={[
+              { label: "Female", value: "Female" },
+              { label: "Male", value: "Male" },
+            ]}
+            style={styles.dropdown}
+            onChangeItem={(value) => setDogGender(value)}
+            zIndex={5000}
+          />
+          <DropDownPicker
+            //Newly Added Dog Section - Size
+            placeholder="Choose Dog Size"
+            items={[
+              { label: "Extra Small", value: "Extra Small" },
+              { label: "Small", value: "Small" },
+              { label: "Medium", value: "Medium" },
+              { label: "Large", value: "Large" },
+              { label: "Extra Large", value: "Extra Large" },
+            ]}
+            style={styles.dropdown}
+            onChangeItem={(value) => setDogSize(value)}
+            zIndex={4000}
+          />
+          <DropDownPicker
+            //Newly Added Dog Section - Temperament
+            placeholder="Choose Dog Temperament"
+            items={[
+              { label: "Calm", value: "Calm" },
+              { label: "Energetic", value: "Energetic" },
+              { label: "Feisty", value: "Feisty" },
+            ]}
+            style={styles.dropdown}
+            onChangeItem={(value) => setDogTemperament(value)}
+            zIndex={3000}
+          />
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => onRegisterPress()}
           >
-            <Text style={styles.buttonTitle}>
-              Choose an image of you & your dog!
+            <Text style={styles.buttonTitle}>Create account</Text>
+          </TouchableOpacity>
+          <View style={styles.footerView}>
+            <Text style={styles.footerText}>
+              Already have an account?
+              <Text onPress={onFooterLinkPress} style={styles.footerLink}>
+                Log in
+              </Text>
             </Text>
           </View>
-        </TouchableOpacity>
-        <TextInput
-          //Newly Added UserBioSection
-          style={styles.largeinput}
-          placeholder="Tell us about you & your dog here...you can include your favorite places to walk and/or anything special about your best bud :)"
-          placeholderTextColor="#aaaaaa"
-          multiline={true}
-          onChangeText={(text) => setUserBio(text)}
-          value={userBio}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TextInput
-          //Newly Added Dog Section - Name
-          style={styles.input}
-          placeholder="Dog Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDogName(text)}
-          value={dogName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        <TextInput
-          //Newly Added Dog Section - Name
-          style={styles.input}
-          placeholder="Dog Breed"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDogBreed(text)}
-          value={dogBreed}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          textContentType={"oneTimeCode"}
-        />
-        {/* <Picker
-          label="Choose Dog Gender"
-          style={{
-            alignContent: "center",
-            height: 50,
-            width: 100,
-            marginTop: 10,
-            marginBottom: 100,
-            marginLeft: 30,
-            marginRight: 30,
-            paddingLeft: 4,
-          }}
-          onValueChange={(value, index) => setDogGender(value)}
-          //Newly Added Dog Section - Gender
-        >
-          <Picker.Item label="Female" value="Female" />
-          <Picker.Item label="Female" value="Female" />
-        </Picker> */}
-        <Dropdown
-          //Newly Added Dog Section - Gender
-          label="Choose Dog Gender"
-          data={dogGenderOptions}
-          style={styles.dropdown}
-          onChangeText={(value) => setDogGender(value)}
-          useNativeDriver={true}
-        />
-        <Dropdown
-          //Newly Added Dog Section - Size
-          label="Choose Dog Size"
-          data={dogSizeOptions}
-          style={styles.dropdown}
-          onChangeText={(value) => setDogSize(value)}
-          useNativeDriver={true}
-        />
-        <Dropdown
-          //Newly Added Dog Section - Temperament
-          label="Choose Dog Temperament"
-          data={dogTemperamentOptions}
-          style={styles.dropdown}
-          onChangeText={(value) => setDogTemperament(value)}
-          useNativeDriver={true}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => onRegisterPress()}
-        >
-          <Text style={styles.buttonTitle}>Create account</Text>
-        </TouchableOpacity>
-        <View style={styles.footerView}>
-          <Text style={styles.footerText}>
-            Already have an account?
-            <Text onPress={onFooterLinkPress} style={styles.footerLink}>
-              Log in
-            </Text>
-          </Text>
-        </View>
-      </KeyboardAwareScrollView>
-    </View>
+        </KeyboardAwareScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
