@@ -6,8 +6,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   input: {
-	height: 48,
-	width: 200,
+    height: 48,
+    width: 200,
     borderRadius: 5,
     overflow: "hidden",
     backgroundColor: "white",

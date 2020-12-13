@@ -68,6 +68,7 @@ export default function RegistrationScreen({ navigation }) {
           //Newly add field
           userBio,
           image,
+          seenUsers: [],
           dogData: {
             dogName,
             dogSize,
