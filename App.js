@@ -37,7 +37,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  // const currentUser = firebase.auth().currentUser
 
   //Persist Login Credentials, so user doesn't have to login again after quit the app.
 
@@ -56,20 +55,17 @@ export default function App() {
             setUser(userData);
           })
           .catch((error) => {
-            // setLoading(false);
             alert(error);
           });
       } else {
         setUser(false);
-        //setLoading(false);
       }
     });
   }, []);
 
+  //clean up use effect for memory leak
   useEffect(() => {
-    //effect
     return () => {
-      // cleanup
       setLoading(false);
     }
   }, [user])
