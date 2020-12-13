@@ -16,7 +16,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 export default function CurrentUserScreen() {
   const [currentUser, setCurrentUser] = useState([]);
-  const [dogInfo, setDogInfo] = useState([])
+  const [dogInfo, setDogInfo] = useState([]);
 
   const currentPerson = firebase.auth().currentUser.uid;
 
@@ -33,7 +33,7 @@ export default function CurrentUserScreen() {
         });
 
       setCurrentUser(snapshot);
-      setDogInfo(snapshot.dogData)
+      setDogInfo(snapshot.dogData);
     })();
   }, []);
 
@@ -83,22 +83,28 @@ export default function CurrentUserScreen() {
         </View>
 
         <View style={styles.userBio}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>My Bio</Text>
+          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+            My Bio
+          </Text>
           <Text style={[styles.text, { fontSize: 14 }]}>
             {currentUser.userBio}
           </Text>
-          {/* <EditButton onAccept={handleOnAccept}>
-            <span>{currentUser.userBio}</span>
-          </EditButton> */}
         </View>
         <View style={styles.dogData}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5}]}>My Dog</Text>
-
-          <Text style={[styles.text, { fontSize: 14 }]}>
-             <Text>Dog Name: {dogInfo.dogName}{"\n"}Dog Breed: {dogInfo.dogBreed}{"\n"}Dog Gender: {dogInfo.Gender}{"\n"}Dog Size: {dogInfo.dogSize}{"\n"}Dog Temperament: {dogInfo.dogTemperament}</Text>
-          <Text style={[styles.text, { fontSize: 14 }]}>
-            <Text>{getDogData}</Text>)
+          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+            My Dog
           </Text>
+
+          <View style={[styles.text, { fontSize: 14 }]}>
+            <Text>
+              Dog Name: {dogInfo.dogName}
+              {"\n"}Dog Breed: {dogInfo.dogBreed}
+              {"\n"}Dog Gender: {dogInfo.Gender}
+              {"\n"}Dog Size: {dogInfo.dogSize}
+              {"\n"}Dog Temperament: {dogInfo.dogTemperament}
+            </Text>
+            <Text style={[styles.text, { fontSize: 14 }]}></Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
