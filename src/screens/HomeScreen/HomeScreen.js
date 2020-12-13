@@ -63,6 +63,10 @@ export default function HomeScreen() {
   const [end, reachedEnd] = useState(false);
   const [currentUserName, setCurrentUserName] = useState("");
   const [seenUserList, setSeenUsers] = useState([]);
+
+  //for filtering users by zip-code
+  const [zipCode, setZipCode] = useState('')
+
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
@@ -84,10 +88,14 @@ export default function HomeScreen() {
       //select fullName field from the doc
       const getCurrentUserName = await userDoc.fullName;
       const getSeenUsers = await userDoc.seenUsers;
+      const getZipCode = await userDoc.location
       setSeenUsers(getSeenUsers);
       setCurrentUserName(getCurrentUserName);
+      setZipCode(getZipCode)
     })();
   }, []);
+
+  // console.log('ZIPCODE', zipCode)
 
   //Set match=true in both user's liked_by_people collection for the other user
   const onSwipedLeft = () => {
@@ -102,16 +110,6 @@ export default function HomeScreen() {
         match: false,
         merge: false,
       });
-
-    // firebase
-    //   .firestore()
-    //   .collection("users")
-    //   .doc(currentUser.uid)
-    //   .update({
-    //     seenUsers: firebase.firestore.FieldValue.arrayUnion(
-    //       `${user[index].id}`
-    //     ),
-    //   });
   };
 
   const onSwipedRight = () => {
@@ -125,17 +123,6 @@ export default function HomeScreen() {
         id: user[index].id,
         match: true,
       });
-
-    // firebase
-    //   .firestore()
-    //   .collection("users")
-    //   .doc(currentUser.uid)
-    //   .update({
-    //     seenUsers: firebase.firestore.FieldValue.arrayUnion(
-    //       `${user[index].id}`
-    //     ),
-    //   });
-
     createChatRoom();
   };
 
@@ -203,19 +190,20 @@ export default function HomeScreen() {
           fullName,
           userBio,
           image,
-          // dogData
+          location
         } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
-          // dogData,
+          location
         });
       });
       const finalUserList = userList.filter((user) => {
+        //filter users by zipcode and not already seen (of course not the logged user)
         if (
-          user.id !== currentUser.uid &&
+          user.id !== currentUser.uid && user.location === zipCode &&
           !seenUserList.includes(`${user.id}`)
         ) {
           return user;
