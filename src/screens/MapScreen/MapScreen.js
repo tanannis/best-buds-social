@@ -14,8 +14,8 @@ import { FontAwesome } from "@expo/vector-icons";
 export default function MapScreen() {
 	const [location, setLocation] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
-	const [place, setPlace] = useState(null);
-	const [zipCode, setZipCode] = useState(null);
+	const [latitude, setLatitude] = useState(null)
+	const [longitude, setLongitude] = useState(null)
 
 	useEffect(() => {
 		(async () => {
@@ -26,36 +26,29 @@ export default function MapScreen() {
 
 			let location = await Location.getCurrentPositionAsync({});
 			setLocation(location);
-
-			let place = await Location.reverseGeocodeAsync({
-				latitude: location.coords.latitude,
-				longitude: location.coords.longitude,
-			});
-			setPlace(place);
-
-			place.find((place) => {
-				setZipCode(place.postalCode);
-			});
+			setLatitude(location.coords.latitude)
+			setLongitude(location.coords.longitude)
+			
 		})();
 	}, []);
 
-	console.log("LOCATION", location);
-	console.log("PLACE", place);
-	// 	console.log("ZIPCODE", zipCode);
+	console.log('<<<<<', location)
+	console.log('Latitude', latitude)
+	console.log('Longtitute', longitude)
 
 	return (
 		<>
 			<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-				<Text>
-					<FontAwesome name="map-marker" size={20} color="blue" /> {zipCode}
-				</Text>
+				
 				<MapView
 					style={styles.mapStyle}
 					provider={PROVIDER_GOOGLE}
 					showsUserLocation
 					initialRegion={{
-						latitude: 37.78825,
-						longitude: -122.4324,
+						// latitude: 37.78825,
+						// longitude: -122.4324,
+						latitude: latitude,
+						longitude: longitude,
 						latitudeDelta: 0.0922,
 						longitudeDelta: 0.0421,
 					}}
