@@ -22,7 +22,7 @@ import {
   RegistrationScreenNavigator,
 } from "./src/navigation/StackNavigator";
 
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { decode, encode } from "base-64";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -44,7 +44,7 @@ export default function App() {
 
   useEffect(() => {
     const usersRef = firebase.firestore().collection("users");
-    firebase.auth().onAuthStateChanged((user) => {
+    const query = firebase.auth().onAuthStateChanged((user) => {
       console.log("onauthstate triggered");
       if (user) {
         console.log("user", user);
@@ -65,12 +65,22 @@ export default function App() {
         setLoading(false);
       }
     });
+    return () => query()
   }, []);
+
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [user])
 
   if (loading) {
     return (
       <>
-        <Text>Loading Messages...</Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>
       </>
     );
   } else {
@@ -95,7 +105,7 @@ export default function App() {
                 name="Profile"
                 options={{
                   tabBarIcon: () => (
-                    <FontAwesome name="profile" size={40} color="gray" />
+                    <FontAwesome name="user" size={40} color="gray" />
                   ),
                 }}
               >

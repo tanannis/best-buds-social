@@ -54,7 +54,7 @@ export default function CurrentUserScreen() {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
-          <Ionicons name="md-more" size={24} colors="#EC2379"></Ionicons>
+          <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
 
         <View style={{ alignSelf: "center" }}>
