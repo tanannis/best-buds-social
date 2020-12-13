@@ -63,7 +63,7 @@ export default function HomeScreen() {
   const [end, reachedEnd] = useState(false);
   const [currentUserName, setCurrentUserName] = useState("");
   const [seenUserList, setSeenUsers] = useState([]);
-
+  const [finalUserArray, setFinalUserList] = useState([]);
   //for filtering users by zip-code
   const [zipCode, setZipCode] = useState('')
 
@@ -95,7 +95,6 @@ export default function HomeScreen() {
     })();
   }, []);
 
-  // console.log('ZIPCODE', zipCode)
 
   //Set match=true in both user's liked_by_people collection for the other user
   const onSwipedLeft = () => {
@@ -203,8 +202,7 @@ export default function HomeScreen() {
       const finalUserList = userList.filter((user) => {
         //filter users by zipcode and not already seen (of course not the logged user)
         if (
-          user.id !== currentUser.uid && user.location === zipCode &&
-          !seenUserList.includes(`${user.id}`)
+          user.id !== currentUser.uid && !seenUserList.includes(`${user.id}`)
         ) {
           return user;
         }
@@ -212,11 +210,35 @@ export default function HomeScreen() {
 
       if (finalUserList.length <= 0) {
         reachedEnd(true);
+        setLoading(false);
       } else {
-        setUser(finalUserList);
+        setFinalUserList(finalUserList)
       }
     });
   }, [seenUserList]);
+
+  useEffect(() => {
+
+    const zipCodeFinalUserList = finalUserArray.filter((user) => {
+      //filter users by zipcode and not already seen (of course not the logged user)
+      if (
+        user.location === zipCode
+      ) {
+        return user;
+      }
+    });
+
+
+    if (zipCodeFinalUserList.length <= 0) {
+      console.log("In reached end")
+            reachedEnd(true);
+            setLoading(false);
+    } else {
+      reachedEnd(false)
+      setUser(zipCodeFinalUserList);
+    }
+  }, [finalUserArray]);
+
   //the above useEffect will only run when seenUserList is updated on state
 
   //clean up use effect for memory leak
@@ -306,7 +328,6 @@ export default function HomeScreen() {
               animateCardOpacity
               onTopSwipe={onTopSwipe}
               onSwipedAll={() => {
-                console.log("in onSwipedAll");
                 reachedEnd(true);
               }}
               disableBottomSwipe
