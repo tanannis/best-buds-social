@@ -250,7 +250,7 @@ export default function HomeScreen() {
                 return (
                   <View style={styles.card}>
                     <Image
-                      source={{ uri: card.image }}
+                      source={{ uri: currentUser.image }}
                       style={styles.cardImage}
                     />
                     <Transitioning.View

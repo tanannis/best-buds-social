@@ -4,16 +4,6 @@ import { firebase } from "./src/firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
-<<<<<<< HEAD
-	LoginScreen,
-	HomeScreen,
-	RegistrationScreen,
-	SettingsScreen,
-	MatchesScreen,
-	MapScreen,
-	CurrentUserScreen,
-	SingleMatchProfile,
-=======
   LoginScreen,
   HomeScreen,
   RegistrationScreen,
@@ -21,7 +11,6 @@ import {
   MatchesScreen,
   CurrentUserScreen,
   SingleMatchProfile,
->>>>>>> 6f7d0a397b9618e3b2f6ed0afae07cb878bcecfc
 } from "./src/screens";
 
 import {
@@ -30,6 +19,7 @@ import {
   MatchesStackNavigator,
   SettingsStackNavigator,
   RegistrationScreenNavigator,
+  CurrentUserNavigator,
 } from "./src/navigation/StackNavigator";
 
 import { Text, View } from "react-native";
@@ -119,7 +109,7 @@ export default function App() {
                   ),
                 }}
               >
-                {(props) => <CurrentUserScreen {...props} extraData={user} />}
+                {(props) => <CurrentUserNavigator {...props} extraData={user} />}
               </Tab.Screen>
               <Tab.Screen
                 name="Matches"

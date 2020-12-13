@@ -12,13 +12,21 @@ import {
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import MatchesScreen from "../MatchesScreen/MatchesScreen";
+import SingleChatRoom from "../SingleChatRoom/SingleChatRoom"
+import { TouchableOpacity } from "react-native-gesture-handler";
 // import EditButton from "react-edit-button"
 
-export default function CurrentUserScreen() {
+export default function CurrentUserScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState([]);
   const [dogInfo, setDogInfo] = useState([]);
 
   const currentPerson = firebase.auth().currentUser.uid;
+
+   const onChatPress = () => {
+    console.log("being clicked", onChatPress)
+    
+  }
 
   useEffect(() => {
     (async () => {
@@ -36,6 +44,7 @@ export default function CurrentUserScreen() {
       setDogInfo(snapshot.dogData);
     })();
   }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,11 +64,14 @@ export default function CurrentUserScreen() {
           </View>
 
           <View style={styles.chat}>
+          <TouchableOpacity>
             <MaterialIcons
               name="chat"
               size={18}
               color="#DFD8C8"
+              onPress={() => console.log("inside chat icon")}
             ></MaterialIcons>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.active}></View>
@@ -83,7 +95,12 @@ export default function CurrentUserScreen() {
         </View>
 
         <View style={styles.userBio}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+          <Text
+            style={[
+              styles.text,
+              { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
+            ]}
+          >
             My Bio
           </Text>
           <Text style={[styles.text, { fontSize: 14 }]}>
@@ -91,7 +108,12 @@ export default function CurrentUserScreen() {
           </Text>
         </View>
         <View style={styles.dogData}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+          <Text
+            style={[
+              styles.text,
+              { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
+            ]}
+          >
             My Dog
           </Text>
 

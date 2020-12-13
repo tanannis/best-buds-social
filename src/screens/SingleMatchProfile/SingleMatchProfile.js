@@ -14,11 +14,14 @@ import { firebase } from "../../firebase/config";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 // import EditButton from "react-edit-button"
 
-export default function CurrentUserScreen() {
-  const [matchedUser, setMatchedUser] = useState([]);
+export default function SingleMatchProfile({navigation}) {
+  const [matchUser, setMatchUser] = useState([]);
   const [dogInfo, setDogInfo] = useState([])
+  const [index, setIndex] = React.useState(0);
+  const currentUser = firebase.auth().currentUser;
 
-  const matchedPerson = firebase.auth().user[index].id
+
+  const user = firebase.firestore().collection("users")
 
   useEffect(() => {
     (async () => {
@@ -26,18 +29,68 @@ export default function CurrentUserScreen() {
       const snapshot = await firebase
         .firestore()
         .collection("users")
-        .doc(matchedPerson)
+        .doc(user)
         .get()
         .then((doc) => {
           return doc.data();
         });
 
-      setMatchedUser(snapshot);
+      setMatchUser(snapshot);
       setDogInfo(snapshot.dogData)
     })();
   }, []);
 
+  const onChatPress = (item) => {
+		navigation.navigate("SingleChat", {
+			chatInfo: item
+		 });
+  };
   
+  const onAddUser = () => {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("userLikes")
+      .add({
+        fullName: matchUser[index].fullName,
+        id: matchUser[index].id,
+        match: true,
+      });
+
+    createChatRoom();
+  };
+
+  async function createChatRoom() {
+    const snapshot = await firebase
+      .firestore()
+      .collection("users")
+      .doc(user[index].id)
+      .collection("userLikes")
+      .where("id", "==", currentUser.uid)
+      .get();
+
+    if (snapshot.empty) {
+    } else {
+      Alert.alert(
+        "Congrats! It's a match!",
+        "Head to your matches to start chatting!",
+        [
+          {
+            text: "OK",
+          },
+        ],
+        { cancelable: false }
+      );
+
+      const createChat = firebase.firestore().collection("ChatRooms");
+      createChat.add({
+        //fields created within Chatroom collection documents
+        names: `${user[index].fullName} & ${currentUserName}`,
+        Users: [currentUser.uid, user[index].id],
+      });
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,11 +110,14 @@ export default function CurrentUserScreen() {
           </View>
 
           <View style={styles.chat}>
+            <TouchchableOpacity>
             <MaterialIcons
               name="chat"
               size={18}
               color="#DFD8C8"
+              onPress={() => onChatPress()}
             ></MaterialIcons>
+            </TouchchableOpacity>
           </View>
 
           <View style={styles.active}></View>
@@ -71,6 +127,7 @@ export default function CurrentUserScreen() {
               size={48}
               color="#DFD8C8"
               style={{ marginTop: 6, marginLeft: 2 }}
+              onPress={() => onChatPress()}
             ></Ionicons>
           </View>
         </View>
