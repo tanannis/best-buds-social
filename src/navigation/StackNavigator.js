@@ -9,6 +9,7 @@ import {
   RegistrationScreen,
   HomeScreen,
   CurrentUserScreen,
+  SingleMatchProfile,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -43,12 +44,23 @@ export function MainStackNavigator() {
 // }
 
 export function CurrentUserNavigator() {
-  console.log("current user");
+  // console.log("current user");
   return (
     <>
       <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="CurrentUser" component={CurrentUserScreen} />
         <Stack.Screen name="Matches" component={MatchesScreen} />
+      </Stack.Navigator>
+    </>
+  );
+}
+
+export function SingleMatchNavigator() {
+  // console.log("current user");
+  return (
+    <>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="SingleMatch" component={SingleMatchProfile} />
       </Stack.Navigator>
     </>
   );
@@ -60,6 +72,7 @@ export function HomeStackNavigator() {
     <>
       <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SingleMatch" component={SingleMatchProfile} />
       </Stack.Navigator>
     </>
   );
