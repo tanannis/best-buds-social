@@ -68,6 +68,7 @@ export default function App() {
     });
     return () => query()
   }, []);
+}, [])
 
   //clean up use effect for memory leak
   useEffect(() => {
@@ -151,3 +152,4 @@ export default function App() {
     );
   }
 }
+
