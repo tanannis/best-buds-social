@@ -166,12 +166,13 @@ export default function HomeScreen() {
         ),
       });
 
-    transitionRef.current.animateNextTransition();
+    // transitionRef.current.animateNextTransition();
 
     if (index === user.length - 1) {
       reachedEnd(true);
     } else {
       setIndex((index + 1) % user.length);
+      transitionRef.current.animateNextTransition();
     }
   };
 
@@ -184,13 +185,14 @@ export default function HomeScreen() {
     users.onSnapshot((querySnapshot) => {
       const userList = [];
       querySnapshot.forEach((doc) => {
-        const { fullName, userBio, image, location } = doc.data();
+        const { fullName, userBio, image, location, dogData } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
           location,
+          dogData,
         });
       });
       const finalUserList = userList.filter((user) => {
@@ -221,7 +223,6 @@ export default function HomeScreen() {
     });
 
     if (zipCodeFinalUserList.length <= 0) {
-      console.log("In reached end");
       reachedEnd(true);
       setLoading(false);
     } else {
@@ -240,9 +241,9 @@ export default function HomeScreen() {
   }, [user]);
 
   const CardDetails = ({ index }) => (
-    <View key={user[index].uid} style={{ alignItems: "center" }}>
+    <View key={user[index].uid} style={styles.cardDetails}>
       <Text style={[styles.text, styles.heading]} numberOfLines={2}>
-        {user[index].fullName}
+        {user[index].fullName} & {user[index].dogData.dogName}
       </Text>
       <Text style={[styles.text, styles.userBio]}>{user[index].userBio}</Text>
     </View>
@@ -286,7 +287,7 @@ export default function HomeScreen() {
                 return (
                   <View style={styles.card}>
                     <Image
-                      source={{ uri: user[index].image }}
+                      source={{ uri: card.image }}
                       style={styles.cardImage}
                     />
                     <Transitioning.View
