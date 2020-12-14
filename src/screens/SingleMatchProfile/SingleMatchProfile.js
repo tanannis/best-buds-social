@@ -14,10 +14,10 @@ import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { multiply } from "react-native-reanimated";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 // import EditButton from "react-edit-button"
 
-export default function SingleMatchProfile({route}) {
+export default function SingleMatchProfile({route, navigation}) {
   const [matchUser, setMatchUser] = useState([]);
   const [dogInfo, setDogInfo] = useState([])
   const [index, setIndex] = React.useState(0);
@@ -103,14 +103,20 @@ export default function SingleMatchProfile({route}) {
 
   // };
 
-
+  function onArrowPress() {
+    return (
+      navigation.navigate("Home")
+    )
+  }
 
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
+        <TouchableHighlight onPress={() => onArrowPress()}>
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
+          </TouchableHighlight>
           <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
         <View style={{ alignSelf: "center" }}>
