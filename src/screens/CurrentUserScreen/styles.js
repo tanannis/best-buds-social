@@ -80,7 +80,7 @@ export default StyleSheet.create({
   },
 
   userBio: {
-    alignSelf: "center",
+    alignSelf: "flex-start",
     alignItems: "center",
     marginTop: 16,
     paddingLeft: 50,
@@ -88,11 +88,28 @@ export default StyleSheet.create({
   },
 
   dogData: {
-    alignSelf: "center",
+    alignSelf: "flex-start",
     alignItems: "center",
     marginTop: 16,
     paddingLeft: 50,
     paddingRight: 50,
+  },
+
+  button: {
+    backgroundColor: "#788eec",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  
+  buttonTitle: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

@@ -12,13 +12,22 @@ import {
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import MatchesScreen from "../MatchesScreen/MatchesScreen";
+import SingleChatRoom from "../SingleChatRoom/SingleChatRoom"
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 // import EditButton from "react-edit-button"
 
-export default function CurrentUserScreen() {
+export default function CurrentUserScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState([]);
   const [dogInfo, setDogInfo] = useState([]);
 
   const currentPerson = firebase.auth().currentUser.uid;
+
+   const onChatPress = () => {
+    console.log("being clicked", onChatPress)
+    
+  }
 
   useEffect(() => {
     (async () => {
@@ -44,7 +53,6 @@ export default function CurrentUserScreen() {
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
           <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
-
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
@@ -53,15 +61,16 @@ export default function CurrentUserScreen() {
               resizeMode="center"
             ></Image>
           </View>
-
           <View style={styles.chat}>
+          <TouchableOpacity>
             <MaterialIcons
               name="chat"
               size={18}
               color="#DFD8C8"
+              onPress={() => console.log("inside chat icon")}
             ></MaterialIcons>
+            </TouchableOpacity>
           </View>
-
           <View style={styles.active}></View>
           <View style={styles.add}>
             <Ionicons
@@ -72,7 +81,6 @@ export default function CurrentUserScreen() {
             ></Ionicons>
           </View>
         </View>
-
         <View style={styles.infoContainer}>
           <Text style={[styles.text, { fontWeight: "200", fontSize: 20 }]}>
             {currentUser.fullName}
@@ -81,8 +89,13 @@ export default function CurrentUserScreen() {
             Best Buds Dog Lover
           </Text>
         </View>
-
         <View style={styles.userBio}>
+          <Text
+            style={[
+              styles.text,
+              { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
+            ]}
+          >
           <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Bio
           </Text>
@@ -91,15 +104,20 @@ export default function CurrentUserScreen() {
           </Text>
         </View>
         <View style={styles.dogData}>
+          <Text
+            style={[
+              styles.text,
+              { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
+            ]}
+          >
           <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Dog
           </Text>
-
           <View style={[styles.text, { fontSize: 14 }]}>
             <Text>
               Dog Name: {dogInfo.dogName}
               {"\n"}Dog Breed: {dogInfo.dogBreed}
-              {"\n"}Dog Gender: {dogInfo.Gender}
+              {"\n"}Dog Gender: {dogInfo.dogGender}
               {"\n"}Dog Size: {dogInfo.dogSize}
               {"\n"}Dog Temperament: {dogInfo.dogTemperament}
             </Text>

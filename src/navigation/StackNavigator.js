@@ -8,6 +8,7 @@ import {
   LoginScreen,
   RegistrationScreen,
   HomeScreen,
+  CurrentUserScreen,
 } from "../screens/index";
 
 const Stack = createStackNavigator();
@@ -40,6 +41,18 @@ export function MainStackNavigator() {
 //     </>
 //   );
 // }
+
+export function CurrentUserNavigator() {
+  console.log("current user");
+  return (
+    <>
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+        <Stack.Screen name="CurrentUser" component={CurrentUserScreen} />
+        <Stack.Screen name="Matches" component={MatchesScreen} />
+      </Stack.Navigator>
+    </>
+  );
+}
 
 export function HomeStackNavigator() {
   console.log("do we make it here");
