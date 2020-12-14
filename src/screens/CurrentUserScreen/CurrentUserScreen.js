@@ -15,6 +15,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import MatchesScreen from "../MatchesScreen/MatchesScreen";
 import SingleChatRoom from "../SingleChatRoom/SingleChatRoom"
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 // import EditButton from "react-edit-button"
 
 export default function CurrentUserScreen({ navigation }) {
@@ -45,7 +46,6 @@ export default function CurrentUserScreen({ navigation }) {
     })();
   }, []);
 
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -53,7 +53,6 @@ export default function CurrentUserScreen({ navigation }) {
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
           <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
-
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
@@ -62,7 +61,6 @@ export default function CurrentUserScreen({ navigation }) {
               resizeMode="center"
             ></Image>
           </View>
-
           <View style={styles.chat}>
           <TouchableOpacity>
             <MaterialIcons
@@ -73,7 +71,6 @@ export default function CurrentUserScreen({ navigation }) {
             ></MaterialIcons>
             </TouchableOpacity>
           </View>
-
           <View style={styles.active}></View>
           <View style={styles.add}>
             <Ionicons
@@ -84,7 +81,6 @@ export default function CurrentUserScreen({ navigation }) {
             ></Ionicons>
           </View>
         </View>
-
         <View style={styles.infoContainer}>
           <Text style={[styles.text, { fontWeight: "200", fontSize: 20 }]}>
             {currentUser.fullName}
@@ -93,7 +89,6 @@ export default function CurrentUserScreen({ navigation }) {
             Best Buds Dog Lover
           </Text>
         </View>
-
         <View style={styles.userBio}>
           <Text
             style={[
@@ -101,6 +96,7 @@ export default function CurrentUserScreen({ navigation }) {
               { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
             ]}
           >
+          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Bio
           </Text>
           <Text style={[styles.text, { fontSize: 14 }]}>
@@ -114,14 +110,14 @@ export default function CurrentUserScreen({ navigation }) {
               { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
             ]}
           >
+          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Dog
           </Text>
-
           <View style={[styles.text, { fontSize: 14 }]}>
             <Text>
               Dog Name: {dogInfo.dogName}
               {"\n"}Dog Breed: {dogInfo.dogBreed}
-              {"\n"}Dog Gender: {dogInfo.Gender}
+              {"\n"}Dog Gender: {dogInfo.dogGender}
               {"\n"}Dog Size: {dogInfo.dogSize}
               {"\n"}Dog Temperament: {dogInfo.dogTemperament}
             </Text>

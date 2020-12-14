@@ -63,6 +63,10 @@ export default function HomeScreen() {
   const [end, reachedEnd] = useState(false);
   const [currentUserName, setCurrentUserName] = useState("");
   const [seenUserList, setSeenUsers] = useState([]);
+  const [finalUserArray, setFinalUserList] = useState([]);
+  //for filtering users by zip-code
+  const [zipCode, setZipCode] = useState('')
+
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
@@ -84,10 +88,13 @@ export default function HomeScreen() {
       //select fullName field from the doc
       const getCurrentUserName = await userDoc.fullName;
       const getSeenUsers = await userDoc.seenUsers;
+      const getZipCode = await userDoc.location
       setSeenUsers(getSeenUsers);
       setCurrentUserName(getCurrentUserName);
+      setZipCode(getZipCode)
     })();
   }, []);
+
 
   //Set match=true in both user's liked_by_people collection for the other user
   const onSwipedLeft = () => {
@@ -115,7 +122,6 @@ export default function HomeScreen() {
         id: user[index].id,
         match: true,
       });
-
     createChatRoom();
   };
 
@@ -162,12 +168,17 @@ export default function HomeScreen() {
       });
 
     transitionRef.current.animateNextTransition();
-    setIndex((index + 1) % user.length);
+
+    if (index === user.length - 1) {
+      reachedEnd(true);
+    } else {
+      setIndex((index + 1) % user.length);
+    }
   };
 
   const onTopSwipe = () => {
-    transitionRef.current.animateNextTransition();
-    setIndex(index + (1 % user.length));
+    // transitionRef.current.animateNextTransition();
+    // setIndex((index + 1) % user.length);
   };
 
   useEffect(() => {
@@ -178,30 +189,65 @@ export default function HomeScreen() {
           fullName,
           userBio,
           image,
-          // dogData
+          location
         } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
-          // dogData,
+          location
         });
       });
       const finalUserList = userList.filter((user) => {
+        //filter users by zipcode and not already seen (of course not the logged user)
         if (
-          user.id !== currentUser.uid &&
-          !seenUserList.includes(`${user.id}`)
+          user.id !== currentUser.uid && !seenUserList.includes(`${user.id}`)
         ) {
           return user;
         }
       });
 
-      setUser(finalUserList);
-      setLoading(false);
+      if (finalUserList.length <= 0) {
+        reachedEnd(true);
+        setLoading(false);
+      } else {
+        setFinalUserList(finalUserList)
+      }
     });
   }, [seenUserList]);
+
+  useEffect(() => {
+
+    const zipCodeFinalUserList = finalUserArray.filter((user) => {
+      //filter users by zipcode and not already seen (of course not the logged user)
+      if (
+        user.location === zipCode
+      ) {
+        return user;
+      }
+    });
+
+
+    if (zipCodeFinalUserList.length <= 0) {
+      console.log("In reached end")
+            reachedEnd(true);
+            setLoading(false);
+    } else {
+      reachedEnd(false)
+      setUser(zipCodeFinalUserList);
+    }
+  }, [finalUserArray]);
+
   //the above useEffect will only run when seenUserList is updated on state
+
+  //clean up use effect for memory leak
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    }
+  }, [user])
+
 
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>

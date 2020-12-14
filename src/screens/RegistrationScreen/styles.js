@@ -66,6 +66,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   dropdown: {
+    flex: 1,
     backgroundColor: "white",
     alignContent: "center",
     marginTop: 10,

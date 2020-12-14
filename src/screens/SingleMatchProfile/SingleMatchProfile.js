@@ -19,8 +19,6 @@ export default function SingleMatchProfile({navigation}) {
   const [dogInfo, setDogInfo] = useState([])
   const [index, setIndex] = React.useState(0);
   const currentUser = firebase.auth().currentUser;
-
-
   const user = firebase.firestore().collection("users")
 
   useEffect(() => {
@@ -34,7 +32,6 @@ export default function SingleMatchProfile({navigation}) {
         .then((doc) => {
           return doc.data();
         });
-
       setMatchUser(snapshot);
       setDogInfo(snapshot.dogData)
     })();
@@ -91,6 +88,11 @@ export default function SingleMatchProfile({navigation}) {
       });
     }
   }
+      setMatchedUser(snapshot);
+      setDogInfo(snapshot.dogData);
+    })();
+  }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -99,7 +101,6 @@ export default function SingleMatchProfile({navigation}) {
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
           <Ionicons name="md-more" size={24} colors="#EC2379"></Ionicons>
         </View>
-
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
@@ -108,7 +109,6 @@ export default function SingleMatchProfile({navigation}) {
               resizeMode="center"
             ></Image>
           </View>
-
           <View style={styles.chat}>
             <TouchchableOpacity>
             <MaterialIcons
@@ -116,10 +116,10 @@ export default function SingleMatchProfile({navigation}) {
               size={18}
               color="#DFD8C8"
               onPress={() => onChatPress()}
-            ></MaterialIcons>
+            >
+              </MaterialIcons>
             </TouchchableOpacity>
           </View>
-
           <View style={styles.active}></View>
           <View style={styles.add}>
             <Ionicons
@@ -131,7 +131,6 @@ export default function SingleMatchProfile({navigation}) {
             ></Ionicons>
           </View>
         </View>
-
         <View style={styles.infoContainer}>
           <Text style={[styles.text, { fontWeight: "200", fontSize: 20 }]}>
             {matchedUser.fullName}
@@ -140,23 +139,29 @@ export default function SingleMatchProfile({navigation}) {
             Best Buds Dog Lover
           </Text>
         </View>
-
         <View style={styles.userBio}>
           <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>My Bio</Text>
-
           <Text style={[styles.text, { fontSize: 14 }]}>
             {matchedUser.userBio}
           </Text>
         </View>
-
         <View style={styles.dogData}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5}]}>My Dog</Text>
-
+          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+            My Dog
+          </Text>
           <Text style={[styles.text, { fontSize: 14 }]}>
-             <Text>Dog Name: {dogInfo.dogName}{"\n"}Dog Breed: {dogInfo.dogBreed}{"\n"}Dog Gender: {dogInfo.Gender}{"\n"}Dog Size: {dogInfo.dogSize}{"\n"}Dog Temperament: {dogInfo.dogTemperament}</Text>
+            <Text>
+              Dog Name: {dogInfo.dogName}
+              {"\n"}Dog Breed: {dogInfo.dogBreed}
+              {"\n"}Dog Gender: {dogInfo.dogGender}
+              {"\n"}Dog Size: {dogInfo.dogSize}
+              {"\n"}Dog Temperament: {dogInfo.dogTemperament}
+            </Text>
+
           </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
