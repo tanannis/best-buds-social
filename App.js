@@ -65,21 +65,22 @@ export default function App() {
       }
     });
   }, []);
-}, [])
 
   //clean up use effect for memory leak
   useEffect(() => {
     return () => {
       setLoading(false);
-    }
-  }, [user])
+    };
+  }, [user]);
 
   if (loading) {
     return (
       <>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading...</Text>
-      </View>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>Loading...</Text>
+        </View>
       </>
     );
   } else {
@@ -108,7 +109,9 @@ export default function App() {
                   ),
                 }}
               >
-                {(props) => <CurrentUserNavigator {...props} extraData={user} />}
+                {(props) => (
+                  <CurrentUserNavigator {...props} extraData={user} />
+                )}
               </Tab.Screen>
               <Tab.Screen
                 name="Matches"
@@ -147,6 +150,5 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
     );
-   }
   }
-
+}
