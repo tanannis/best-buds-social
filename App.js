@@ -93,8 +93,12 @@ export default function App() {
                 name="Home"
                 // component={MatchesStackNavigator}
                 options={{
-                  tabBarIcon: () => (
-                    <FontAwesome name="home" size={40} color="gray" />
+                  tabBarIcon: ({ focused }) => (
+                    <FontAwesome
+                      name="home"
+                      size={40}
+                      color={focused ? "cornflowerblue" : "grey"}
+                    />
                   ),
                 }}
               >
@@ -104,8 +108,12 @@ export default function App() {
               <Tab.Screen
                 name="Profile"
                 options={{
-                  tabBarIcon: () => (
-                    <FontAwesome name="user" size={35} color="gray" />
+                  tabBarIcon: ({ focused }) => (
+                    <FontAwesome
+                      name="user"
+                      size={35}
+                      color={focused ? "cornflowerblue" : "grey"}
+                    />
                   ),
                 }}
               >
@@ -117,8 +125,12 @@ export default function App() {
                 name="Matches"
                 component={MatchesStackNavigator}
                 options={{
-                  tabBarIcon: () => (
-                    <FontAwesome name="comment" size={30} color="gray" />
+                  tabBarIcon: ({ focused }) => (
+                    <FontAwesome
+                      name="comment"
+                      size={30}
+                      color={focused ? "cornflowerblue" : "grey"}
+                    />
                   ),
                 }}
               />
@@ -126,8 +138,12 @@ export default function App() {
                 name="Settings"
                 component={SettingsStackNavigator}
                 options={{
-                  tabBarIcon: () => (
-                    <FontAwesome name="cog" size={35} color="grey" />
+                  tabBarIcon: ({ focused }) => (
+                    <FontAwesome
+                      name="cog"
+                      size={35}
+                      color={focused ? "cornflowerblue" : "grey"}
+                    />
                   ),
                 }}
               />

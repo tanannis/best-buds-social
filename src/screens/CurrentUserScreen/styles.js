@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontFamily: "Courier",
-    color: colors.black,
+    fontFamily: "System",
+    color: "#0b2f64",
   },
 
   image: {
@@ -85,6 +85,7 @@ export default StyleSheet.create({
     marginTop: 16,
     paddingLeft: 50,
     paddingRight: 50,
+    color: "#0b2f64",
   },
 
   dogData: {
@@ -93,6 +94,7 @@ export default StyleSheet.create({
     marginTop: 16,
     paddingLeft: 50,
     paddingRight: 50,
+    color: "#0b2f64",
   },
 
   button: {
@@ -105,11 +107,10 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  
+
   buttonTitle: {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
   },
 });
-
