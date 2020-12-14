@@ -26,7 +26,7 @@ export default function CurrentUserScreen({ navigation }) {
 
    const onChatPress = () => {
     console.log("being clicked", onChatPress)
-    
+
   }
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function CurrentUserScreen({ navigation }) {
               styles.text,
               { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
             ]}
-          >
+          />
           <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Bio
           </Text>
@@ -109,7 +109,7 @@ export default function CurrentUserScreen({ navigation }) {
               styles.text,
               { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
             ]}
-          >
+          />
           <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
             My Dog
           </Text>
@@ -128,3 +128,4 @@ export default function CurrentUserScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+
