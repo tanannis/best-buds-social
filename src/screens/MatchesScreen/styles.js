@@ -8,18 +8,19 @@ export default StyleSheet.create({
     marginRight: 16,
     fontSize: 17,
   },
-})
-
+});
 
 export const chatStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
-    flex: 1
+    backgroundColor: "#f5f5f5",
+    flex: 1,
   },
   listTitle: {
-    fontSize: 22
+    fontSize: 22,
+    fontFamily: "System",
   },
   listDescription: {
-    fontSize: 16
-  }
+    fontSize: 16,
+    fontFamily: "System",
+  },
 });
