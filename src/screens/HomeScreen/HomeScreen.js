@@ -65,7 +65,7 @@ export default function HomeScreen() {
   const [seenUserList, setSeenUsers] = useState([]);
   const [finalUserArray, setFinalUserList] = useState([]);
   //for filtering users by zip-code
-  const [zipCode, setZipCode] = useState('')
+  const [zipCode, setZipCode] = useState("");
 
   const currentUser = firebase.auth().currentUser;
   const users = firebase.firestore().collection("users");
@@ -88,13 +88,12 @@ export default function HomeScreen() {
       //select fullName field from the doc
       const getCurrentUserName = await userDoc.fullName;
       const getSeenUsers = await userDoc.seenUsers;
-      const getZipCode = await userDoc.location
+      const getZipCode = await userDoc.location;
       setSeenUsers(getSeenUsers);
       setCurrentUserName(getCurrentUserName);
-      setZipCode(getZipCode)
+      setZipCode(getZipCode);
     })();
   }, []);
-
 
   //Set match=true in both user's liked_by_people collection for the other user
   const onSwipedLeft = () => {
@@ -185,24 +184,20 @@ export default function HomeScreen() {
     users.onSnapshot((querySnapshot) => {
       const userList = [];
       querySnapshot.forEach((doc) => {
-        const {
-          fullName,
-          userBio,
-          image,
-          location
-        } = doc.data();
+        const { fullName, userBio, image, location } = doc.data();
         userList.push({
           id: doc.id,
           fullName,
           userBio,
           image,
-          location
+          location,
         });
       });
       const finalUserList = userList.filter((user) => {
         //filter users by zipcode and not already seen (of course not the logged user)
         if (
-          user.id !== currentUser.uid && !seenUserList.includes(`${user.id}`)
+          user.id !== currentUser.uid &&
+          !seenUserList.includes(`${user.id}`)
         ) {
           return user;
         }
@@ -212,29 +207,25 @@ export default function HomeScreen() {
         reachedEnd(true);
         setLoading(false);
       } else {
-        setFinalUserList(finalUserList)
+        setFinalUserList(finalUserList);
       }
     });
   }, [seenUserList]);
 
   useEffect(() => {
-
     const zipCodeFinalUserList = finalUserArray.filter((user) => {
       //filter users by zipcode and not already seen (of course not the logged user)
-      if (
-        user.location === zipCode
-      ) {
+      if (user.location === zipCode) {
         return user;
       }
     });
 
-
     if (zipCodeFinalUserList.length <= 0) {
-      console.log("In reached end")
-            reachedEnd(true);
-            setLoading(false);
+      console.log("In reached end");
+      reachedEnd(true);
+      setLoading(false);
     } else {
-      reachedEnd(false)
+      reachedEnd(false);
       setUser(zipCodeFinalUserList);
     }
   }, [finalUserArray]);
@@ -245,9 +236,8 @@ export default function HomeScreen() {
   useEffect(() => {
     return () => {
       setLoading(false);
-    }
-  }, [user])
-
+    };
+  }, [user]);
 
   const CardDetails = ({ index }) => (
     <View key={user[index].uid} style={{ alignItems: "center" }}>
@@ -296,7 +286,7 @@ export default function HomeScreen() {
                 return (
                   <View style={styles.card}>
                     <Image
-                      source={{ uri: currentUser.image }}
+                      source={{ uri: user[index].image }}
                       style={styles.cardImage}
                     />
                     <Transitioning.View

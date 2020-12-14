@@ -42,7 +42,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    flex: 0.75,
+    flex: 0.7,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,
