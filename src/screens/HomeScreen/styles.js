@@ -42,7 +42,7 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    flex: 0.7,
+    flex: 0.75,
     borderRadius: 8,
     shadowRadius: 25,
     shadowColor: colors.black,
@@ -88,7 +88,7 @@ export default StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-  text: { fontFamily: "Courier" },
+  text: { fontFamily: "System" },
   heading: { fontSize: 24, marginBottom: 10, color: colors.gray },
   price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
 });
