@@ -56,7 +56,7 @@ const transition = (
 const swiperRef = React.createRef();
 const transitionRef = React.createRef();
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [user, setUser] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
@@ -179,6 +179,16 @@ export default function HomeScreen() {
     // transitionRef.current.animateNextTransition();
     // setIndex((index + 1) % user.length);
   };
+
+  const userId = user[index].id
+  // console.log("what is this?", userId)
+
+  function onTapCard (userId) {
+    return (
+      navigation.navigate("SingleMatch", {userID: userId })
+    )
+  }
+  
 
   useEffect(() => {
     users.onSnapshot((querySnapshot) => {
@@ -310,6 +320,9 @@ export default function HomeScreen() {
               onSwiped={onSwiped}
               onSwipedLeft={onSwipedLeft}
               onSwipedRight={onSwipedRight}
+              onTapCard={() =>{
+                onTapCard(userId)
+              }}
               cardVerticalMargin={50}
               stackSize={stackSize}
               stackScale={10}

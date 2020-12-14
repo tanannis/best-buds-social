@@ -24,7 +24,7 @@ export default function CurrentUserScreen({ navigation }) {
 
   const currentPerson = firebase.auth().currentUser.uid;
 
-   const onChatPress = () => {
+  const onChatPress = () => {
     console.log("being clicked", onChatPress)
 
   }
@@ -67,7 +67,7 @@ export default function CurrentUserScreen({ navigation }) {
               name="chat"
               size={18}
               color="#DFD8C8"
-              onPress={() => console.log("inside chat icon")}
+              onPress={() => navigation.navigate("CurrentUser")}
             ></MaterialIcons>
             </TouchableOpacity>
           </View>
