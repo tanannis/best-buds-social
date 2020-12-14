@@ -26,7 +26,7 @@ export default function CurrentUserScreen({ navigation }) {
 
    const onChatPress = () => {
     console.log("being clicked", onChatPress)
-    
+
   }
 
   useEffect(() => {
@@ -128,3 +128,4 @@ export default function CurrentUserScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+
