@@ -180,15 +180,16 @@ export default function HomeScreen({ navigation }) {
     // setIndex((index + 1) % user.length);
   };
 
-  const userId = user[index].id
+  //const userId = user[index].id
+  const userInfo = user[index]
   // console.log("what is this?", userId)
 
-  function onTapCard (userId) {
+  function onTapCard (userInfo) {
     return (
-      navigation.navigate("SingleMatch", {userID: userId })
+      navigation.navigate("SingleMatch", {userID: userInfo })
     )
   }
-  
+
 
   useEffect(() => {
     users.onSnapshot((querySnapshot) => {
@@ -296,7 +297,7 @@ export default function HomeScreen({ navigation }) {
                 return (
                   <View style={styles.card}>
                     <Image
-                      source={{ uri: user[index].image }}
+                      source={{ uri: card.image }}
                       style={styles.cardImage}
                     />
                     <Transitioning.View
@@ -321,7 +322,7 @@ export default function HomeScreen({ navigation }) {
               onSwipedLeft={onSwipedLeft}
               onSwipedRight={onSwipedRight}
               onTapCard={() =>{
-                onTapCard(userId)
+                onTapCard(userInfo)
               }}
               cardVerticalMargin={50}
               stackSize={stackSize}

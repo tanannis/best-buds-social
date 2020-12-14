@@ -25,18 +25,18 @@ export default function SingleMatchProfile({route}) {
   const currentUser = firebase.auth().currentUser;
 
 
-  const userId = route.params.userID
+  const userId = route.params.userID.id
   console.log("in singlematch", userId)
 
 
   useEffect(() => {
     (async () => {
       //query gets loggedin user doc from firestore
-      const snapshot = await firebase 
+      const snapshot = await firebase
         .firestore()
         .collection("users")
-        .doc(userId) 
-        .get() 
+        .doc(userId)
+        .get()
         .then((doc) => {
           return doc.data();
         });
@@ -47,63 +47,63 @@ export default function SingleMatchProfile({route}) {
 
  // Need a function that checks where "id" "=="
 
-  const onAddUser = () => { 
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("userLikes")
-      .add({
-        fullName: matchUser.fullName,
-        id: matchUser.id,
-        match: true,
-      });
-      Alert.alert(
-        `${matchUser.fullName} has been added to your likes! A chat room will automatically be generated if they add you too!`,
-        [
-          {
-            text: "OK",
-          },
-        ],
-        { cancelable: false }
-      ) 
-      
-      createChatRoom()
+  // const onAddUser = () => {
+  //   firebase
+  //     .firestore()
+  //     .collection("users")
+  //     .doc(currentUser.uid)
+  //     .collection("userLikes")
+  //     .add({
+  //       fullName: matchUser.fullName,
+  //       id: matchUser.id,
+  //       match: true,
+  //     });
+  //     Alert.alert(
+  //       `${matchUser.fullName} has been added to your likes! A chat room will automatically be generated if they add you too!`,
+  //       [
+  //         {
+  //           text: "OK",
+  //         },
+  //       ],
+  //       { cancelable: false }
+  //     )
 
-      async function createChatRoom() {
-        const snapshot = await firebase
-          .firestore()
-          .collection("users")
-          .doc(matchUser.id)
-          .collection("userLikes")
-          .where("id", "==", currentUser.uid)
-          .get();
-    
-          if (snapshot.empty) {
-        } else {
-          Alert.alert(
-            "Congrats! It's a match!",
-            "Head to your matches to start chatting!",
-            [
-              {
-                text: "OK",
-              },
-            ],
-            { cancelable: false }
-          );
-    
-          const createChat = firebase.firestore().collection("ChatRooms");
-          createChat.add({
-            //fields created within Chatroom collection documents
-            names: `${matchUser.fullName} & ${currentUser.fullName}`,
-            Users: [currentUser.uid, matchUser.id],
-          });
-        }
-      }
+  //     createChatRoom()
 
-  };
+  //     async function createChatRoom() {
+  //       const snapshot = await firebase
+  //         .firestore()
+  //         .collection("users")
+  //         .doc(matchUser.id)
+  //         .collection("userLikes")
+  //         .where("id", "==", currentUser.uid)
+  //         .get();
 
-  
+  //         if (snapshot.empty) {
+  //       } else {
+  //         Alert.alert(
+  //           "Congrats! It's a match!",
+  //           "Head to your matches to start chatting!",
+  //           [
+  //             {
+  //               text: "OK",
+  //             },
+  //           ],
+  //           { cancelable: false }
+  //         );
+
+  //         const createChat = firebase.firestore().collection("ChatRooms");
+  //         createChat.add({
+  //           //fields created within Chatroom collection documents
+  //           names: `${matchUser.fullName} & ${currentUser.fullName}`,
+  //           Users: [currentUser.uid, matchUser.id],
+  //         });
+  //       }
+  //     }
+
+  // };
+
+
 
 
   return (
@@ -111,7 +111,7 @@ export default function SingleMatchProfile({route}) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
           <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
-          <Ionicons name="md-more" size={24} colors="#EC2379"></Ionicons>
+          <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
@@ -127,7 +127,7 @@ export default function SingleMatchProfile({route}) {
               name="chat"
               size={18}
               color="#DFD8C8"
-              onPress={() => onChatPress()}
+              //onPress={() => onChatPress()}
             >
               </MaterialIcons>
             </TouchableOpacity>
