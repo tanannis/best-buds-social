@@ -48,14 +48,14 @@ export default function CurrentUserScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.titleBar}>
+          {/* <View style={styles.titleBar}>
             <Ionicons
               name="ios-arrow-back"
               size={24}
               colors="#EC2379"
             ></Ionicons>
             <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
-          </View>
+          </View> */}
           <View style={{ alignSelf: "center" }}>
             <View style={styles.profileImage}>
               <Image
@@ -74,15 +74,15 @@ export default function CurrentUserScreen({ navigation }) {
                 ></MaterialIcons>
               </TouchableOpacity> */}
             {/* </View> */}
-            <View style={styles.active}></View>
-            <View style={styles.add}>
+            {/* <View style={styles.active}></View> */}
+            {/* <View style={styles.add}>
               <Ionicons
                 name="ios-add"
                 size={48}
                 color="#DFD8C8"
                 style={{ marginTop: 6, marginLeft: 2 }}
               ></Ionicons>
-            </View>
+            </View> */}
           </View>
           <View style={styles.infoContainer}>
             <Text style={[styles.text, { fontWeight: "200", fontSize: 20 }]}>
@@ -96,7 +96,7 @@ export default function CurrentUserScreen({ navigation }) {
             <Text
               style={[
                 styles.text,
-                { fontSize: 18, marginBottom: 5, alignSelf: "flex-start" },
+                { fontSize: 18, marginBottom: 18, alignSelf: "flex-start" },
               ]}
             />
             <Text
@@ -104,7 +104,7 @@ export default function CurrentUserScreen({ navigation }) {
                 styles.text,
                 {
                   fontSize: 18,
-                  marginTop: 25,
+                  marginTop: 5,
                   marginBottom: 5,
                   alignSelf: "flex-start",
                 },
@@ -112,7 +112,7 @@ export default function CurrentUserScreen({ navigation }) {
             >
               My Bio
             </Text>
-            <Text style={[styles.text, { fontSize: 14 }]}>
+            <Text style={[styles.text, { fontSize: 14, marginBottom: 40 }]}>
               {currentUser.userBio}
             </Text>
           </View>
@@ -144,11 +144,11 @@ export default function CurrentUserScreen({ navigation }) {
                 {"\n"}Dog Size: {dogInfo.dogSize}
                 {"\n"}Dog Temperament: {dogInfo.dogTemperament}
               </Text>
-              <Text style={[styles.text, { fontSize: 14 }]}></Text>
+              <Text style={[styles.text, { fontSize: 14, marginBottom: 16 }]}></Text>
             </View>
           </View>
         </ScrollView>
-      ) : (
+      {/* ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.titleBar}>
             <Ionicons
@@ -248,8 +248,8 @@ export default function CurrentUserScreen({ navigation }) {
               </Text>
               <Text style={[styles.text, { fontSize: 14 }]}></Text>
             </View>
-          </View>
-        </ScrollView>
+            </View> */}
+        {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
