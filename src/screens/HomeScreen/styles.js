@@ -100,7 +100,7 @@ export default StyleSheet.create({
   cardImage: {
     // borderRadius: 15,
     borderTopLeftRadius: 20,
-    borderTopEndRadius: 20,
+    borderTopRightRadius: 20,
     // borderBottomEndRadius: null,
     flex: 3,
     height: "100%",
