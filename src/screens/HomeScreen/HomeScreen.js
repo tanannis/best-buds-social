@@ -271,7 +271,8 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.endtexttitle}>Loading</Text>
         </View>
       ) : end ? (
-        <View style={styles.nonmainpage}>
+        // <View style={styles.nonmainpage}>
+        <View style={styles.screen}>
           <Image
             source={require("../../../assets/endOfMatchesDog.png")}
             style={{
@@ -389,7 +390,8 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.bottomContainerButtons}>
               <MaterialCommunityIcons.Button
                 name="arrow-left"
-                size={94}
+                // size={94}
+                size={45}
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
@@ -398,7 +400,8 @@ export default function HomeScreen({ navigation }) {
               />
               <MaterialCommunityIcons.Button
                 name="arrow-right"
-                size={94}
+                // size={94}
+                size={45}
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
