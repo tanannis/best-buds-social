@@ -55,4 +55,18 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  text: {
+    //color: "#5271FF",
+    color: "tomato",
+    fontSize: 16,
+    fontWeight: "bold",
+    fontFamily: "System",
+    fontStyle: "italic",
+    marginBottom: 15,
+    // marginLeft: 30,
+    // marginRight: 30,
+    // alignContent: "center",
+    alignSelf: "center",
+
+  }
 });

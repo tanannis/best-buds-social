@@ -64,6 +64,7 @@ export default function LoginScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/BestBudsSocialLogo.png")}
         />
+        <Text style={styles.text}>Meet local dog owners for walks!</Text>
         <TextInput
           style={styles.input}
           placeholder="E-mail"
