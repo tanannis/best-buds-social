@@ -1,13 +1,11 @@
 # Best Buds Social
 
 
-Welcome to Best Buds Social! Best Buds Social is a mobile app that works on phones compatible with Apple's iOS mobile operating system. It is a social app that connects New York City dog owners with others looking to walk their dogs. To ensure dog walking compatability, users have access to a swipe matching feature based on location, other dog owners' public profiles, and a chat feature where they can get to know one another.
+Welcome to Best Buds Social! Best Buds Social is a mobile app that works on phones compatible with Apple's iOS mobile operating system. It is a social app that connects New York City dog owners with other dog owners looking for a walking companion. To ensure dog walking compatability, users have access to a swipe matching feature based on location, other dog owners' public profiles, and a chat feature where they can get to know one another.
 
 # Technologies
 
 The app uses Firebase/Cloud Firestore for the backend and React Native for the frontend.
-
-(WILL EXPAND AS WE INTEGRATE NEW TECHNOLOGIES - MAP BOX, CHAT, ETC)
 
 GitHub Project Link: https://github.com/best-buds-social/best-buds-social
 
@@ -15,7 +13,7 @@ GitHub Project Link: https://github.com/best-buds-social/best-buds-social
 
 Please visit Best Buds Social at (ENTER DEPLOYMENT LINK HERE!!!).
 
-# Instructions to how to download and run project
+# Instructions on how to download and run project
 
 1.  Fork the "Best Buds Social" project repository from GitHub to your personal GitHub account and clone it to your local machine. Please reference the GitHub Project link provided in the "Technologies" section of this README.
 
@@ -24,24 +22,3 @@ Please visit Best Buds Social at (ENTER DEPLOYMENT LINK HERE!!!).
 2.  `npm install` to download project dependencies.
 
 3.  Running `npm start` will allow you to view the app on your local machine using Xcode.
-
-4.  (HERE WE CAN ADD HOW TO RUN TESTS - NOT YET READY)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://www.freecodecamp.org/news/react-native-firebase-tutorial/
