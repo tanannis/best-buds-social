@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
   Alert,
- FlatList
+  FlatList,
 } from "react-native";
 import { List, Divider } from "react-native-paper";
 import { firebase } from "../../firebase/config";
@@ -63,39 +63,44 @@ export default function SettingsScreen({ navigation }) {
       });
   };
 
-const SettingsData = [
-{
-  title: "My Location",
+  const SettingsData = [
+    {
+      title: "My Location",
+    },
+    {
+      title: "Account Settings",
+    },
+    {
+      title: "Log Out",
+    },
+  ];
 
-},
-{
-  title: "Account Settings",
-
-},
-{
-  title: "Log Out",
-
-}
-]
-
-const Item = ({ title }) => (
-  <View >
-    <Text >{title}</Text>
-  </View>
-);
-
-
+  const Item = ({ title }) => (
+    <View>
+      <Text>{title}</Text>
+    </View>
+  );
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    {/* <FlatList data={SettingsData}
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#d8ecf3",
+      }}
+    >
+      {/* <FlatList data={SettingsData}
     renderItem={Item}> */}
       <FontAwesome
         name="map-marker"
         size={20}
-        color="blue"
+        color="#0b2f64"
         onPress={() => onSetLocationPress()}
-      > Set Location
+        style={{ marginBottom: 50, marginTop: 30 }}
+      >
+        {" "}
+        Set Location
       </FontAwesome>
 
       <TextInput
@@ -112,9 +117,13 @@ const Item = ({ title }) => (
       <FontAwesome
         name="envelope"
         size={20}
-        color="blue"
+        color="#0b2f64"
         onPress={() => onUpdateEmailPress()}
-      > Update Email </FontAwesome>
+        style={{ marginBottom: 20 }}
+      >
+        {" "}
+        Update Email{" "}
+      </FontAwesome>
 
       <TextInput
         style={styles.input}
@@ -130,12 +139,24 @@ const Item = ({ title }) => (
       <FontAwesome
         name="lock"
         size={20}
-        color="blue"
+        color="#0b2f64"
         onPress={() => onUpdatePasswordPress()}
-      > Update Password</FontAwesome>
+      >
+        {" "}
+        Update Password
+      </FontAwesome>
 
       <TouchableOpacity onPress={() => onSignOutPress()}>
-        <Text>Log Out</Text>
+        <Text
+          style={{
+            color: "#0b2f64",
+            marginTop: 100,
+            marginBottom: 1,
+            fontSize: 22,
+          }}
+        >
+          Log Out
+        </Text>
       </TouchableOpacity>
       {/* </FlatList> */}
     </View>

@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import { firebase } from '../../firebase/config';
+import React, { useState, useCallback, useEffect } from "react";
+import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import { firebase } from "../../firebase/config";
 
 export default function SingleChatRoom({ route }) {
   const [messages, setMessages] = useState([]);
@@ -12,18 +12,17 @@ export default function SingleChatRoom({ route }) {
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
-      );
+    );
   }, []);
-
 
   async function handleSend(messages) {
     const text = messages[0].text;
     await firebase
       .firestore()
-      .collection('ChatRooms')
+      .collection("ChatRooms")
       //pass in to .doc() the chatroom’s unique id
       .doc(ChatRoomId)
-      .collection('Messages')
+      .collection("Messages")
       .add({
         text,
         createdAt: new Date().getTime(),
@@ -37,16 +36,16 @@ export default function SingleChatRoom({ route }) {
   useEffect(() => {
     const messagesListener = firebase
       .firestore()
-      .collection('ChatRooms')
+      .collection("ChatRooms")
       .doc(ChatRoomId)
-      .collection('Messages')
-      .orderBy('createdAt', 'desc')
+      .collection("Messages")
+      .orderBy("createdAt", "desc")
       .onSnapshot((querySnapshot) => {
         const messages = querySnapshot.docs.map((doc) => {
           const firebaseData = doc.data();
           const data = {
             _id: doc.id,
-            text: '',
+            text: "",
             createdAt: new Date().getTime(),
             ...firebaseData,
           };
@@ -63,31 +62,30 @@ export default function SingleChatRoom({ route }) {
     return () => messagesListener();
   }, []);
 
-
-
-
-
-    function renderBubble(props) {
+  function renderBubble(props) {
     return (
       <Bubble
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#9AC4F8',
+            backgroundColor: "#9AC4F8",
           },
           left: {
-            backgroundColor: 'silver'
-          }
+            backgroundColor: "#66CDAA",
+          },
         }}
         textStyle={{
           right: {
-            color: '#fff'
-          }
+            color: "#fff",
+          },
+          left: {
+            color: "#fff",
+          },
         }}
         textProps={{
           style: {
-            color: 'black'
-          }
+            color: "black",
+          },
         }}
       />
     );

@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontFamily: "Courier",
-    color: colors.black,
+    fontFamily: "System",
+    color: "#0b2f64",
   },
 
   image: {
@@ -37,6 +37,12 @@ export default StyleSheet.create({
     height: 200,
     borderRadius: 100,
     overflow: "hidden",
+    marginTop: 50,
+    shadowRadius: 25,
+    shadowColor: colors.gray,
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: colors.black,
   },
 
   chat: {
@@ -83,18 +89,30 @@ export default StyleSheet.create({
     alignSelf: "flex-start",
     alignItems: "flex-start",
     marginTop: 16,
+    marginRight: 20,
+    marginLeft: 26,
+    marginBottom: 16,
     paddingLeft: 50,
     paddingRight: 50,
-    fontFamily: "System",
+    borderRadius: 8,
+    shadowRadius: 25,
+    color: "#0b2f64",
+    backgroundColor: colors.white,
   },
 
   dogData: {
     alignSelf: "flex-start",
     alignItems: "flex-start",
     marginTop: 16,
+    marginRight: 20,
+    marginLeft: 78,
+    marginBottom: 16,
     paddingLeft: 50,
     paddingRight: 50,
-    fontFamily: "System",
+    color: "#0b2f64",
+    borderRadius: 8,
+    shadowRadius: 25,
+    backgroundColor: colors.white,
   },
 
   button: {

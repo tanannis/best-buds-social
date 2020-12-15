@@ -8,26 +8,27 @@ import {
   View,
   SafeAreaView,
   FlatList,
-  Alert
+  Alert,
 } from "react-native";
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { multiply } from "react-native-reanimated";
-import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 // import EditButton from "react-edit-button"
 
-export default function SingleMatchProfile({route, navigation}) {
+export default function SingleMatchProfile({ route, navigation }) {
   const [matchUser, setMatchUser] = useState([]);
-  const [dogInfo, setDogInfo] = useState([])
+  const [dogInfo, setDogInfo] = useState([]);
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const currentUser = firebase.auth().currentUser;
 
-
-  const userId = route.params.userID.id
-  console.log("in singlematch", userId)
-
+  const userId = route.params.userID.id;
+  console.log("in singlematch", userId);
 
   useEffect(() => {
     (async () => {
@@ -41,11 +42,11 @@ export default function SingleMatchProfile({route, navigation}) {
           return doc.data();
         });
       setMatchUser(snapshot);
-      setDogInfo(snapshot.dogData)
+      setDogInfo(snapshot.dogData);
     })();
   }, []);
 
- // Need a function that checks where "id" "=="
+  // Need a function that checks where "id" "=="
 
   // const onAddUser = () => {
   //   firebase
@@ -104,53 +105,52 @@ export default function SingleMatchProfile({route, navigation}) {
   // };
 
   function onArrowPress() {
-    return (
-      navigation.navigate("Home")
-    )
+    return navigation.navigate("Home");
   }
-
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
-        <TouchableHighlight onPress={() => onArrowPress()}>
-          <Ionicons name="ios-arrow-back" size={24} colors="#EC2379"></Ionicons>
+          <TouchableHighlight onPress={() => onArrowPress()}>
+            <Ionicons
+              name="ios-arrow-back"
+              size={24}
+              colors="#EC2379"
+            ></Ionicons>
           </TouchableHighlight>
-          <Ionicons name="ios-happy" size={24} colors="#EC2379"></Ionicons>
         </View>
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image
               source={{ uri: matchUser.image }}
               style={styles.image}
-              resizeMode="center"
+              resizeMode="cover"
             ></Image>
           </View>
-          <View style={styles.chat}>
+          {/* <View style={styles.chat}>
             <TouchableOpacity>
-            <MaterialIcons
-              name="chat"
-              size={18}
-              color="#DFD8C8"
-              //onPress={() => onChatPress()}
-            >
-              </MaterialIcons>
+              <MaterialIcons
+                name="chat"
+                size={18}
+                color="#DFD8C8"
+                //onPress={() => onChatPress()}
+              ></MaterialIcons>
             </TouchableOpacity>
-          </View>
-          <View style={styles.active}></View>
-          <View style={styles.add}>
-            <Ionicons
+          </View> */}
+          {/* <View style={styles.active}></View> */}
+          {/* <View style={styles.add}> */}
+          {/* <Ionicons
               name="ios-add"
               size={48}
               color="#DFD8C8"
               style={{ marginTop: 6, marginLeft: 2 }}
               onPress={() => onAddUser()}
-            ></Ionicons>
-          </View>
+            ></Ionicons> */}
+          {/* </View> */}
         </View>
         <View style={styles.infoContainer}>
-          <Text style={[styles.text, { fontWeight: "200", fontSize: 20 }]}>
+          <Text style={[styles.text, { fontWeight: "200", fontSize: 28 }]}>
             {matchUser.fullName}
           </Text>
           <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>
@@ -158,16 +158,38 @@ export default function SingleMatchProfile({route, navigation}) {
           </Text>
         </View>
         <View style={styles.userBio}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>My Bio</Text>
-          <Text style={[styles.text, { fontSize: 14 }]}>
+          <Text
+            style={[
+              styles.text,
+              {
+                fontSize: 18,
+                marginTop: 10,
+                marginBottom: 5,
+                alignSelf: "flex-start",
+              },
+            ]}
+          >
+            My Bio
+          </Text>
+          <Text style={[styles.text, { fontSize: 14, marginBottom: 20 }]}>
             {matchUser.userBio}
           </Text>
         </View>
         <View style={styles.dogData}>
-          <Text style={[styles.text, { fontSize: 18, marginBottom: 5 }]}>
+          <Text
+            style={[
+              styles.text,
+              {
+                fontSize: 18,
+                marginTop: 10,
+                marginBottom: 5,
+                alignSelf: "flex-start",
+              },
+            ]}
+          >
             My Dog
           </Text>
-          <Text style={[styles.text, { fontSize: 14 }]}>
+          <Text style={[styles.text, { fontSize: 14, marginBottom: 10 }]}>
             <Text>
               Dog Name: {dogInfo.dogName}
               {"\n"}Dog Breed: {dogInfo.dogBreed}
@@ -175,11 +197,9 @@ export default function SingleMatchProfile({route, navigation}) {
               {"\n"}Dog Size: {dogInfo.dogSize}
               {"\n"}Dog Temperament: {dogInfo.dogTemperament}
             </Text>
-
           </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-

@@ -262,7 +262,7 @@ export default function RegistrationScreen({ navigation }) {
                 flex: 1,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#788eec",
+                backgroundColor: "#5271FF",
                 height: 24,
                 marginLeft: 45,
                 marginRight: 45,

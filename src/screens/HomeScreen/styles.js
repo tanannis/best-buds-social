@@ -6,9 +6,13 @@ const colors = {
   gray: "#777777",
   white: "#ffffff",
   black: "#000000",
+  //tomato: "#ff6347",
 };
 
 const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window")
+// const { height } = Dimensions.get("screen")
+// const { width } = Dimensions.get("screen")
 
 export default StyleSheet.create({
   container: {
@@ -71,11 +75,15 @@ export default StyleSheet.create({
   // },
   card: {
     /* Setting the height according to the screen height, it also could be fixed value or based on percentage. In this example, this worked well on Android and iOS. */
-    height: height - 300,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    flex: 0.85,
+    height: null,
+    width: null,
+    resizeMode: "cover",
     borderRadius: 20,
+    backgroundColor: "white",
+    // height: height - 300,
+    // justifyContent: "center",
+    // alignItems: "center",
     shadowColor: "#d8ecf3",
     shadowOffset: {
       width: 0,
@@ -84,13 +92,22 @@ export default StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 0.3,
     elevation: 2,
+    flex: 0.85
+    // flex: 0.75,
+
   },
 
   cardImage: {
-    borderRadius: 15,
-    flex: 1,
+    // borderRadius: 15,
+    borderTopLeftRadius: 20,
+    borderTopEndRadius: 20,
+    // borderBottomEndRadius: null,
+    flex: 3,
     height: "100%",
     width: "100%",
+    // height: null,
+    // width: null,
+    resizeMode: "cover",
   },
 
   cardDetails: {
@@ -123,12 +140,18 @@ export default StyleSheet.create({
     color: colors.white,
     backgroundColor: "transparent",
   },
-  nonmainpage: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    fontSize: 24,
+  // nonmainpage: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignContent: "center",
+  //   alignItems: "center",
+  //   fontSize: 24,
+  // },
+  screen:{
+    height: height - 120,
+    width: width,
+    padding: 10,
+    position: "absolute"
   },
   endtexttitle: {
     fontFamily: "System",
@@ -144,22 +167,26 @@ export default StyleSheet.create({
   },
   text: { fontFamily: "System" },
   heading: {
-    fontSize: 30,
-    marginBottom: 2,
+    // fontSize: 30,
+    fontSize: 20,
+    // marginBottom: 2,
     color: "#0b2f64",
-    marginTop: 10,
+    // marginTop: 10,
     marginLeft: 5,
-    marginRight: 20,
-    marginBottom: 20,
+    // marginRight: 20,
+    // marginBottom: 20,
+    marginRight: 5,
     alignSelf: "flex-start",
   },
   userBio: {
     fontSize: 15,
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom: 1,
     color: "#0b2f64",
-    marginBottom: 20,
+    // marginBottom: 20,
     marginLeft: 5,
-    marginRight: 20,
+    // marginRight: 20,
+    marginRight: 5
   },
   price: { color: colors.blue, fontSize: 32, fontWeight: "500" },
 });

@@ -11,7 +11,7 @@ export default StyleSheet.create({
     height: 120,
     width: 180,
     alignSelf: "center",
-    marginTop: 60,
+    marginTop: 30,
     margin: 20,
   },
   input: {
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     paddingLeft: 16,
   },
   button: {
-    backgroundColor: "#788eec",
+    backgroundColor: "#5271FF",
     marginLeft: 30,
     marginRight: 30,
     marginTop: 20,
@@ -61,7 +61,7 @@ export default StyleSheet.create({
     color: "#2e2e2d",
   },
   footerLink: {
-    color: "#788eec",
+    color: "#5271FF",
     fontWeight: "bold",
     fontSize: 16,
   },
