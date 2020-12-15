@@ -89,8 +89,8 @@ export default StyleSheet.create({
     alignSelf: "flex-start",
     alignItems: "flex-start",
     marginTop: 16,
-    marginRight: 20,
-    marginLeft: 26,
+    marginRight: 30,
+    marginLeft: 42,
     marginBottom: 16,
     paddingLeft: 50,
     paddingRight: 50,
@@ -105,14 +105,14 @@ export default StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 16,
     marginRight: 20,
-    marginLeft: 55,
+    marginLeft: 62,
     marginBottom: 16,
     paddingLeft: 50,
     paddingRight: 50,
     color: "#0b2f64",
     borderRadius: 8,
     shadowRadius: 25,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
   },
 
   button: {

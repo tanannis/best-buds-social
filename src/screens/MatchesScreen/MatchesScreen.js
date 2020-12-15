@@ -75,7 +75,7 @@ export default function MatchesScreen({ navigation }) {
             <TouchableOpacity onPress={() => selectChat(item)}>
               <List.Item
                 title={item.names}
-                description="chatroom"
+                description="chatroom 💬 "
                 chatroomId={item._id}
                 chats={item.Chats}
                 users={item.Users}
