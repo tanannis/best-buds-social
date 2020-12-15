@@ -13,7 +13,7 @@ GitHub Project Link: https://github.com/best-buds-social/best-buds-social
 
 Please visit Best Buds Social at (ENTER DEPLOYMENT LINK HERE!!!).
 
-# Instructions to how to download and run project
+# Instructions on how to download and run project
 
 1.  Fork the "Best Buds Social" project repository from GitHub to your personal GitHub account and clone it to your local machine. Please reference the GitHub Project link provided in the "Technologies" section of this README.
 
