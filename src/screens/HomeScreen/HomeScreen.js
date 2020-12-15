@@ -395,7 +395,7 @@ export default function HomeScreen({ navigation }) {
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
-                color={colors.white}
+                color="tomato"
                 onPress={() => swiperRef.current.swipeLeft()}
               />
               <MaterialCommunityIcons.Button
@@ -405,7 +405,7 @@ export default function HomeScreen({ navigation }) {
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
-                color={colors.white}
+                color="tomato"
                 onPress={() => swiperRef.current.swipeRight()}
               />
             </View>

@@ -6,6 +6,7 @@ const colors = {
   gray: "#777777",
   white: "#ffffff",
   black: "#000000",
+  //tomato: "#ff6347",
 };
 
 const { height } = Dimensions.get("window");
@@ -93,7 +94,7 @@ export default StyleSheet.create({
     elevation: 2,
     flex: 0.85
     // flex: 0.75,
-   
+
   },
 
   cardImage: {
