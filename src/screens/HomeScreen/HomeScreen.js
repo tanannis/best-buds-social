@@ -391,7 +391,7 @@ export default function HomeScreen({ navigation }) {
               <MaterialCommunityIcons.Button
                 name="arrow-left"
                 // size={94}
-                size={45}
+                size={40}
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
@@ -401,7 +401,7 @@ export default function HomeScreen({ navigation }) {
               <MaterialCommunityIcons.Button
                 name="arrow-right"
                 // size={94}
-                size={45}
+                size={40}
                 backgroundColor="transparent"
                 underlayColor="transparent"
                 activeOpacity={0.3}
