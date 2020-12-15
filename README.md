@@ -22,22 +22,3 @@ Please visit Best Buds Social at (ENTER DEPLOYMENT LINK HERE!!!).
 2.  `npm install` to download project dependencies.
 
 3.  Running `npm start` will allow you to view the app on your local machine using Xcode.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://www.freecodecamp.org/news/react-native-firebase-tutorial/
