@@ -353,7 +353,6 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.bottomContainerButtons}>
               <MaterialCommunityIcons.Button
                 name="arrow-left"
-                // size={94}
                 size={40}
                 backgroundColor="transparent"
                 underlayColor="transparent"
