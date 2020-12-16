@@ -1,19 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-  Button,
-  Text,
-  Image,
-  TextInput,
-  ScrollView,
-  View,
-  SafeAreaView,
-  FlatList,
-  Alert,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, Image, View, SafeAreaView, Alert } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { Transitioning, Transition } from "react-native-reanimated";
 import styles from "./styles";
-import { firebase, FieldValue } from "../../firebase/config";
+import { firebase } from "../../firebase/config";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const colors = {
@@ -71,12 +61,10 @@ export default function HomeScreen({ navigation }) {
   const users = firebase.firestore().collection("users");
   const chatRooms = firebase.firestore().collection("ChatRooms"); //Access and create chatrooms
 
-  //useEffect hook sets the currentUserName for useState.
+  //useEffect hook sets the currentUserName for useState
   useEffect(() => {
-    // (async () => {
-    // const result = await
     (async () => {
-      //query gets loggedin user doc from firestore
+      //query gets logged-in user doc from firestore
       const userDoc = await firebase
         .firestore()
         .collection("users")
@@ -85,7 +73,7 @@ export default function HomeScreen({ navigation }) {
         .then((doc) => {
           return doc.data();
         });
-      //select fullName field from the doc
+      //selects fullName, seenUsers and location fields from the doc
       const getCurrentUserName = await userDoc.fullName;
       const getSeenUsers = await userDoc.seenUsers;
       const getZipCode = await userDoc.location;
@@ -166,8 +154,6 @@ export default function HomeScreen({ navigation }) {
         ),
       });
 
-    // transitionRef.current.animateNextTransition();
-
     if (index === user.length - 1) {
       reachedEnd(true);
     } else {
@@ -181,16 +167,11 @@ export default function HomeScreen({ navigation }) {
     // setIndex((index + 1) % user.length);
   };
 
-  //const userId = user[index].id
-  const userInfo = user[index]
-  // console.log("what is this?", userId)
+  const userInfo = user[index];
 
-  function onTapCard (userInfo) {
-    return (
-      navigation.navigate("SingleMatch", {userID: userInfo })
-    )
+  function onTapCard(userInfo) {
+    return navigation.navigate("SingleMatch", { userID: userInfo });
   }
-
 
   useEffect(() => {
     users.onSnapshot((querySnapshot) => {
@@ -262,16 +243,11 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles.titlecontainer}>
-        <Text style={styles.apptext}>Best Buds Social</Text>
-      </View> */}
-
       {loading ? (
         <View style={styles.nonmainpage}>
           <Text style={styles.endtexttitle}>Loading</Text>
         </View>
       ) : end ? (
-        // <View style={styles.nonmainpage}>
         <View style={styles.screen}>
           <Image
             source={require("../../../assets/endOfMatchesDog.png")}
@@ -309,12 +285,6 @@ export default function HomeScreen({ navigation }) {
                     >
                       <CardDetails index={index} />
                     </Transitioning.View>
-                    {/* <Text
-                      style={[styles.text, styles.heading]}
-                      numberOfLines={2}
-                    >
-                      {user[index].fullName}
-                    </Text> */}
                   </View>
                 );
               }}
@@ -323,8 +293,8 @@ export default function HomeScreen({ navigation }) {
               onSwiped={onSwiped}
               onSwipedLeft={onSwipedLeft}
               onSwipedRight={onSwipedRight}
-              onTapCard={() =>{
-                onTapCard(userInfo)
+              onTapCard={() => {
+                onTapCard(userInfo);
               }}
               cardVerticalMargin={50}
               stackSize={stackSize}
@@ -380,13 +350,6 @@ export default function HomeScreen({ navigation }) {
             />
           </View>
           <View>
-            {/* <Transitioning.View
-              ref={transitionRef}
-              transition={transition}
-              style={styles.bottomContainerMeta}
-            >
-              <CardDetails index={index} />
-            </Transitioning.View> */}
             <View style={styles.bottomContainerButtons}>
               <MaterialCommunityIcons.Button
                 name="arrow-left"
@@ -400,7 +363,6 @@ export default function HomeScreen({ navigation }) {
               />
               <MaterialCommunityIcons.Button
                 name="arrow-right"
-                // size={94}
                 size={40}
                 backgroundColor="transparent"
                 underlayColor="transparent"
