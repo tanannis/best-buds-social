@@ -125,9 +125,10 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   buttonTitle: {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
-  },
+  }
 });
