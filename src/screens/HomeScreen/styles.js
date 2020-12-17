@@ -88,7 +88,6 @@ export default StyleSheet.create({
   screen:{
     height: height,
     width: width,
-    //padding: 10,
     position: "absolute",
     justifyContent: "center",
   },
