@@ -86,10 +86,11 @@ export default StyleSheet.create({
   },
 
   screen:{
-    height: height - 120,
+    height: height,
     width: width,
-    padding: 10,
-    position: "absolute"
+    //padding: 10,
+    position: "absolute",
+    justifyContent: "center",
   },
 
   endtexttitle: {
