@@ -26,19 +26,19 @@ GitHub Project Link: https://github.com/best-buds-social/best-buds-social
 
 # App Screenshots
 
-![login](https://user-images.githubusercontent.com/64669206/102545661-8f5c8c80-4084-11eb-8f26-42a8c7a4b80b.png)
+![login](https://user-images.githubusercontent.com/64669206/102546814-38f04d80-4086-11eb-9b66-f79241545061.png)
 
-![signup](https://user-images.githubusercontent.com/64669206/102545674-95eb0400-4084-11eb-9db0-3cf11aeb9928.png)
+![signup](https://user-images.githubusercontent.com/64669206/102546831-3e4d9800-4086-11eb-82f5-830a0226221a.png)
 
-![myprofile](https://user-images.githubusercontent.com/64669206/102545696-9e433f00-4084-11eb-8a09-1abf5adfd2a6.png)
+![myprofile](https://user-images.githubusercontent.com/64669206/102546869-4ad1f080-4086-11eb-82e1-e31b0a8c5bab.png)
 
-![userprofile](https://user-images.githubusercontent.com/64669206/102545706-a13e2f80-4084-11eb-8979-7bb2905c1a9e.png)
+![userprofile](https://user-images.githubusercontent.com/64669206/102546877-4dcce100-4086-11eb-9aa6-5d221f88da84.png)
 
-![chatroom](https://user-images.githubusercontent.com/64669206/102545715-a4d1b680-4084-11eb-95d7-f51abd50e3d7.png)
+![chatroom](https://user-images.githubusercontent.com/64669206/102546885-51606800-4086-11eb-8a68-58ccf7272b55.png)
 
-![chats](https://user-images.githubusercontent.com/64669206/102545726-a8653d80-4084-11eb-9c38-f606801c0d57.png)
+![chats](https://user-images.githubusercontent.com/64669206/102546894-53c2c200-4086-11eb-9b51-64f856aa7330.png)
 
-![settings](https://user-images.githubusercontent.com/64669206/102545744-b024e200-4084-11eb-85c0-c5bc65449eb9.png)
+![settings](https://user-images.githubusercontent.com/64669206/102546911-57eedf80-4086-11eb-916c-c6bafd148f64.png)
 
 
 
