@@ -47,7 +47,7 @@ export default function SingleMatchProfile({ route, navigation }) {
             <Ionicons
               name="ios-arrow-back"
               size={24}
-              colors="#EC2379"
+              color="tomato"
             ></Ionicons>
           </TouchableHighlight>
         </View>
