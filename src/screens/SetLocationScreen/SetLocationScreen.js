@@ -34,7 +34,7 @@ export default function SetLocationScreen() {
     })();
 	}, []);
 
-	useEffect(() => {
+  useEffect(() => {
     (async () => {
       //firebase query to add location field
       await firebase
